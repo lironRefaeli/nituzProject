@@ -29,9 +29,9 @@
         </rowConstraints>
          <children>
             <Label text="Username:" />
-            <TextField fx:id="username" onAction="#handleCloseButtonAction" prefHeight="25.0" prefWidth="136.0" GridPane.columnIndex="1" />
+            <TextField fx:id="username"  prefHeight="25.0" prefWidth="136.0" GridPane.columnIndex="1" />
             <Label text="Password:" GridPane.rowIndex="1" />
-            <PasswordField fx:id="password" onAction="#handleCloseButtonAction" prefHeight="17.0" prefWidth="136.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <PasswordField fx:id="password" prefHeight="17.0" prefWidth="136.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="First name:" GridPane.rowIndex="3" />
             <TextField fx:id="firstname" prefHeight="25.0" prefWidth="136.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label text="Last name:" GridPane.rowIndex="4" />

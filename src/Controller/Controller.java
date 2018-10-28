@@ -89,5 +89,41 @@ public class Controller {
 
         }
     }
-}
+
+    public Alert update(String usernameS, String passwordS, String firstS, String lastS, String dateS, String cityS) {
+        if (usernameS.length() == 0 || passwordS.length() == 0 ||
+                firstS.length() == 0 || lastS.length() == 0 || cityS.length() == 0 || dateS.length() == 0) {
+            //if one or more deails aren't filled
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("Input not valid");
+            errorAlert.setContentText("At least one of the fields are empty.\nFill all fields and try again ");
+//            errorAlert.showAndWait();
+            return errorAlert;
+//        } else {
+//            if (!passwordS.equals(confirmS)) {
+//                //if passwords dont match
+//                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+//                errorAlert.setHeaderText("Input not valid");
+//                errorAlert.setContentText("Passwords doesn't match.\nPlease try again.");
+////                errorAlert.showAndWait();
+//                return errorAlert;
+            } else {
+                boolean flag = model.Update(usernameS, passwordS, firstS, lastS, dateS, cityS);
+                if (flag) {
+                    Alert success = new Alert(Alert.AlertType.CONFIRMATION);
+                    success.setHeaderText("Action Succeeded");
+                    success.setContentText("User updated successfuly! ");
+//                    success.showAndWait();
+                    return success;
+                } else {
+                    Alert fail = new Alert(Alert.AlertType.ERROR);
+                    fail.setHeaderText("Action Failed");
+                    fail.setContentText("Username already taken.\nPlease choose different one and try again ");//todo what failed exactly?
+//                    fail.showAndWait();
+                    return fail;
+                }
+            }
+        }
+    }
+
 

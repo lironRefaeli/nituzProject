@@ -38,6 +38,8 @@ public class UpdateController {
 
     private Controller controller = new Controller();
 
+    private int loren; //todo delete
+
     @FXML
     private void FindUser(ActionEvent event) throws IOException {
         String usernameS;
