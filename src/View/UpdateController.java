@@ -38,8 +38,6 @@ public class UpdateController {
 
     private Controller controller = new Controller();
 
-    private int loren; //todo delete
-
     @FXML
     private void FindUser(ActionEvent event) throws IOException {
         String usernameS;
@@ -77,6 +75,7 @@ public class UpdateController {
         lastnameS=lastname.getText();
         birthdateS=birthdate.getText();
         cityS=city.getText();
-        controller.update(usernameS,passwordS,firstnameS,lastnameS,birthdateS,cityS);
+        Alert alert = controller.update(usernameS,passwordS,firstnameS,lastnameS,birthdateS,cityS);
+        alert.showAndWait();
     }
 }
