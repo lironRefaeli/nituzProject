@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.ViewController">
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <Pane prefHeight="304.0" prefWidth="290.0">
+         <children>
+            <Label layoutX="34.0" layoutY="24.0" text="CRUD form" />
+            <Button layoutX="24.0" layoutY="64.0" mnemonicParsing="false" onAction="#openCreateForm" prefHeight="104.0" prefWidth="118.0" text="Create" />
+            <Button layoutX="24.0" layoutY="181.0" mnemonicParsing="false" onAction="#openUpdateForm" prefHeight="104.0" prefWidth="118.0" text="Update" />
+            <Button layoutX="153.0" layoutY="181.0" mnemonicParsing="false" onAction="#openDeleteForm" prefHeight="104.0" prefWidth="118.0" text="Delete" />
+            <Button layoutX="152.0" layoutY="65.0" mnemonicParsing="false" onAction="#openReadForm" prefHeight="104.0" prefWidth="118.0" text="Read" />
+         </children>
+      </Pane>
+   </children>
+</GridPane>
