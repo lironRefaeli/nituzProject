@@ -9,6 +9,7 @@ import javafx.scene.control.Alert;
 
 import java.sql.ResultSet;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Queue;
@@ -35,29 +36,26 @@ public class Controller {
             mainView.setAlert(errorAlert);
         } else {
             //date test - bigger than 18
-            int year=Integer.parseInt(dateS.substring(6,9));
-            int month=Integer.parseInt(dateS.substring(3,4));
-            int day=Integer.parseInt(dateS.substring(0,1));
-            //LocalDate birthday=
-            //get todays date
-            //Calendar calendar=Calendar.getInstance();
-            //int thisyear=calendar.get(Calendar.YEAR);
-            //int thismonth=calendar.get(Calendar.MONTH);
-            //int thisday=calendar.get(Calendar.DAY_OF_MONTH);
-            //diff
-            //int yeardif=thisyear-year;
-            //int monthdif=thismonth-month;
-            //int daydif=thisday-day;
-            //if(yeardif<18||(yeardif=18&&monthdif<)
-
-
+            int year = Integer.parseInt(dateS.substring(6, 10));
+            int month = Integer.parseInt(dateS.substring(3, 5));
+            int day = Integer.parseInt(dateS.substring(0, 2));
+            LocalDate birthday = LocalDate.of(year, month, day);
+            LocalDate today = LocalDate.now();
+            Period p = Period.between(birthday, today);
+            int yeardif = p.getYears();
+            if (yeardif < 18) {
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setHeaderText("You are not old enough!");
+                errorAlert.setContentText("You need to be 18 or more to use the website!");
+                mainView.setAlert(errorAlert);
+            }
+            else{
 
             if (!passwordS.equals(confirmS)) {
                 //if passwords dont match
                 Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                 errorAlert.setHeaderText("Input not valid");
                 errorAlert.setContentText("Passwords doesn't match.\nPlease try again.");
-//                errorAlert.showAndWait();
                 mainView.setAlert(errorAlert);
 
             } else {
@@ -78,6 +76,8 @@ public class Controller {
                 }
             }
         }
+        }
+
     }
 
 
@@ -136,6 +136,25 @@ public class Controller {
 //                errorAlert.setContentText("Passwords doesn't match.\nPlease try again.");
 ////                errorAlert.showAndWait();
 //                return errorAlert;
+
+
+
+            //check over 18
+
+            } else {
+            //date test - bigger than 18
+            int year = Integer.parseInt(dateS.substring(6, 10));
+            int month = Integer.parseInt(dateS.substring(3, 5));
+            int day = Integer.parseInt(dateS.substring(0, 2));
+            LocalDate birthday = LocalDate.of(year, month, day);
+            LocalDate today = LocalDate.now();
+            Period p = Period.between(birthday, today);
+            int yeardif = p.getYears();
+            if (yeardif < 18) {
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setHeaderText("date not valid!");
+                errorAlert.setContentText("You need to be 18 or more to use the website!");
+                mainView.setAlert(errorAlert);
             } else {
                 boolean flag = model.Update(usernameS, passwordS, firstS, lastS, dateS, cityS);
                 if (flag) {
@@ -154,6 +173,7 @@ public class Controller {
 
                 }
             }
+        }
         }
     }
 
