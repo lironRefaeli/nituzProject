@@ -52,7 +52,7 @@ public class CreateController {
         firstS = firstname.getText();
         lastS = lastname.getText();
         cityS = city.getText();
-        dateS = birthdate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        dateS = birthdate.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         Alert alert=controller.Create(usernameS,passwordS,confirmS,firstS,lastS,dateS,cityS);
         alert.showAndWait();
     }
