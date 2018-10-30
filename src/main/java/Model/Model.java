@@ -160,6 +160,30 @@ public class Model implements IModel {
      */
     public boolean Delete(String userName, String Password) {
 
+        //checking if there is a record in the DB which match to the input userName and Password
+        String sql1 = "SELECT user_name FROM Users WHERE user_name = ? AND password = ?";
+        Vector<String> ans = new Vector<>();
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt1 = conn.prepareStatement(sql1)) {
+
+            // set the value
+            pstmt1.setString(1, userName);
+            pstmt1.setString(2, Password);
+            ResultSet rs = pstmt1.executeQuery();
+            while (rs.next()) {
+                for (int i = 1; i <=1  ; i++) {
+                    ans.add(rs.getString(i));
+                }
+            }
+            //if the query's answer return null- the userName and password weren't found
+          if(ans.isEmpty())
+                return false;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        //the deletion
         String sql = "DELETE FROM Users WHERE user_name = ? AND password = ?";
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -168,8 +192,9 @@ public class Model implements IModel {
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            return false;
         }
+
+        //if the user was deleted successfully
         return true;
 
     }

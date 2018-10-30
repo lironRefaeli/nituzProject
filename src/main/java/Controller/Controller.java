@@ -74,7 +74,7 @@ public class Controller {
             if (flag) {
                 Alert success = new Alert(Alert.AlertType.CONFIRMATION);
                 success.setHeaderText("Action Succeeded");
-                success.setContentText("New user created successfuly! ");
+                success.setContentText("User was deleted successfuly! ");
 //                    success.showAndWait();
                 return success;
 
@@ -83,7 +83,7 @@ public class Controller {
             {
                 Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                 errorAlert.setHeaderText("Action failed");
-                errorAlert.setContentText("Doen't success to connect to the DB ");
+                errorAlert.setContentText("Username or Password are incorrect.\n Try again ");
                 return errorAlert;
             }
 
