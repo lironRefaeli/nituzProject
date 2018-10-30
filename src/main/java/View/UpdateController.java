@@ -16,7 +16,7 @@ import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 import java.util.Vector;
 
-public class UpdateController {
+public class UpdateController extends AView{
     @FXML
     private TextField usernameLogIn;
     @FXML
@@ -36,7 +36,6 @@ public class UpdateController {
     @FXML
     private Label sorrymessage;
 
-    private Controller controller = new Controller();
 
     @FXML
     private void FindUser(ActionEvent event) throws IOException {
@@ -75,7 +74,7 @@ public class UpdateController {
         lastnameS=lastname.getText();
         birthdateS=birthdate.getText();
         cityS=city.getText();
-        Alert alert = controller.update(usernameS,passwordS,firstnameS,lastnameS,birthdateS,cityS);
-        alert.showAndWait();
+        controller.update(usernameS,passwordS,firstnameS,lastnameS,birthdateS,cityS);
+        this.ShowAlert();
     }
 }

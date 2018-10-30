@@ -8,23 +8,19 @@ import javafx.beans.property.StringProperty;
 import javafx.scene.control.Alert;
 
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Queue;
 import java.util.Vector;
 
 public class Controller {
     IModel model = new Model();
-    AView create;
-    AView delete;
-    AView update;
-    AView read;
+    AView mainView;
 
-    public Controller(IModel model, AView create,AView delete,AView update, AView read){
+    public Controller(IModel model ,AView mainView){
         this.model = model;
-        this.create=create;
-        this.delete=delete;
-        this.update=update;
-        this.read=read;
+        this.mainView=mainView;
 
     }
 
@@ -36,15 +32,34 @@ public class Controller {
             errorAlert.setHeaderText("Input not valid");
             errorAlert.setContentText("At least one of the fields are empty.\nFill all fields and try again ");
 //            errorAlert.showAndWait();
-            create.ShowAlert(errorAlert);
+            mainView.setAlert(errorAlert);
         } else {
+            //date test - bigger than 18
+            int year=Integer.parseInt(dateS.substring(6,9));
+            int month=Integer.parseInt(dateS.substring(3,4));
+            int day=Integer.parseInt(dateS.substring(0,1));
+            //LocalDate birthday=
+            //get todays date
+            //Calendar calendar=Calendar.getInstance();
+            //int thisyear=calendar.get(Calendar.YEAR);
+            //int thismonth=calendar.get(Calendar.MONTH);
+            //int thisday=calendar.get(Calendar.DAY_OF_MONTH);
+            //diff
+            //int yeardif=thisyear-year;
+            //int monthdif=thismonth-month;
+            //int daydif=thisday-day;
+            //if(yeardif<18||(yeardif=18&&monthdif<)
+
+
+
             if (!passwordS.equals(confirmS)) {
                 //if passwords dont match
                 Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                 errorAlert.setHeaderText("Input not valid");
                 errorAlert.setContentText("Passwords doesn't match.\nPlease try again.");
 //                errorAlert.showAndWait();
-                create.ShowAlert(errorAlert);
+                mainView.setAlert(errorAlert);
+
             } else {
                 boolean flag = model.Create(usernameS, passwordS, firstS, lastS, dateS, cityS);
                 if (flag) {
@@ -52,13 +67,14 @@ public class Controller {
                     success.setHeaderText("Action Succeeded");
                     success.setContentText("New user created successfuly! ");
 //                    success.showAndWait();
-                    create.ShowAlert(success);
+                    mainView.setAlert(success);
                 } else {
                     Alert fail = new Alert(Alert.AlertType.ERROR);
                     fail.setHeaderText("Action Failed");
                     fail.setContentText("Username already taken.\nPlease choose different one and try again ");
 //                    fail.showAndWait();
-                    create.ShowAlert(fail);
+                    mainView.setAlert(fail);
+
                 }
             }
         }
@@ -75,7 +91,8 @@ public class Controller {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setHeaderText("Input not valid");
             errorAlert.setContentText("At least one of the fields are empty.\nFill all fields and try again ");
-            delete.ShowAlert(errorAlert);
+            mainView.setAlert(errorAlert);
+
         } else {
 
 
@@ -85,7 +102,8 @@ public class Controller {
                 success.setHeaderText("Action Succeeded");
                 success.setContentText("User was deleted successfuly! ");
 //                    success.showAndWait();
-                delete.ShowAlert(success);
+                mainView.setAlert(success);
+
 
             }
             else
@@ -93,7 +111,8 @@ public class Controller {
                 Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                 errorAlert.setHeaderText("Action failed");
                 errorAlert.setContentText("Username or Password are incorrect.\n Try again ");
-                delete.ShowAlert(errorAlert);
+                mainView.setAlert(errorAlert);
+
             }
 
         }
@@ -107,7 +126,8 @@ public class Controller {
             errorAlert.setHeaderText("Input not valid");
             errorAlert.setContentText("At least one of the fields are empty.\nFill all fields and try again ");
 //            errorAlert.showAndWait();
-            update.ShowAlert(errorAlert);
+            mainView.setAlert(errorAlert);
+
 //        } else {
 //            if (!passwordS.equals(confirmS)) {
 //                //if passwords dont match
@@ -123,13 +143,15 @@ public class Controller {
                     success.setHeaderText("Action Succeeded");
                     success.setContentText("User updated successfuly! ");
 //                    success.showAndWait();
-                    update.ShowAlert(success);
+                    mainView.setAlert(success);
+
                 } else {
                     Alert fail = new Alert(Alert.AlertType.ERROR);
                     fail.setHeaderText("Action Failed");
                     fail.setContentText("Username already taken.\nPlease choose different one and try again ");//todo what failed exactly?
 //                    fail.showAndWait();
-                    update.ShowAlert(fail);
+                    mainView.setAlert(fail);
+
                 }
             }
         }
