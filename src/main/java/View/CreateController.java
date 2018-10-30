@@ -12,13 +12,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
-public class CreateController {
-    /**
-    public CreateController(IModel model){
-        this.model=model;
+public class CreateController extends AView{
 
-    }
-     **/
     @FXML
     private TextField username;
     @FXML
@@ -33,10 +28,9 @@ public class CreateController {
     private TextField city;
     @FXML
     private DatePicker birthdate ;
-    @FXML
-    public Button closeButton;
 
-    private Controller controller = new Controller();
+
+
     /**
      *
      * @param event
@@ -53,8 +47,7 @@ public class CreateController {
         lastS = lastname.getText();
         cityS = city.getText();
         dateS = birthdate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        Alert alert=controller.Create(usernameS,passwordS,confirmS,firstS,lastS,dateS,cityS);
-        alert.showAndWait();
+        this.controller.Create(usernameS,passwordS,confirmS,firstS,lastS,dateS,cityS);
     }
 
 }

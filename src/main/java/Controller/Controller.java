@@ -2,6 +2,7 @@ package Controller;
 
 import Model.IModel;
 import Model.Model;
+import View.AView;
 import View.ViewController;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.Alert;
@@ -13,13 +14,21 @@ import java.util.Vector;
 
 public class Controller {
     IModel model = new Model();
-    ViewController viewController = new ViewController();
+    AView create;
+    AView delete;
+    AView update;
+    AView read;
 
-//    public Controller(IModel model){
-//        this.model = model;
-//    }
+    public Controller(IModel model, AView create,AView delete,AView update, AView read){
+        this.model = model;
+        this.create=create;
+        this.delete=delete;
+        this.update=update;
+        this.read=read;
 
-    public Alert Create(String usernameS, String passwordS, String confirmS, String firstS, String lastS, String dateS, String cityS) {
+    }
+
+    public void Create(String usernameS, String passwordS, String confirmS, String firstS, String lastS, String dateS, String cityS) {
         if (usernameS.length() == 0 || passwordS.length() == 0 || confirmS.length() == 0 ||
                 firstS.length() == 0 || lastS.length() == 0 || cityS.length() == 0 || dateS.length() == 0) {
             //if one or more deails aren't filled
@@ -27,7 +36,7 @@ public class Controller {
             errorAlert.setHeaderText("Input not valid");
             errorAlert.setContentText("At least one of the fields are empty.\nFill all fields and try again ");
 //            errorAlert.showAndWait();
-            return errorAlert;
+            create.ShowAlert(errorAlert);
         } else {
             if (!passwordS.equals(confirmS)) {
                 //if passwords dont match
@@ -35,7 +44,7 @@ public class Controller {
                 errorAlert.setHeaderText("Input not valid");
                 errorAlert.setContentText("Passwords doesn't match.\nPlease try again.");
 //                errorAlert.showAndWait();
-                return errorAlert;
+                create.ShowAlert(errorAlert);
             } else {
                 boolean flag = model.Create(usernameS, passwordS, firstS, lastS, dateS, cityS);
                 if (flag) {
@@ -43,13 +52,13 @@ public class Controller {
                     success.setHeaderText("Action Succeeded");
                     success.setContentText("New user created successfuly! ");
 //                    success.showAndWait();
-                    return success;
+                    create.ShowAlert(success);
                 } else {
                     Alert fail = new Alert(Alert.AlertType.ERROR);
                     fail.setHeaderText("Action Failed");
                     fail.setContentText("Username already taken.\nPlease choose different one and try again ");
 //                    fail.showAndWait();
-                    return fail;
+                    create.ShowAlert(fail);
                 }
             }
         }
@@ -60,13 +69,13 @@ public class Controller {
         return model.Read(username);
 }
 
-    public Alert Delete(String DeleteUserNameOutput, String DeletePasswordOutput) {
+    public void Delete(String DeleteUserNameOutput, String DeletePasswordOutput) {
         if (DeleteUserNameOutput.length() == 0 || DeletePasswordOutput.length() == 0) {
             //if one or more deails aren't filled
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setHeaderText("Input not valid");
             errorAlert.setContentText("At least one of the fields are empty.\nFill all fields and try again ");
-            return errorAlert;
+            delete.ShowAlert(errorAlert);
         } else {
 
 
@@ -76,7 +85,7 @@ public class Controller {
                 success.setHeaderText("Action Succeeded");
                 success.setContentText("User was deleted successfuly! ");
 //                    success.showAndWait();
-                return success;
+                delete.ShowAlert(success);
 
             }
             else
@@ -84,13 +93,13 @@ public class Controller {
                 Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                 errorAlert.setHeaderText("Action failed");
                 errorAlert.setContentText("Username or Password are incorrect.\n Try again ");
-                return errorAlert;
+                delete.ShowAlert(errorAlert);
             }
 
         }
     }
 
-    public Alert update(String usernameS, String passwordS, String firstS, String lastS, String dateS, String cityS) {
+    public void update(String usernameS, String passwordS, String firstS, String lastS, String dateS, String cityS) {
         if (usernameS.length() == 0 || passwordS.length() == 0 ||
                 firstS.length() == 0 || lastS.length() == 0 || cityS.length() == 0 || dateS.length() == 0) {
             //if one or more deails aren't filled
@@ -98,7 +107,7 @@ public class Controller {
             errorAlert.setHeaderText("Input not valid");
             errorAlert.setContentText("At least one of the fields are empty.\nFill all fields and try again ");
 //            errorAlert.showAndWait();
-            return errorAlert;
+            update.ShowAlert(errorAlert);
 //        } else {
 //            if (!passwordS.equals(confirmS)) {
 //                //if passwords dont match
@@ -114,13 +123,13 @@ public class Controller {
                     success.setHeaderText("Action Succeeded");
                     success.setContentText("User updated successfuly! ");
 //                    success.showAndWait();
-                    return success;
+                    update.ShowAlert(success);
                 } else {
                     Alert fail = new Alert(Alert.AlertType.ERROR);
                     fail.setHeaderText("Action Failed");
                     fail.setContentText("Username already taken.\nPlease choose different one and try again ");//todo what failed exactly?
 //                    fail.showAndWait();
-                    return fail;
+                    update.ShowAlert(fail);
                 }
             }
         }
