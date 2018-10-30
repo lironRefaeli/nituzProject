@@ -94,8 +94,6 @@ public class Controller {
             mainView.setAlert(errorAlert);
 
         } else {
-
-
             boolean flag = model.Delete(DeleteUserNameOutput, DeletePasswordOutput);
             if (flag) {
                 Alert success = new Alert(Alert.AlertType.CONFIRMATION);
@@ -118,7 +116,16 @@ public class Controller {
         }
     }
 
-    public void update(String usernameS, String passwordS, String firstS, String lastS, String dateS, String cityS) {
+
+    public void Delete2(String DeleteUserNameOutput) {
+        if (DeleteUserNameOutput.length() == 0 ) {
+              //do nothing.
+        } else {
+            model.Delete2(DeleteUserNameOutput);
+        }
+    }
+
+    public void update(String usernameS, String passwordS,String confirmS, String firstS, String lastS, String dateS, String cityS) {
         if (usernameS.length() == 0 || passwordS.length() == 0 ||
                 firstS.length() == 0 || lastS.length() == 0 || cityS.length() == 0 || dateS.length() == 0) {
             //if one or more deails aren't filled
@@ -156,6 +163,13 @@ public class Controller {
                 errorAlert.setContentText("You need to be 18 or more to use the website!");
                 mainView.setAlert(errorAlert);
             } else {
+            if (!passwordS.equals(confirmS)) {
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setHeaderText("password not match!");
+                errorAlert.setContentText("the passwords dont match.\n Please try again");
+                mainView.setAlert(errorAlert);
+            }
+            else{
                 boolean flag = model.Update(usernameS, passwordS, firstS, lastS, dateS, cityS);
                 if (flag) {
                     Alert success = new Alert(Alert.AlertType.CONFIRMATION);

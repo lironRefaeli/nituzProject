@@ -195,6 +195,28 @@ public class Model implements IModel {
 
         //if the user was deleted successfully
         return true;
+    }
 
+    private boolean IsRecordExist(String userName){
+        Vector<String> record2delete = Read(userName);
+        if(record2delete.isEmpty()) return false;
+        return true;
+    }
+
+    @Override
+    public boolean Delete2(String userName) {
+        //check if exist:
+        if(!IsRecordExist(userName)) return false;
+        //the deletion:
+        String sql = "DELETE FROM Users WHERE user_name = ?";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, userName);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        //if the user was deleted successfully
+        return true;
     }
 }

@@ -10,4 +10,5 @@ public interface IModel {
     boolean Update(String userName,String password,String firstName,String lastName,String birthday,String city);
     boolean Delete(String userName, String Password);
 
+    boolean Delete2(String userName);
 }

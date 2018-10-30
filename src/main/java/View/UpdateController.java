@@ -26,6 +26,8 @@ public class UpdateController extends AView{
     @FXML
     private PasswordField password;
     @FXML
+    private PasswordField conpassword;
+    @FXML
     private TextField firstname;
     @FXML
     private TextField lastname;
@@ -47,6 +49,7 @@ public class UpdateController extends AView{
         if (ans.size() != 0) {
             username.setText(ans.elementAt(0));
             password.setText(ans.elementAt(1));
+            conpassword.setText(ans.elementAt(1));
             firstname.setText(ans.elementAt(2));
             lastname.setText(ans.elementAt(3));
             city.setText(ans.elementAt(4));
@@ -67,14 +70,36 @@ public class UpdateController extends AView{
     }
 
     public void update(ActionEvent actionEvent) {
-        String usernameS,passwordS,firstnameS,lastnameS,birthdateS,cityS;
+        String usernameS,passwordS,conpasswordS,firstnameS,lastnameS,birthdateS,cityS;
+
         usernameS=username.getText();
         passwordS=password.getText();
+        conpasswordS = conpassword.getText();
         firstnameS=firstname.getText();
         lastnameS=lastname.getText();
         birthdateS=birthdate.getText();
         cityS=city.getText();
-        controller.update(usernameS,passwordS,firstnameS,lastnameS,birthdateS,cityS);
-        this.ShowAlert();
+
+
+        if((usernameLogIn.getText()).equals(username.getText())) {
+            controller.update(usernameS, passwordS, conpasswordS,firstnameS, lastnameS, birthdateS, cityS);
+            this.ShowAlert();
+        }
+        else{
+            controller.Delete2(usernameLogIn.getText());
+            controller.Create(usernameS, passwordS,conpasswordS, firstnameS, lastnameS, birthdateS, cityS);
+            if(alert.getAlertType().equals(Alert.AlertType.ERROR)||alert.getAlertType().equals(Alert.AlertType.WARNING)){
+                this.ShowAlert();;
+
+            }
+            else{
+                Alert alert=new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setHeaderText("Action Succeeded");
+                alert.setContentText("User updated successfully");
+                alert.showAndWait();
+
+            }
+        }
+    resultsView.setVisible(false);
     }
 }

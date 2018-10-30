@@ -10,20 +10,21 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="445.0" prefWidth="275.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.UpdateController">
+<AnchorPane prefHeight="445.0" prefWidth="275.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.UpdateController">
     <children>
         <TextField fx:id="usernameLogIn" layoutX="29.0" layoutY="92.0" onAction="#onEnter" />
         <Button layoutX="193.0" layoutY="92.0" mnemonicParsing="false" onAction="#FindUser" text="Show details" />
         <Label layoutX="29.0" layoutY="62.0" text="Please put a name of username to update:" />
         <GridPane fx:id="resultsView" layoutX="16.0" layoutY="143.0" prefHeight="239.0" prefWidth="336.0" visible="false">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="152.0" minWidth="10.0" prefWidth="71.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="255.0" minWidth="10.0" prefWidth="152.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="152.0" minWidth="10.0" prefWidth="125.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="255.0" minWidth="10.0" prefWidth="154.0" />
             <ColumnConstraints />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -33,18 +34,20 @@
             <children>
                 <Label text="Username:" />
                 <TextField fx:id="username" disable="false" editable="true" prefHeight="25.0" prefWidth="136.0" GridPane.columnIndex="1" />
+                <Label text="Password:" GridPane.rowIndex="1" />
+                <PasswordField fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <PasswordField fx:id="conpassword" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Label text="Confirm password:" GridPane.rowIndex="2" />
+                <Label text="First name:" GridPane.rowIndex="3" />
+                <TextField fx:id="firstname" disable="false" editable="true" prefHeight="25.0" prefWidth="136.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Label text="Last name:" GridPane.rowIndex="4" />
+                <Label text="City:" GridPane.rowIndex="5" />
+                <Label text="Birth date:" GridPane.rowIndex="6" />
+                <TextField fx:id="lastname" disable="false" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <TextField fx:id="city" disable="false" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                <TextField fx:id="birthdate" disable="false" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                <Button layoutX="193.0" layoutY="92.0" onAction="#update" text="update!" GridPane.columnIndex="2" GridPane.rowIndex="7" />
 
-                <Label text="First name:" GridPane.rowIndex="2" />
-                <TextField fx:id="firstname" disable="false" editable="true" prefHeight="25.0" prefWidth="136.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <Label text="Last name:" GridPane.rowIndex="3" />
-                <Label text="City:" GridPane.rowIndex="4" />
-                <Label text="Birth date:" GridPane.rowIndex="5" />
-                <TextField fx:id="lastname" disable="false" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                <TextField fx:id="city" disable="false" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                <TextField fx:id="birthdate" disable="false" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                <Button layoutX="193.0" layoutY="92.0" onAction="#update" text="update!" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-            <Label text="Password:" GridPane.rowIndex="1" />
-            <PasswordField fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
             </children>
         </GridPane>
