@@ -145,37 +145,44 @@ public class Controller {
                 int year = Integer.parseInt(dateS.substring(6, 10));
                 int month = Integer.parseInt(dateS.substring(3, 5));
                 int day = Integer.parseInt(dateS.substring(0, 2));
-                LocalDate birthday = LocalDate.of(year, month, day);
-                LocalDate today = LocalDate.now();
-                Period p = Period.between(birthday, today);
-                int yeardif = p.getYears();
-                if (yeardif < 18) {
+                if (day < 1 || day > 31 || month < 1 || month > 12) {
                     Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                    errorAlert.setHeaderText("date is not valid!");
-                    errorAlert.setContentText("You need to be 18 or more to use the website!");
+                    errorAlert.setHeaderText("birthdate is not valid!");
+                    errorAlert.setContentText("the format is: dd-mm-yyyy.\n Please try again");
                     mainView.setAlert(errorAlert);
                 } else {
-                    if (!passwordS.equals(confirmS)) {
+                    LocalDate birthday = LocalDate.of(year, month, day);
+                    LocalDate today = LocalDate.now();
+                    Period p = Period.between(birthday, today);
+                    int yeardif = p.getYears();
+                    if (yeardif < 18) {
                         Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                        errorAlert.setHeaderText("password not match!");
-                        errorAlert.setContentText("the passwords dont match.\n Please try again");
+                        errorAlert.setHeaderText("date is not valid!");
+                        errorAlert.setContentText("You need to be 18 or more to use the website!");
                         mainView.setAlert(errorAlert);
                     } else {
-                        boolean flag = model.Update(usernameS, passwordS, firstS, lastS, dateS, cityS);
-                        if (flag) {
-                            Alert success = new Alert(Alert.AlertType.CONFIRMATION);
-                            success.setHeaderText("Action Succeeded");
-                            success.setContentText("User updated successfuly! ");
-//                    success.showAndWait();
-                            mainView.setAlert(success);
-
+                        if (!passwordS.equals(confirmS)) {
+                            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                            errorAlert.setHeaderText("password not match!");
+                            errorAlert.setContentText("the passwords dont match.\n Please try again");
+                            mainView.setAlert(errorAlert);
                         } else {
-                            Alert fail = new Alert(Alert.AlertType.ERROR);
-                            fail.setHeaderText("Action Failed");
-                            fail.setContentText("Username already taken.\nPlease choose different one and try again ");//todo what failed exactly?
-//                    fail.showAndWait();
-                            mainView.setAlert(fail);
+                            boolean flag = model.Update(usernameS, passwordS, firstS, lastS, dateS, cityS);
+                            if (flag) {
+                                Alert success = new Alert(Alert.AlertType.CONFIRMATION);
+                                success.setHeaderText("Action Succeeded");
+                                success.setContentText("User updated successfuly! ");
+//                    success.showAndWait();
+                                mainView.setAlert(success);
 
+                            } else {
+                                Alert fail = new Alert(Alert.AlertType.ERROR);
+                                fail.setHeaderText("Action Failed");
+                                fail.setContentText("Username already taken.\nPlease choose different one and try again ");//todo what failed exactly?
+//                    fail.showAndWait();
+                                mainView.setAlert(fail);
+
+                            }
                         }
                     }
                 }
