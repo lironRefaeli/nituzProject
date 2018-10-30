@@ -132,19 +132,7 @@ public class Controller {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setHeaderText("Input not valid");
             errorAlert.setContentText("At least one of the fields are empty.\nFill all fields and try again ");
-//            errorAlert.showAndWait();
             mainView.setAlert(errorAlert);
-
-//        } else {
-//            if (!passwordS.equals(confirmS)) {
-//                //if passwords dont match
-//                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-//                errorAlert.setHeaderText("Input not valid");
-//                errorAlert.setContentText("Passwords doesn't match.\nPlease try again.");
-////                errorAlert.showAndWait();
-//                return errorAlert;
-
-
 
             //check over 18
 
@@ -163,28 +151,28 @@ public class Controller {
                 errorAlert.setContentText("You need to be 18 or more to use the website!");
                 mainView.setAlert(errorAlert);
             } else {
-            if (!passwordS.equals(confirmS)) {
-                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                errorAlert.setHeaderText("password not match!");
-                errorAlert.setContentText("the passwords dont match.\n Please try again");
-                mainView.setAlert(errorAlert);
-            }
-            else{
-                boolean flag = model.Update(usernameS, passwordS, firstS, lastS, dateS, cityS);
-                if (flag) {
-                    Alert success = new Alert(Alert.AlertType.CONFIRMATION);
-                    success.setHeaderText("Action Succeeded");
-                    success.setContentText("User updated successfuly! ");
-//                    success.showAndWait();
-                    mainView.setAlert(success);
-
+                if (!passwordS.equals(confirmS)) {
+                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                    errorAlert.setHeaderText("password not match!");
+                    errorAlert.setContentText("the passwords dont match.\n Please try again");
+                    mainView.setAlert(errorAlert);
                 } else {
-                    Alert fail = new Alert(Alert.AlertType.ERROR);
-                    fail.setHeaderText("Action Failed");
-                    fail.setContentText("Username already taken.\nPlease choose different one and try again ");//todo what failed exactly?
-//                    fail.showAndWait();
-                    mainView.setAlert(fail);
+                    boolean flag = model.Update(usernameS, passwordS, firstS, lastS, dateS, cityS);
+                    if (flag) {
+                        Alert success = new Alert(Alert.AlertType.CONFIRMATION);
+                        success.setHeaderText("Action Succeeded");
+                        success.setContentText("User updated successfuly! ");
+//                    success.showAndWait();
+                        mainView.setAlert(success);
 
+                    } else {
+                        Alert fail = new Alert(Alert.AlertType.ERROR);
+                        fail.setHeaderText("Action Failed");
+                        fail.setContentText("Username already taken.\nPlease choose different one and try again ");//todo what failed exactly?
+//                    fail.showAndWait();
+                        mainView.setAlert(fail);
+
+                    }
                 }
             }
         }

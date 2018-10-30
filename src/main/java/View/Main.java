@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import javax.swing.text.View;
@@ -32,7 +33,8 @@ public class Main extends Application {
             FXMLLoader fxmlLoader=new FXMLLoader();
             Parent root = fxmlLoader.load(getClass().getResource("/View.fxml").openStream());
             primaryStage.setTitle("Vacation4U");
-            primaryStage.setScene(new Scene(root, 300, 400));
+            Scene scene=new Scene(root, 500, 500);
+            primaryStage.setScene(scene);
             primaryStage.show();
         }
         catch(Exception e){

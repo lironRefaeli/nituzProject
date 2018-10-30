@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 
+import javax.swing.text.html.ImageView;
 import java.io.IOException;
 
 public class ViewController extends AView {
@@ -25,7 +26,7 @@ public class ViewController extends AView {
      * @throws IOException
      * opens the form to make new user
      */
-    @FXML
+@FXML
     private void openCreateForm(ActionEvent event){
         try{
             FXMLLoader fxmlLoader=new FXMLLoader();
@@ -34,7 +35,7 @@ public class ViewController extends AView {
         stage.initModality(Modality.APPLICATION_MODAL);
         //stage.initStyle(StageStyle.UNDECORATED);
         stage.setTitle("Create User");
-        stage.setScene(new Scene(root1,410,390));
+        stage.setScene(new Scene(root1,500,500));
         stage.show();
         }
         catch (IOException e){
@@ -52,7 +53,7 @@ public class ViewController extends AView {
             FXMLLoader fxmlLoader=new FXMLLoader();
             Parent root = fxmlLoader.load(getClass().getResource("/Read.fxml").openStream());
             stage.setTitle("Vacation4U - Read");
-            stage.setScene(new Scene(root, 300, 500));
+            stage.setScene(new Scene(root, 500, 500));
             stage.show();
         }
         catch (IOException e){

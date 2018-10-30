@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="445.0" prefWidth="275.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.UpdateController">
+<AnchorPane prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.UpdateController">
     <children>
         <TextField fx:id="usernameLogIn" layoutX="29.0" layoutY="92.0" onAction="#onEnter" />
         <Button layoutX="193.0" layoutY="92.0" mnemonicParsing="false" onAction="#FindUser" text="Show details" />
