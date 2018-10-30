@@ -16,7 +16,7 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
-public class ViewController  {
+public class ViewController extends AView {
 
 
 

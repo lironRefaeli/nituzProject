@@ -10,7 +10,10 @@ import javafx.stage.Stage;
 
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 
 public class CreateController extends AView{
 
@@ -47,9 +50,10 @@ public class CreateController extends AView{
         lastS = lastname.getText();
         cityS = city.getText();
 
+
         dateS = birthdate.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         this.controller.Create(usernameS,passwordS,confirmS,firstS,lastS,dateS,cityS);
-
+        this.ShowAlert();
 
 
     }

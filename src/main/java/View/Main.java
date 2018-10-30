@@ -7,9 +7,12 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
 
+import javax.swing.text.View;
 import java.sql.*;
+import java.time.LocalDate;
 
 public class Main extends Application {
     /**
@@ -20,8 +23,10 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception{
-//        IModel model = new Model();
-//        Controller controller = new Controller(model);
+      IModel model = new Model();
+      ViewController mainview=new ViewController();
+      Controller controller = new Controller(model,mainview);
+      mainview.setController(controller);
         try {
 //            System.out.println(this.getClass().getClassLoader());
             FXMLLoader fxmlLoader=new FXMLLoader();
@@ -33,6 +38,7 @@ public class Main extends Application {
         catch(Exception e){
             e.printStackTrace();
         }
+
     }
 
 

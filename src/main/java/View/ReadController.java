@@ -15,7 +15,7 @@ import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 import java.util.Vector;
 
-public class ReadController {
+public class ReadController extends AView {
     @FXML
     private TextField username;
     @FXML
@@ -34,8 +34,6 @@ public class ReadController {
     private TextField birthdate_just4view;
     @FXML
     private Label sorrymessage;
-
-    private Controller controller = new Controller();
 
     @FXML
     private void ReadUser(ActionEvent event) throws IOException {

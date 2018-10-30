@@ -4,7 +4,8 @@ import Controller.Controller;
 import javafx.scene.control.Alert;
 
 public class AView {
-    static Controller controller;
+    protected static Controller controller;
+    protected static Alert alert;
 
     public AView() {
 
@@ -13,7 +14,10 @@ public class AView {
         controller=controller2;
     }
 
-    public void ShowAlert(Alert alert){
+    public void setAlert(Alert alert2){
+        alert=alert2;
+    }
+    public void ShowAlert(){
         alert.showAndWait();
     }
 }
