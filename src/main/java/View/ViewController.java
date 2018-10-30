@@ -31,12 +31,12 @@ public class ViewController extends AView {
         try{
             FXMLLoader fxmlLoader=new FXMLLoader();
             Parent root1 = fxmlLoader.load(getClass().getResource("/Create.fxml").openStream());
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        //stage.initStyle(StageStyle.UNDECORATED);
-        stage.setTitle("Create User");
-        stage.setScene(new Scene(root1,500,500));
-        stage.show();
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            //stage.initStyle(StageStyle.UNDECORATED);
+            stage.setTitle("Create User");
+            stage.setScene(new Scene(root1,500,500));
+            stage.show();
         }
         catch (IOException e){
             e.printStackTrace();

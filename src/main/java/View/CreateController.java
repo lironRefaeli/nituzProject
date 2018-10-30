@@ -50,11 +50,17 @@ public class CreateController extends AView{
         lastS = lastname.getText();
         cityS = city.getText();
 
-
-        dateS = birthdate.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        this.controller.Create(usernameS,passwordS,confirmS,firstS,lastS,dateS,cityS);
-        this.ShowAlert();
-
+        if(birthdate.getValue()!=null) {
+            dateS = birthdate.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            this.controller.Create(usernameS, passwordS, confirmS, firstS, lastS, dateS, cityS);
+            this.ShowAlert();
+        }
+        else{
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("Input not valid");
+            errorAlert.setContentText("At least one of the fields are empty.\nFill all fields and try again ");
+            errorAlert.showAndWait();
+        }
 
 
     }

@@ -48,7 +48,7 @@
             <Label text="Birth date:" GridPane.rowIndex="6" />
             <TextField fx:id="lastname" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField fx:id="city" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <DatePicker fx:id="birthdate" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <DatePicker fx:id="birthdate" editable="false" promptText="01-01-1999" GridPane.columnIndex="1" GridPane.rowIndex="6" />
          </children>
       </GridPane>
       <Label layoutX="34.0" layoutY="24.0" text="Create user's form:">
