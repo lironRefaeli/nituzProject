@@ -46,8 +46,12 @@ public class CreateController extends AView{
         firstS = firstname.getText();
         lastS = lastname.getText();
         cityS = city.getText();
-        dateS = birthdate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+        dateS = birthdate.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         this.controller.Create(usernameS,passwordS,confirmS,firstS,lastS,dateS,cityS);
+
+
+
     }
 
 }

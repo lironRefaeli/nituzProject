@@ -32,6 +32,8 @@
             <TextField fx:id="username"  prefHeight="25.0" prefWidth="136.0" GridPane.columnIndex="1" />
             <Label text="Password:" GridPane.rowIndex="1" />
             <PasswordField fx:id="password" prefHeight="17.0" prefWidth="136.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+             <Label text="Confirm password:" GridPane.rowIndex="2" />
+             <PasswordField fx:id="confirmpassword" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="First name:" GridPane.rowIndex="3" />
             <TextField fx:id="firstname" prefHeight="25.0" prefWidth="136.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label text="Last name:" GridPane.rowIndex="4" />
@@ -40,8 +42,6 @@
             <TextField fx:id="lastname" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField fx:id="city" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <DatePicker fx:id="birthdate" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <Label text="Confirm password:" GridPane.rowIndex="2" />
-            <PasswordField fx:id="confirmpassword" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <Label layoutX="34.0" layoutY="24.0" text="Create user's form:">
