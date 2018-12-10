@@ -115,12 +115,47 @@ public class Main extends Application {
         }
     }
 
+    //
+    String hotelIncluded; //boolean
+    int rankOfHotel;
+    public static void createNewVacationTable() {
+        // SQLite connection string
+        String url = "jdbc:sqlite:Users.db";
+
+        // SQL statement for creating a new table
+
+        String sql = "CREATE TABLE IF NOT EXISTS Vacations (\n"
+                + "   id text PRIMARY KEY,\n"
+                + "   flight_company text ,\n"
+                + "   departure_date text ,\n"
+                + "   back_date text ,\n"
+                + "   baggage_included text,\n"
+                + "   country text,\n"
+                + "   flight_back_included text,\n"
+                + "   num_tickets_adult text,\n"
+                + "   num_tickets_kid text,\n"
+                + "   num_tickets_baby text,\n"
+                + "   vacation_kind text,\n"
+                + "   hotel_included text,\n"
+                + "   rank_hotel text,\n"
+                + "   user_name text NOT NULL\n"
+                + ");";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement()) {
+            // create a new table
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
 
     public static void main(String[] args) {
-       // connect();
-       // createNewDatabase("Users.db");
-       // createNewTable();
+        connect();
+        createNewDatabase("Users.db");
+        createNewTable();
+        createNewVacationTable();
 
         launch(args);
     }
