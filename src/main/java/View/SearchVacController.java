@@ -147,6 +147,9 @@ public class SearchVacController extends AView {
                 backDate = ReturnDate.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
             }
         }
+        else{
+            flightBackIncluded="false";
+        }
         if (vacationType.getValue() != null) {
             vacationKind = vacationType.getValue();
         }
@@ -172,8 +175,8 @@ public class SearchVacController extends AView {
                     , vacList.get(2) //back date
                     , vacList.get(9) //vacation kind
                     , vacList.get(0) //flight company
-                    , vacList.get(3) // include bagged
-                    , vacList.get(10) //hotel included
+                    ,vacList.get(3) // include bagged
+                    , vacList.get(10)//hotel included
                     , vacList.get(11)); //hotel rank
         }
     }
