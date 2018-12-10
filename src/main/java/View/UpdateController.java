@@ -14,8 +14,6 @@ import java.util.Vector;
 
 public class UpdateController extends AView{
     @FXML
-    private TextField usernameLogIn;
-    @FXML
     private GridPane resultsView;
     @FXML
     private TextField username;
@@ -35,12 +33,16 @@ public class UpdateController extends AView{
     private Label sorrymessage;
 
 
-    @FXML
-    private void FindUser(ActionEvent event) throws IOException {
-        String usernameS;
-        usernameS = usernameLogIn.getText();
+    String userName;
+
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void start(){
         Controller controller=(Controller)this.controller;
-        Vector<String> ans = controller.Read(usernameS);
+        Vector<String> ans = controller.Read(userName);
         sorrymessage.setVisible(false);
         resultsView.setVisible(false);
         if (ans.size() != 0) {
@@ -57,15 +59,6 @@ public class UpdateController extends AView{
         }
     }
 
-    @FXML
-    public void onEnter(ActionEvent ae){
-        try {
-            FindUser(ae);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void update(ActionEvent actionEvent) {
         String usernameS,passwordS,conpasswordS,firstnameS,lastnameS,birthdateS,cityS;
 
@@ -78,14 +71,8 @@ public class UpdateController extends AView{
         cityS=city.getText();
 
 
-        if((usernameLogIn.getText()).equals(username.getText())) {
             Controller controller=(Controller)this.controller;
-            controller.update(usernameS, passwordS, conpasswordS,firstnameS, lastnameS, birthdateS, cityS);
-            this.ShowAlert();
-        }
-        else{
-            Controller controller=(Controller)this.controller;
-            controller.Delete2(usernameLogIn.getText());
+            controller.Delete2(userName);
             controller.Create(usernameS, passwordS,conpasswordS, firstnameS, lastnameS, birthdateS, cityS);
             if(alert.getAlertType().equals(Alert.AlertType.ERROR)||alert.getAlertType().equals(Alert.AlertType.WARNING)){
                 this.ShowAlert();;
@@ -98,7 +85,6 @@ public class UpdateController extends AView{
                 alert.showAndWait();
 
             }
-        }
     resultsView.setVisible(false);
     }
 }

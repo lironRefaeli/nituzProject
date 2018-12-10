@@ -14,12 +14,16 @@ public class VacationController extends AController {
     VacationModel vacationModel;
     AView searchView;
 
-    public VacationController(boolean isConnected, String username, VacationModel vacationModel, AView searchView) {
+    public VacationController(String username, VacationModel vacationModel, AView searchView) {
         this.username = username;
-        if(username.equals(""))
-            isConnected=false;
-        else
-            isConnected=true;
+        if(username!=null) {
+            if (username.equals(""))
+                isConnected = false;
+            else {
+                isConnected = true;
+                this.username=username;
+            }
+        }
         this.vacationModel = vacationModel;
         this.searchView = searchView;
     }

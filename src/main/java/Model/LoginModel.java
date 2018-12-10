@@ -18,7 +18,7 @@ public class LoginModel {
     }
 
     public boolean Login(String userName,String password) {
-        String sql = "SELECT user_name WHERE user_name = ? AND password=? ";
+        String sql = "SELECT user_name, password FROM Users WHERE user_name = ? AND password = ?";
         Vector<String> ans = new Vector<>();
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {

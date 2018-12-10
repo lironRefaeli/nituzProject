@@ -19,9 +19,6 @@
             <Image url="@reka2.png" />
          </image>
       </ImageView>
-        <TextField fx:id="usernameLogIn" layoutX="29.0" layoutY="92.0" onAction="#onEnter" />
-        <Button layoutX="193.0" layoutY="92.0" mnemonicParsing="false" onAction="#FindUser" text="Show details" />
-        <Label layoutX="29.0" layoutY="62.0" text="Please put a name of username to update:" />
         <GridPane fx:id="resultsView" layoutX="16.0" layoutY="143.0" prefHeight="239.0" prefWidth="336.0" visible="false">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="152.0" minWidth="10.0" prefWidth="125.0" />
