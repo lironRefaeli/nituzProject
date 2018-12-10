@@ -175,7 +175,7 @@ public class Main extends Application {
         //createNewDatabase("Users.db");
         //createNewTable();
         //createNewVacationTable();
-
+        createNewMessageTable();
         launch(args);
     }
 }
