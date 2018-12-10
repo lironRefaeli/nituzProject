@@ -34,29 +34,31 @@ public class SearchVacController extends AView {
     //Vacation information:
     @FXML
     private ComboBox<String> destination;
-    @FXML
-    private TextField AdultNum;
     private boolean isNumTouched = false; //if any num is touched.
     @FXML
-    private TextField ChildNum;
+    private TextField AdultNum; int i_AdultNum=0; private final int maxAd =10; private final int minAd =0;
     @FXML
-    private TextField BabyNum;
+    private TextField ChildNum; int i_ChildNum=0; private final int maxCh =10; private final int minCh =0;
+    @FXML
+    private TextField BabyNum; int i_BabyNum=0; private final int maxBa =10; private final int minBa =0;
     @FXML
     private DatePicker DepartureDate;
     @FXML
+    private ComboBox<String> includeReturn;
+    @FXML
     private DatePicker ReturnDate;
     @FXML
-    private CheckBox includeHotel;
+    private ComboBox<String> includeHotel;
     @FXML
     private ComboBox<Integer> hotelStars;
+    @FXML
+    private ComboBox<Integer> hotelType;
     @FXML
     private ComboBox<String> flightComp;
     @FXML
     private ComboBox<String> vacationType;
     @FXML
     private CheckBox includeBag;
-    @FXML
-    private CheckBox includeReturn;
     @FXML
     private TableView vacTable;
 
@@ -75,6 +77,10 @@ public class SearchVacController extends AView {
         accord.setExpanded(false);
         clipRect.setWidth(extendableSearchPane.getWidth());
         toggleExtendableSearch();
+        isNumTouched=false;
+        i_AdultNum=0;
+        i_ChildNum=0;
+        i_BabyNum=0;
     }
 
 
@@ -125,6 +131,53 @@ public class SearchVacController extends AView {
         }
     }
 
+    public void setNumTouched(boolean numTouched) {
+        isNumTouched = numTouched;
+    }
+
+    public void addAdult(ActionEvent ae){
+        if(i_AdultNum<maxAd){ setNumTouched(true);
+        i_AdultNum++;
+        AdultNum.setText(""+i_AdultNum);}
+    }
+    public void minusAdult(ActionEvent ae){
+        if(minAd<i_AdultNum) {
+            setNumTouched(true);
+            i_AdultNum--;
+            AdultNum.setText("" + i_AdultNum);
+        }
+    }
+
+    public void addChild(ActionEvent ae){
+        if(i_ChildNum<maxCh){
+        setNumTouched(true);
+        i_ChildNum++;
+        ChildNum.setText(""+i_ChildNum);
+    }
+    }
+
+    public void minusChild(ActionEvent ae){
+        if(minCh<i_ChildNum){
+            setNumTouched(true);
+        i_ChildNum--;
+        ChildNum.setText(""+i_ChildNum);
+    }
+    }
+    public void addBaby(ActionEvent ae){
+        if(i_BabyNum<maxBa){
+            setNumTouched(true);
+        i_BabyNum++;
+        BabyNum.setText(""+i_BabyNum);
+       }
+    }
+    public void minusBaby(ActionEvent ae){
+        if(minBa<i_BabyNum) {
+            setNumTouched(true);
+            i_BabyNum--;
+            BabyNum.setText("" + i_BabyNum);
+        }
+    }
+
     @FXML
     private void search(ActionEvent ae) {
         String flightCompany = "", departureDate = "", backDate = "", baggageIncluded = "",
@@ -141,12 +194,12 @@ public class SearchVacController extends AView {
         if (DepartureDate.getValue() != null) {
             departureDate = DepartureDate.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         }
-        if (includeReturn.isSelected()) {
+        /**if (includeReturn.isSelected()) {
             flightBackIncluded = "true";
             if (ReturnDate.getValue() != null) { //todo - add check to returndate bigger then departure date
                 backDate = ReturnDate.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
             }
-        }
+        }**/ //todo
         else{
             flightBackIncluded="false";
         }
@@ -156,9 +209,9 @@ public class SearchVacController extends AView {
         if (vacationType.getValue() != null) {
             flightCompany = flightComp.getValue();
         }
-        if (includeHotel.isSelected())
+        /**if (includeHotel.isSelected())todo
             hotelIncluded = "true";
-        if (hotelStars.getValue() != null) {
+        **/if (hotelStars.getValue() != null) {
             rankOfHotel = hotelStars.getValue();
         }
         if (includeBag.isSelected()) {
