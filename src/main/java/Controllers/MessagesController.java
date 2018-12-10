@@ -12,6 +12,7 @@ import java.util.List;
 public class MessagesController extends AController {
 
 
+
     MessageModel messageModel;
     AView view;
 
