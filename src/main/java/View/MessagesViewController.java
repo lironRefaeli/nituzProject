@@ -29,7 +29,7 @@ public class MessagesViewController extends AView {
     @FXML
     public void initialize(){
 
-        TableColumn<>
+      //  TableColumn<>
 
     }
 
