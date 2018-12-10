@@ -88,8 +88,10 @@ public class SearchVacController extends AView{
     }
 
     private void Search(){
-        String destinationS, adultTicketS, childTicketS, babyTicketS, departureDateS, returnDateS, hotelStarsS,
-                flightCompanyS, VacationTypeS;
+        String flightCompany="", departureDate="", backDate="", baggageIncluded="",
+                 Country="", flightBackIncluded="",  vacationKind="", hotelIncluded="";
+        int numOfTicketsAdult=-1, numOfTicketsChild=-1, numOfTicketsBaby=-1, rankOfHotel=-1;
+
 
     }
 
