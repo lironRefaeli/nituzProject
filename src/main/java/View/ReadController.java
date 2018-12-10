@@ -1,18 +1,13 @@
 package View;
 
-import Controller.Controller;
+import Controllers.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
-import java.awt.event.KeyEvent;
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.format.DateTimeFormatter;
 import java.util.Vector;
 
 public class ReadController extends AView {
@@ -39,6 +34,7 @@ public class ReadController extends AView {
     private void ReadUser(ActionEvent event) throws IOException {
         String usernameS;
         usernameS = username.getText();
+        Controller controller=(Controller)this.controller;
         Vector<String> ans = controller.Read(usernameS);
         sorrymessage.setVisible(false);
         resultsView.setVisible(false);

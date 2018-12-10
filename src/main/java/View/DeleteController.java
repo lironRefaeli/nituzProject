@@ -1,9 +1,8 @@
 package View;
 
-import Controller.Controller;
+import Controllers.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
@@ -22,7 +21,8 @@ public class DeleteController extends AView{
      @FXML
      private void deleteUser(ActionEvent event)
      {
-         controller.Delete(DeleteUserNameOutput.getText(), DeletePasswordOutput.getText());
+          Controller controller=(Controller)this.controller;
+          controller.Delete(DeleteUserNameOutput.getText(), DeletePasswordOutput.getText());
          this.ShowAlert();
 
      }

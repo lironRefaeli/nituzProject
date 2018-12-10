@@ -1,19 +1,13 @@
 package View;
 
-import Controller.Controller;
-import Model.Model;
-import Model.IModel;
+import Controllers.Controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
-import javafx.stage.Stage;
 
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
 
 public class CreateController extends AView{
 
@@ -52,7 +46,8 @@ public class CreateController extends AView{
 
         if(birthdate.getValue()!=null) {
             dateS = birthdate.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-            this.controller.Create(usernameS, passwordS, confirmS, firstS, lastS, dateS, cityS);
+            Controller controller=(Controller)this.controller;
+            controller.Create(usernameS, passwordS, confirmS, firstS, lastS, dateS, cityS);
             this.ShowAlert();
         }
         else{

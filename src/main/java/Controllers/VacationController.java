@@ -1,4 +1,4 @@
-package Controller;
+package Controllers;
 
 import Model.Vacation;
 import Model.VacationModel;
@@ -7,7 +7,7 @@ import javafx.scene.control.Alert;
 
 import java.util.List;
 
-public class VacationController {
+public class VacationController extends AController {
 
     boolean isConnected;
     String username;
@@ -22,6 +22,10 @@ public class VacationController {
             isConnected=true;
         this.vacationModel = vacationModel;
         this.searchView = searchView;
+    }
+
+    public void Connect(){
+
     }
 
 
@@ -39,7 +43,7 @@ public class VacationController {
             if(flag){
                 Alert success = new Alert(Alert.AlertType.CONFIRMATION);
                 success.setHeaderText("Action Succeeded");
-                success.setContentText("New vacation added successfuly! ");
+                success.setContentText("New vacation added successfully! ");
                 searchView.setAlert(success);
             }
         }
