@@ -194,7 +194,6 @@ public class VacationModel {
         if(somethingAdded) {
             sql = sql + "WHERE" + constraints;
         }
-            Vector<String> ans = new Vector<>();
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
