@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="516.0" prefWidth="923.0" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.ViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="516.0" prefWidth="923.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MainViewController">
    <children>
       <ImageView fitHeight="636.0" fitWidth="931.0" pickOnBounds="true" preserveRatio="true"><Image url="@BackgroundMain.PNG" /> </ImageView>
       <Button layoutX="292.0" layoutY="176.0" mnemonicParsing="false" onAction="#startMain" prefHeight="65.0" prefWidth="387.0" text="Find Your Vaction!">
@@ -14,7 +14,7 @@
             <Font size="34.0" />
          </font>
       </Button>
-      <Button layoutX="292.0" layoutY="262.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="186.0" text="Sign In">
+      <Button layoutX="292.0" layoutY="262.0" mnemonicParsing="false" onAction="#openLoginForm" prefHeight="65.0" prefWidth="186.0" text="Sign In">
          <font>
             <Font size="24.0" />
          </font>

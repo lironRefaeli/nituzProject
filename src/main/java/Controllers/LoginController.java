@@ -12,9 +12,7 @@ public class LoginController extends AController {
     public LoginController(LoginModel model, AView view) {
         this.model = model;
         this.view = view;
-
     }
-
     public boolean login(String userName,String password){
         boolean flag=model.Login(userName,password);
         if(!flag){//didnt succeed
@@ -24,13 +22,8 @@ public class LoginController extends AController {
             view.setAlert(errorAlert);
             return false;
         }
-        else{
-            Alert success = new Alert(Alert.AlertType.CONFIRMATION);
-            success.setHeaderText("Login successful");
-            success.setContentText("New vacation added successfully! ");
-            view.setAlert(success);
-            return true;
-        }
+
+        return true;
     }
 
 

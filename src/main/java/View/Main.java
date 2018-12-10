@@ -1,8 +1,10 @@
 package View;
 
 import Controllers.Controller;
+import Controllers.LoginController;
 import Model.Model;
 import Model.IModel;
+import Model.LoginModel;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,12 +22,9 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception{
-      IModel model = new Model();
-      ViewController mainview=new ViewController();
-      Controller controller = new Controller(model,mainview);
 
 
-      mainview.setController(controller);
+
         try {
             FXMLLoader fxmlLoader=new FXMLLoader();
             Parent root = fxmlLoader.load(getClass().getResource("/Main.fxml").openStream());
@@ -153,10 +152,10 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-        connect();
-        createNewDatabase("Users.db");
-        createNewTable();
-        createNewVacationTable();
+       // connect();
+        //createNewDatabase("Users.db");
+        //createNewTable();
+        //createNewVacationTable();
 
         launch(args);
     }
