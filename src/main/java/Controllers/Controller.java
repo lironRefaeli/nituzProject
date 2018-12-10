@@ -1,22 +1,15 @@
-package Controller;
+package Controllers;
 
 import Model.IModel;
 import Model.Model;
 import View.AView;
-import View.ViewController;
-import com.sun.xml.internal.ws.util.StringUtils;
-import javafx.beans.property.StringProperty;
 import javafx.scene.control.Alert;
 
-import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Queue;
 import java.util.Vector;
 
-public class Controller {
+public class Controller extends AController{
     IModel model = new Model();
     AView mainView;
 

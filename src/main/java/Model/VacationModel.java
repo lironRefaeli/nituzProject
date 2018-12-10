@@ -105,61 +105,96 @@ public class VacationModel {
         String constraints="";
         List<Vacation> vacations=new ArrayList<Vacation>();
         boolean [] isAdded=new boolean[12];
+        boolean somethingAdded=false;
         for(int i=0;i<10;i++){
             isAdded[i]=false;
         }
         if(!flightCompany.equals("")){
             constraints=constraints+" flight_company=?";
             isAdded[0]=true;
+            somethingAdded=true;
         }
         if(!departureDate.equals("")){
+            if(somethingAdded)
+                constraints=constraints+ "AND";
             constraints=constraints+" departure_date=?";
             isAdded[1]=true;
+            somethingAdded=true;
         }
         if(!backDate.equals("")){
+            if(somethingAdded)
+                constraints=constraints+ "AND";
             constraints=constraints+" back_date=?";
             isAdded[2]=true;
+            somethingAdded=true;
         }
         if(!baggageIncluded.equals("")){
+            if(somethingAdded)
+                constraints=constraints+ "AND";
             constraints=constraints+" baggage_included=?";
             isAdded[3]=true;
+            somethingAdded=true;
         }
         if(!Country.equals("")){
+            if(somethingAdded)
+                constraints=constraints+ "AND";
             constraints=constraints+" country=?";
             isAdded[4]=true;
+            somethingAdded=true;
         }
         if(!flightBackIncluded.equals("")){
+            if(somethingAdded)
+                constraints=constraints+ "AND";
             constraints=constraints+" flight_back_included=?";
             isAdded[5]=true;
+            somethingAdded=true;
         }
         if(numOfTicketsAdult!=-1){
+            if(somethingAdded)
+                constraints=constraints+ "AND";
             constraints=constraints+" num_tickets_adult=?";
             isAdded[6]=true;
+            somethingAdded=true;
         }
         if(numOfTicketsChild!=-1){
+            if(somethingAdded)
+                constraints=constraints+ "AND";
             constraints=constraints+" num_tickets_kid=?";
             isAdded[7]=true;
+            somethingAdded=true;
         }
         if(numOfTicketsBaby!=-1){
+            if(somethingAdded)
+                constraints=constraints+ "AND";
             constraints=constraints+" num_tickets_baby=?";
             isAdded[8]=true;
+            somethingAdded=true;
         }
         if(!vacationKind.equals("")){
+            if(somethingAdded)
+                constraints=constraints+ "AND";
             constraints=constraints+" flight_back_included=?";
             isAdded[9]=true;
+            somethingAdded=true;
         }
         if(!hotelIncluded.equals("")){
+            if(somethingAdded)
+                constraints=constraints+ "AND";
             constraints=constraints+" hotel_included=?";
             isAdded[10]=true;
+            somethingAdded=true;
         }
         if(rankOfHotel!=-1){
+            if(somethingAdded)
+                constraints=constraints+ "AND";
             constraints=constraints+" rank_hotel=?";
             isAdded[11]=true;
+            somethingAdded=true;
         }
         Vector<String> ans = new Vector<>();
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-        if(isAdded[0]||isAdded[1]||isAdded[2]||isAdded[3]||isAdded[4]||isAdded[5]||isAdded[6]||isAdded[7]||isAdded[8]||isAdded[9]||isAdded[10]||isAdded[11]) {
+        if(somethingAdded) {
             sql = sql + "WHERE" + constraints;
 
 
