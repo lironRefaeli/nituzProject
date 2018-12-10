@@ -63,7 +63,7 @@ public class VacationController extends AController {
             errorAlert.setHeaderText("Error");
             errorAlert.setContentText("Can't find vaction with those details. Change the details and try again. ");
             searchView.setAlert(errorAlert);
-            return  null;
+            return vacations;
         }
         return vacations;
     }
