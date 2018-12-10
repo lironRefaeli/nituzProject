@@ -1,5 +1,8 @@
 package View;
 
+import Controllers.VacationController;
+import Model.Vacation;
+import com.sun.org.apache.regexp.internal.RE;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -10,21 +13,53 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Accordion;
-import javafx.scene.control.TitledPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class SearchVacController extends AView{
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
+public class SearchVacController extends AView {
 
     @FXML
     private AnchorPane extendableSearchPane;
     @FXML
     private TitledPane accord;
     private Rectangle clipRect;
+
+    //Vacation information:
+    @FXML
+    private ComboBox<String> destination;
+    @FXML
+    private TextField AdultNum;
+    private boolean isNumTouched = false; //if any num is touched.
+    @FXML
+    private TextField ChildNum;
+    @FXML
+    private TextField BabyNum;
+    @FXML
+    private DatePicker DepartureDate;
+    @FXML
+    private DatePicker ReturnDate;
+    @FXML
+    private CheckBox includeHotel;
+    @FXML
+    private ComboBox<Integer> hotelStars;
+    @FXML
+    private ComboBox<String> flightComp;
+    @FXML
+    private ComboBox<String> vacationType;
+    @FXML
+    private CheckBox includeBag;
+    @FXML
+    private CheckBox includeReturn;
+    @FXML
+    private TableView vacTable;
+
 
     @FXML
     void initialize() {
@@ -38,7 +73,10 @@ public class SearchVacController extends AView{
         extendableSearchPane.translateYProperty().set(-heightInitial);
         extendableSearchPane.prefHeightProperty().set(0);
         accord.setExpanded(false);
+        clipRect.setWidth(extendableSearchPane.getWidth());
+        toggleExtendableSearch();
     }
+
 
     @FXML
     public void toggleExtendableSearch() {
@@ -87,12 +125,57 @@ public class SearchVacController extends AView{
         }
     }
 
-    private void Search(){
-        String flightCompany="", departureDate="", backDate="", baggageIncluded="",
-                 Country="", flightBackIncluded="",  vacationKind="", hotelIncluded="";
-        int numOfTicketsAdult=-1, numOfTicketsChild=-1, numOfTicketsBaby=-1, rankOfHotel=-1;
-
-
+    @FXML
+    private void search(ActionEvent ae) {
+        String flightCompany = "", departureDate = "", backDate = "", baggageIncluded = "",
+                Country = "", flightBackIncluded = "", vacationKind = "", hotelIncluded = "";
+        int numOfTicketsAdult = -1, numOfTicketsChild = -1, numOfTicketsBaby = -1, rankOfHotel = -1;
+        if (destination.getValue() != null) {
+            Country = destination.getValue();
+        }
+        if (isNumTouched) {
+            numOfTicketsAdult = Integer.valueOf(AdultNum.getText());
+            numOfTicketsChild = Integer.valueOf(ChildNum.getText());
+            numOfTicketsBaby = Integer.valueOf(BabyNum.getText());
+        }
+        if (DepartureDate.getValue() != null) {
+            departureDate = DepartureDate.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        }
+        if (includeReturn.isSelected()) {
+            flightBackIncluded = "true";
+            if (ReturnDate.getValue() != null) { //todo - add check to returndate bigger then departure date
+                backDate = ReturnDate.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            }
+        }
+        if (vacationType.getValue() != null) {
+            vacationKind = vacationType.getValue();
+        }
+        if (vacationType.getValue() != null) {
+            flightCompany = flightComp.getValue();
+        }
+        if (includeHotel.isSelected())
+            hotelIncluded = "true";
+        if (hotelStars.getValue() != null) {
+            rankOfHotel = hotelStars.getValue();
+        }
+        if (includeBag.isSelected()) {
+            baggageIncluded = "true";
+        }
+        VacationController controller = (VacationController) this.controller;
+        List<Vacation> vacList = controller.Search(flightCompany, departureDate, backDate, baggageIncluded,
+                Country, flightBackIncluded, numOfTicketsAdult, numOfTicketsChild, numOfTicketsBaby, vacationKind, hotelIncluded, rankOfHotel);
+        for (int i = 0; i < vacList.size(); i++) {
+            vacTable.getColumns().addAll(vacList.get(4), //country ~destination
+                    vacList.get(6), vacList.get(7), vacList.get(8) // num of tickets.
+                    , vacList.get(1) //departure date
+                    , vacList.get(5)//include back
+                    , vacList.get(2) //back date
+                    , vacList.get(9) //vacation kind
+                    , vacList.get(0) //flight company
+                    , vacList.get(3) // include bagged
+                    , vacList.get(10) //hotel included
+                    , vacList.get(11)); //hotel rank
+        }
     }
 
     private EventHandler<ActionEvent> createBouncingEffect(double height) {
