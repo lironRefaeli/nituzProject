@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
 import java.util.List;
@@ -17,20 +18,41 @@ public class MessagesViewController extends AView {
     @FXML private AnchorPane pane;
     TableView<Message> tableView;
 
-    String userNameSender;//own
-    String userNameReciever; // to the seller or buyer from system
+
+    String userNameReciever; //own- he is now the reciever
 
 
-    public void setUserName(String sender, String reciever) {
+    public void setUserName(String reciever) {
         this.userNameReciever=reciever;
-        this.userNameSender=sender;
     }
 
     @FXML
     public void initialize(){
 
-        TableColumn<>
+        /**
+         *  private int id;
+         private String sender;
+         private String reciever;
+         private int seen;//0 not seen. 1 seen and accepted. 2 seen and canceled.
+         */
+        TableColumn<Message,Integer> idCol=new TableColumn<>("Message ID");
+        idCol.setMinWidth(200);
+        idCol.setCellValueFactory(new PropertyValueFactory<Message,Integer>("id"));
 
+        TableColumn<Message,String> senderCol=new TableColumn<>("Sender");
+        idCol.setMinWidth(200);
+        senderCol.setCellValueFactory(new PropertyValueFactory<Message,String>("sender"));
+
+        TableColumn<Message,String> recieverCol=new TableColumn<>("Reciever");
+        idCol.setMinWidth(200);
+        recieverCol.setCellValueFactory(new PropertyValueFactory<Message,String>("reciever"));
+
+
+        tableView=new TableView<>();
+        tableView.setItems(getMessages(userNameReciever));
+        tableView.getColumns().addAll(idCol,senderCol,recieverCol);
+
+        pane.getChildren().add(tableView);
     }
 
 
