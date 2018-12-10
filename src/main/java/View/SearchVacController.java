@@ -7,6 +7,8 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -14,8 +16,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -60,7 +64,7 @@ public class SearchVacController extends AView {
     @FXML
     private CheckBox includeBag;
     @FXML
-    private TableView vacTable;
+    private TableView<Vacation> vacTable;
 
 
     @FXML
@@ -220,18 +224,18 @@ public class SearchVacController extends AView {
         VacationController controller = (VacationController) this.controller;
         List<Vacation> vacList = controller.Search(flightCompany, departureDate, backDate, baggageIncluded,
                 Country, flightBackIncluded, numOfTicketsAdult, numOfTicketsChild, numOfTicketsBaby, vacationKind, hotelIncluded, rankOfHotel);
-        for (int i = 0; i < vacList.size(); i++) {
-            vacTable.getColumns().addAll(vacList.get(4), //country ~destination
-                    vacList.get(6), vacList.get(7), vacList.get(8) // num of tickets.
-                    , vacList.get(1) //departure date
-                    , vacList.get(5)//include back
-                    , vacList.get(2) //back date
-                    , vacList.get(9) //vacation kind
-                    , vacList.get(0) //flight company
-                    ,vacList.get(3) // include bagged
-                    , vacList.get(10)//hotel included
-                    , vacList.get(11)); //hotel rank
-        }
+
+        ObservableList<Vacation> vacObsList = FXCollections.observableArrayList();
+        vacObsList.addAll(vacList);
+
+        TableColumn<Vacation,String> flightCompanyColumn = new TableColumn<>("FlightCompany");
+        flightCompanyColumn.setMinWidth(200);
+        flightCompanyColumn.setCellValueFactory(new PropertyValueFactory<>("flightCompany"));
+
+        vacTable.setItems(vacObsList);
+        vacTable.getColumns().addAll(flightCompanyColumn);
+
+
     }
 
     private EventHandler<ActionEvent> createBouncingEffect(double height) {
