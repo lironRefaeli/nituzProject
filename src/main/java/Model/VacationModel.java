@@ -101,7 +101,7 @@ public class VacationModel {
     //read
     public List<Vacation> findVacations(String flightCompany,String departureDate,String backDate,String baggageIncluded,
             String Country,String flightBackIncluded,int numOfTicketsAdult,int numOfTicketsChild,int numOfTicketsBaby,String vacationKind,String hotelIncluded,int rankOfHotel){
-        String sql="SELECT id, flight_company, departure_date, back_date, baggage_included, country,flight_back_included,num_tickets_adult,num_ticket_kid,num_tickets_baby,vacation_kind,hotel_included,rank_hotel,user_name FROM Vacations ";
+        String sql="SELECT id, flight_company, departure_date, back_date, baggage_included, country, flight_back_included, num_tickets_adult, num_tickets_kid ,num_tickets_baby,vacation_kind,hotel_included,rank_hotel,user_name FROM Vacations ";
         String constraints="";
         List<Vacation> vacations=new ArrayList<Vacation>();
         boolean [] isAdded=new boolean[12];
@@ -191,77 +191,107 @@ public class VacationModel {
             isAdded[11]=true;
             somethingAdded=true;
         }
-        Vector<String> ans = new Vector<>();
-        try (Connection conn = this.connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
         if(somethingAdded) {
             sql = sql + "WHERE" + constraints;
-
-
-            // set the values
-            int index = 1;
-            if (isAdded[0]) {
-                pstmt.setString(index, flightCompany);
-                index += 1;
-            }
-            if (isAdded[1]) {
-                pstmt.setString(index, departureDate);
-                index += 1;
-            }
-            if (isAdded[2]) {
-                pstmt.setString(index, backDate);
-                index += 1;
-            }
-            if (isAdded[3]) {
-                pstmt.setString(index, baggageIncluded);
-                index += 1;
-            }
-            if (isAdded[4]) {
-                pstmt.setString(index, Country);
-                index += 1;
-            }
-            if (isAdded[5]) {
-                pstmt.setString(index, flightBackIncluded);
-                index += 1;
-            }
-            if (isAdded[6]) {
-                pstmt.setString(index, String.valueOf(numOfTicketsAdult));
-                index += 1;
-            }
-            if (isAdded[7]) {
-                pstmt.setString(index, String.valueOf(numOfTicketsChild));
-                index += 1;
-            }
-            if (isAdded[8]) {
-                pstmt.setString(index, String.valueOf(numOfTicketsBaby));
-                index += 1;
-            }
-            if (isAdded[9]) {
-                pstmt.setString(index, vacationKind);
-                index += 1;
-            }
-            if (isAdded[10]) {
-                pstmt.setString(index, hotelIncluded);
-                index += 1;
-            }
-            if (isAdded[11]) {
-                pstmt.setString(index, String.valueOf(rankOfHotel));
-            }
         }
+            Vector<String> ans = new Vector<>();
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            ResultSet rs = pstmt.executeQuery();
-            while (rs.next()) {
-                Vacation vacation=new Vacation(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),
-                        rs.getString(6),Integer.parseInt(rs.getString(7)),Integer.parseInt(rs.getString(8)),Integer.parseInt(rs.getString(9)),
-                        rs.getString(10),rs.getString(11),Integer.parseInt(rs.getString(12)),rs.getString(13));
-                vacations.add(vacation);
+
+                    // set the values
+                    int index = 1;
+                    if (isAdded[0]) {
+                        pstmt.setString(index, flightCompany);
+                        index += 1;
+                    }
+                    if (isAdded[1]) {
+                        pstmt.setString(index, departureDate);
+                        index += 1;
+                    }
+                    if (isAdded[2]) {
+                        pstmt.setString(index, backDate);
+                        index += 1;
+                    }
+                    if (isAdded[3]) {
+                        pstmt.setString(index, baggageIncluded);
+                        index += 1;
+                    }
+                    if (isAdded[4]) {
+                        pstmt.setString(index, Country);
+                        index += 1;
+                    }
+                    if (isAdded[5]) {
+                        pstmt.setString(index, flightBackIncluded);
+                        index += 1;
+                    }
+                    if (isAdded[6]) {
+                        pstmt.setString(index, String.valueOf(numOfTicketsAdult));
+                        index += 1;
+                    }
+                    if (isAdded[7]) {
+                        pstmt.setString(index, String.valueOf(numOfTicketsChild));
+                        index += 1;
+                    }
+                    if (isAdded[8]) {
+                        pstmt.setString(index, String.valueOf(numOfTicketsBaby));
+                        index += 1;
+                    }
+                    if (isAdded[9]) {
+                        pstmt.setString(index, vacationKind);
+                        index += 1;
+                    }
+                    if (isAdded[10]) {
+                        pstmt.setString(index, hotelIncluded);
+                        index += 1;
+                    }
+                    if (isAdded[11]) {
+                        pstmt.setString(index, String.valueOf(rankOfHotel));
+                    }
+
+
+
+
+                    //show
+            String id_;
+            String flightCompany_;
+            String departureDate_;
+            String backDate_;
+            String baggageIncluded_;
+            String Country_;
+            String flightBackIncluded_;
+            int numOfTicketsAdult_;
+            int numOfTicketsChild_;
+            int numOfTicketsBaby_;
+            String vacationKind_;
+            String hotelIncluded_;
+            int rankOfHotel_;
+            String userName_;
+                ResultSet rs = pstmt.executeQuery();
+                while (rs.next()) {
+                    //id_=rs.getString(1); no need for vacation
+                    flightCompany_=rs.getString(2);
+                    departureDate_= rs.getString(3);
+                    backDate_=rs.getString(4);
+                    baggageIncluded_=rs.getString(5);
+                    Country_=rs.getString(6);
+                    flightBackIncluded_ =rs.getString(7);
+                    numOfTicketsAdult_=Integer.parseInt(rs.getString(8));
+                    numOfTicketsChild_=Integer.parseInt(rs.getString(9));
+                    numOfTicketsBaby_=Integer.parseInt(rs.getString(10));
+                    vacationKind_=rs.getString(11);
+                    hotelIncluded_=rs.getString(12);
+                    rankOfHotel_=Integer.parseInt(rs.getString(13));
+                    userName_=rs.getString(14);
+                    Vacation vacation = new Vacation(flightCompany_ ,departureDate_, backDate_, baggageIncluded_, Country_, flightBackIncluded_,numOfTicketsAdult_,
+                            numOfTicketsChild_, numOfTicketsBaby_,vacationKind_ ,hotelIncluded_, rankOfHotel_, userName_);
+                    vacations.add(vacation);
+                }
+                return vacations;
+
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
             }
-            return vacations;
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-
 
 
 

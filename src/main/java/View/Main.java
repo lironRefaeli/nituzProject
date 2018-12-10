@@ -152,7 +152,7 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-       // connect();
+        //connect();
         //createNewDatabase("Users.db");
         //createNewTable();
         //createNewVacationTable();
