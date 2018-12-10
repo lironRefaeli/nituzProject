@@ -112,8 +112,6 @@ public class Main extends Application {
     }
 
     //
-    String hotelIncluded; //boolean
-    int rankOfHotel;
     public static void createNewVacationTable() {
         // SQLite connection string
         String url = "jdbc:sqlite:Users.db";
@@ -135,6 +133,27 @@ public class Main extends Application {
                 + "   hotel_included text,\n"
                 + "   rank_hotel text,\n"
                 + "   user_name text NOT NULL\n"
+                + ");";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement()) {
+            // create a new table
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public static void createNewMessageTable() {
+        // SQLite connection string
+        String url = "jdbc:sqlite:Users.db";
+
+        // SQL statement for creating a new table
+
+        String sql = "CREATE TABLE IF NOT EXISTS Messages (\n"
+                + "   id text PRIMARY KEY,\n"
+                + "   sender text NOT NULL,\n"
+                + "   reciever text NOT NULL,\n"
+                + "   seen integer NOT NULL\n"
                 + ");";
 
         try (Connection conn = DriverManager.getConnection(url);
