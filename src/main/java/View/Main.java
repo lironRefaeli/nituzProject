@@ -29,11 +29,10 @@ public class Main extends Application {
       Controller controller = new Controller(model,mainview);
       mainview.setController(controller);
         try {
-//            System.out.println(this.getClass().getClassLoader());
             FXMLLoader fxmlLoader=new FXMLLoader();
-            Parent root = fxmlLoader.load(getClass().getResource("/View.fxml").openStream());
+            Parent root = fxmlLoader.load(getClass().getResource("/Main.fxml").openStream());
             primaryStage.setTitle("Vacation4U");
-            Scene scene=new Scene(root, 500, 500);
+            Scene scene=new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.show();
         }
@@ -114,6 +113,10 @@ public class Main extends Application {
             System.out.println(e.getMessage());
         }
     }
+
+
+
+
 
 
 

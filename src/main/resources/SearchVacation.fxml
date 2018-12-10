@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="769.0" style="" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.SearchVacController">
+    <children>
+        <VBox prefHeight="561.0" prefWidth="808.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <AnchorPane prefHeight="38.0" prefWidth="808.0">
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#toggleExtendableSearch" text="extended search" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                    </children>
+                </AnchorPane>
+                <BorderPane id="borderPane" prefHeight="561.0" prefWidth="808.0">
+                    <center>
+                        <AnchorPane id="AnchorPane">
+                            <children>
+                                <TableView id="mytableView" fx:id="ergebnisTabelle" maxWidth="1.7976931348623157E308" minHeight="200.0" prefHeight="640.0" prefWidth="976.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <columns>
+                                        <TableColumn maxWidth="75.0" prefWidth="75.0" text="a column" />
+                                        <TableColumn id="fa" maxWidth="5000.0" minWidth="10.0" prefWidth="113.0" text="another one" />
+                                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="195.0" text="oh look, another one!" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </center>
+                    <top>
+                        <AnchorPane id="AnchorPane" fx:id="extendableSearchPane" minHeight="170.0" prefHeight="119.0" prefWidth="976.0">
+                            <children>
+                                <Pane layoutX="-8.0" layoutY="14.0" minHeight="111.0" prefHeight="119.0" prefWidth="976.0" snapToPixel="true" AnchorPane.bottomAnchor="-14.0" AnchorPane.leftAnchor="-8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="14.0">
+                                        <Label layoutX="14.0" layoutY="14.0" text="Destination" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                            <GridPane.margin>
+                                                <Insets fx:id="x1" />
+                                            </GridPane.margin>
+                              <font>
+                                 <Font size="16.0" />
+                              </font>
+                                        </Label>
+                                        <Label layoutX="14.0" layoutY="48.0" text="Choose" GridPane.columnIndex="1" GridPane.margin="$x1" GridPane.rowIndex="2">
+                              <font>
+                                 <Font size="16.0" />
+                              </font></Label>
+                                        <ComboBox fx:id="status" layoutX="102.0" layoutY="14.0" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="188.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
+                                            <items>
+                                                <FXCollections fx:factory="observableArrayList">
+                                                    <String fx:value="Item 1" />
+                                                    <String fx:value="Item 2" />
+                                                    <String fx:value="Item 3" />
+                                                </FXCollections>
+                                            </items>
+                                        </ComboBox>
+                                        <HBox id="HBox" alignment="CENTER_RIGHT" spacing="5.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                           <Accordion layoutX="102.0" layoutY="48.0">
+                             <panes>
+
+                             </panes>
+                           </Accordion>
+                           <Label layoutX="298.0" layoutY="48.0" text="Flight company">
+                              <font>
+                                 <Font size="16.0" />
+                              </font>
+                           </Label>
+                                        <Label layoutX="13.0" layoutY="115.0" text="Dates">
+                              <font>
+                                 <Font size="16.0" />
+                              </font>
+                           </Label>
+                           <CheckBox layoutX="298.0" layoutY="115.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="227.0">
+                              <graphic>
+                                 <DatePicker disable="true" prefHeight="25.0" prefWidth="221.0" promptText="Return date" />
+                              </graphic>
+                           </CheckBox>
+                           <DatePicker layoutX="103.0" layoutY="115.0" prefHeight="25.0" prefWidth="184.0" promptText="Departure date" />
+                                             <Button id="searchBtn" alignment="CENTER" contentDisplay="RIGHT" layoutX="534.0" layoutY="80.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="221.0" text="search">
+                              <font>
+                                 <Font size="21.0" />
+                              </font>
+                           </Button>
+                           <ComboBox fx:id="status2" layoutX="414.0" layoutY="48.0" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="151.0">
+                              <items>
+                                 <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="Item 1" />
+                                    <String fx:value="Item 2" />
+                                    <String fx:value="Item 3" />
+                                 </FXCollections>
+                              </items>
+                           </ComboBox>
+                           <ComboBox fx:id="status3" layoutX="413.0" layoutY="15.0" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="152.0">
+                              <items>
+                                 <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="Item 1" />
+                                    <String fx:value="Item 2" />
+                                    <String fx:value="Item 3" />
+                                 </FXCollections>
+                              </items>
+                           </ComboBox>
+                           <Label layoutX="298.0" layoutY="14.0" text="Vacation type">
+                              <font>
+                                 <Font size="16.0" />
+                              </font>
+                           </Label>
+                           <CheckBox layoutX="298.0" layoutY="82.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0">
+                              <graphic>
+                                 <Label prefHeight="25.0" prefWidth="114.0" text="Include hotel">
+                                    <font>
+                                       <Font size="16.0" />
+                                    </font>
+                                 </Label>
+                              </graphic>
+                           </CheckBox>
+                           <CheckBox layoutX="572.0" layoutY="15.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0">
+                              <graphic>
+                                 <Label prefHeight="25.0" prefWidth="114.0" text="Include bagage">
+                                    <font>
+                                       <Font size="16.0" />
+                                    </font>
+                                 </Label>
+                              </graphic>
+                           </CheckBox>
+                           <ChoiceBox disable="true" layoutX="414.0" layoutY="82.0" prefHeight="25.0" prefWidth="110.0" />
+                                    <TitledPane fx:id="accord" animated="false" layoutX="102.0" layoutY="43.0" prefHeight="113.0" prefWidth="187.0" text="Tickets number">
+                                        <content>
+                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="83.0" prefWidth="200.0">
+                                                <children>
+                                                    <TextField editable="false" layoutX="116.0" layoutY="-1.0" prefHeight="27.0" prefWidth="39.0" promptText="0" />
+                                                    <TextField editable="false" layoutX="116.0" layoutY="28.0" prefHeight="27.0" prefWidth="39.0" promptText="0" />
+                                                    <TextField editable="false" layoutX="116.0" layoutY="57.0" prefHeight="27.0" prefWidth="39.0" promptText="0" />
+                                                    <Label layoutX="16.0" text="Adult:">
+                                                        <font>
+                                                            <Font size="16.0" />
+                                                        </font>
+                                                    </Label>
+                                                    <Label layoutX="15.0" layoutY="27.0" text="Child:">
+                                                        <font>
+                                                            <Font size="16.0" />
+                                                        </font>
+                                                    </Label>
+                                                    <Label layoutX="17.0" layoutY="54.0" text="Baby:">
+                                                        <font>
+                                                            <Font size="16.0" />
+                                                        </font>
+                                                    </Label>
+                                                    <Button layoutX="87.0" layoutY="-1.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="29.0" text="-" />
+                                                    <Button layoutX="155.0" layoutY="-1.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="30.0" text="+" />
+                                                    <Button layoutX="155.0" layoutY="28.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="30.0" text="+" />
+                                                    <Button layoutX="155.0" layoutY="57.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="30.0" text="+" />
+                                                    <Button layoutX="87.0" layoutY="28.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="29.0" text="-" />
+                                                    <Button layoutX="87.0" layoutY="57.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="29.0" text="-" />
+                                                </children>
+                                            </AnchorPane>
+                                        </content>
+                                        <font>
+                                            <Font size="13.0" />
+                                        </font>
+                                    </TitledPane>
+                                </Pane>
+                            </children>
+                        </AnchorPane>
+                    </top>
+                </BorderPane>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

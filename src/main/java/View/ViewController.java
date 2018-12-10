@@ -107,10 +107,24 @@ public class ViewController extends AView {
             e.printStackTrace();
 
         }
-
-
     }
 
+    @FXML
+    private void startMain(ActionEvent event) {
+        FXMLLoader fxmlLoader=new FXMLLoader();
+        Parent root = null;
+        try {
+            root = fxmlLoader.load(getClass().getResource("/SearchVacation.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+
+        stage.setTitle("Extendable search pane demo");
+        stage.setScene(scene);
+        stage.show();
+    }
 
 
 }
