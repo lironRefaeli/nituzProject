@@ -128,7 +128,7 @@ public class ViewController extends AView {
             stage.setTitle("Search For Vacation");
             stage.setScene(new Scene(root1));
             stage.show();
-            System.out.println(userName);
+
         }
         catch (IOException e){
 

@@ -256,7 +256,7 @@ public class SearchVacController extends AView {
     }
 
     public void withReturn(ActionEvent ae) {
-        System.out.println(includeReturn.getValue());
+
         if (includeReturn.getValue().equals("yes")) {
             ReturnDate.setDisable(false);
         } else {
@@ -265,7 +265,7 @@ public class SearchVacController extends AView {
     }
 
     public void withHotel(ActionEvent ae) {
-        System.out.println(includeReturn.getValue());
+
         if (includeHotel.getValue().equals("yes")) {
             hotelStars.setDisable(false);
             hotelType.setDisable(false);
@@ -335,7 +335,7 @@ public class SearchVacController extends AView {
         int numOfTicketsAdult = -1, numOfTicketsChild = -1, numOfTicketsBaby = -1, rankOfHotel = -1;
         /**get the information from the view objects:**/
         {
-            if (destination.getValue() != null && !includeReturn.getValue().equals("Anywhere")) {
+            if (destination.getValue() != null && !destination.getValue().equals("Anywhere")) {
                 Country = destination.getValue();
             }
             if (DepartureDate.getValue() != null) {

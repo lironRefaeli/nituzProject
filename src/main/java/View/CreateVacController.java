@@ -72,7 +72,7 @@ public class CreateVacController extends AView {
     }
 
     public void withReturn(ActionEvent ae) {
-        System.out.println(includeReturn.getValue());
+
         if (includeReturn.getValue().equals("yes")) {
             ReturnDate.setDisable(false);
         } else {
@@ -81,7 +81,7 @@ public class CreateVacController extends AView {
     }
 
     public void withHotel(ActionEvent ae) {
-        System.out.println(includeReturn.getValue());
+
         if (includeHotel.getValue().equals("yes")) {
             hotelStars.setDisable(false);
             hotelType.setDisable(false);
