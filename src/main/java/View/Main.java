@@ -176,7 +176,9 @@ public class Main extends Application {
                 + "   id text PRIMARY KEY,\n"
                 + "   sender text NOT NULL,\n"
                 + "   reciever text NOT NULL,\n"
-                + "   seen integer NOT NULL\n"
+                + "   seen integer NOT NULL,\n"
+                + "   vacation_ID integer NOT NULL\n"
+
                 + ");";
 
         try (Connection conn = DriverManager.getConnection(url);
