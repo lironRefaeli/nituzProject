@@ -21,7 +21,7 @@ public class MessageModel {
 
 
     public boolean Create(Message message) {
-        String sql = "INSERT INTO Messages(id, sender, reciever ,seen) VALUES(?,?,?,?)";
+        String sql = "INSERT INTO Messages(id, sender, reciever ,seen, vacation_ID) VALUES(?,?,?,?,?)";
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -29,6 +29,7 @@ public class MessageModel {
             pstmt.setString(2, message.getSender());
             pstmt.setString(3, message.getReciever());
             pstmt.setString(4, String.valueOf(message.getSeen()));
+            pstmt.setString(5, String.valueOf(message.getVacationID()));
             pstmt.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -39,7 +40,7 @@ public class MessageModel {
 
     public List<Message> searchByReciever(String reciever) {
 
-        String sql = "SELECT id, sender, reciever,seen FROM Messages Where reciever = ? ";//all messages
+        String sql = "SELECT id, sender, reciever,seen ,vacation_ID FROM Messages Where reciever = ? ";//all messages
         List<Message> msgs = new ArrayList<Message>();
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -49,8 +50,9 @@ public class MessageModel {
                // String id=rs.getString(1);
                 String sender= rs.getString(2);
                 String reciever_=rs.getString(3);
-               //String seen=rs.getString(4);//0
-               Message message=new Message(sender,reciever);
+               String seen=rs.getString(4);//0
+               String Vacation=rs.getString(5);
+               Message message=new Message(sender,reciever,Integer.valueOf(seen),Integer.valueOf(Vacation));
                msgs.add(message);
             }
             return msgs;
@@ -68,7 +70,6 @@ public class MessageModel {
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             // set the corresponding param
-//            pstmt.setString(1, userName);
             pstmt.setString(1, String.valueOf(seen));
             pstmt.setString(2, String.valueOf(id));
 

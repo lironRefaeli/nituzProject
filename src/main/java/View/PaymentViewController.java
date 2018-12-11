@@ -35,15 +35,17 @@ public class PaymentViewController extends AView {
 
         PaymentController controller=(PaymentController)this.controller;
 
+        /**
         //todo bring the data from the msg
         messageController msgController;
         String seller = msgController.get();
         String buyer = msgController.get();
         String amount = msgController.get();
         controller.pay(user, password, seller, buyer, amount);
-
+**/
         Alert errorAlert = new Alert(Alert.AlertType.CONFIRMATION);
-        errorAlert.setHeaderText("The payment was paid successfully!");
+        errorAlert.setHeaderText("Action Successful");
+        errorAlert.setContentText("The payment was paid successfully!");
         errorAlert.showAndWait();
 
     }

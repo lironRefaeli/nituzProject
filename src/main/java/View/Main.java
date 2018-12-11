@@ -27,7 +27,7 @@ public class Main extends Application {
 
         try {
             FXMLLoader fxmlLoader=new FXMLLoader();
-            Parent root = fxmlLoader.load(getClass().getResource("/CreateVac.fxml").openStream());
+            Parent root = fxmlLoader.load(getClass().getResource("/Main.fxml").openStream());
             primaryStage.setTitle("Vacation4U");
             Scene scene=new Scene(root);
             primaryStage.setScene(scene);
@@ -176,7 +176,9 @@ public class Main extends Application {
                 + "   id text PRIMARY KEY,\n"
                 + "   sender text NOT NULL,\n"
                 + "   reciever text NOT NULL,\n"
-                + "   seen integer NOT NULL\n"
+                + "   seen integer NOT NULL,\n"
+                + "   vacation_ID integer NOT NULL\n"
+
                 + ");";
 
         try (Connection conn = DriverManager.getConnection(url);

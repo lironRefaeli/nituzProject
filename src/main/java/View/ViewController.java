@@ -133,7 +133,6 @@ public class ViewController extends AView {
 
     }
 
-    //todo check if username passes
     public void openMessages(ActionEvent actionEvent) {
         MessageModel model = new MessageModel();
         MessagesViewController view=new MessagesViewController ();
@@ -143,10 +142,29 @@ public class ViewController extends AView {
             FXMLLoader fxmlLoader = new FXMLLoader();
             Parent root1 = fxmlLoader.load(getClass().getResource("/Messages.fxml").openStream());
             MessagesViewController controller1=fxmlLoader.<MessagesViewController>getController();
-            controller1.setUserName(userName);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Messages:");
+            stage.setScene(new Scene(root1));
+            stage.show();
+        }
+        catch (IOException e){
+
+        }
+
+    }
+
+    public void openNewVacationForm(ActionEvent actionEvent) {
+        VacationModel model = new VacationModel();
+        SearchVacController view=new SearchVacController();
+        VacationController controller = new VacationController(userName,model,view);
+        view.setController(controller);
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            Parent root1 = fxmlLoader.load(getClass().getResource("/CreateVac.fxml").openStream());
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Create New Vacation");
             stage.setScene(new Scene(root1));
             stage.show();
         }

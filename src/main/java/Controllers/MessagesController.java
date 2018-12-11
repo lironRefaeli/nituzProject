@@ -21,13 +21,12 @@ public class MessagesController extends AController {
         this.view = view;
     }
 
-    public boolean Create(String sender, String reciever) {
-            Message message=new Message(sender,reciever);
+    public boolean Create(String sender, String reciever,int seen,int vacationId) {
+            Message message=new Message(sender,reciever,seen,vacationId);
             return messageModel.Create(message);
-
     }
 
-    public void UpdateSeenToMessage(int id, int seen){
+    public void updateSeenToMessage(int id, int seen){
         messageModel.UpdateSeen(id,seen);
     }
 
