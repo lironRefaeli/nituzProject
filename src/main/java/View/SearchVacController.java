@@ -38,40 +38,79 @@ public class SearchVacController extends AView {
     //Vacation information:
     @FXML
     private ComboBox<String> destination;
-    private boolean isNumTouched = false; //if any num is touched.
+    @FXML
+    private TableColumn destionationCol;
+
     @FXML
     private TextField AdultNum;
     int i_AdultNum = 0;
     private final int maxAd = 10;
     private final int minAd = 0;
     @FXML
+    private TableColumn adultCol;
+
+    @FXML
     private TextField ChildNum;
     int i_ChildNum = 0;
     private final int maxCh = 10;
     private final int minCh = 0;
+    @FXML
+    private TableColumn childCol;
+
     @FXML
     private TextField BabyNum;
     int i_BabyNum = 0;
     private final int maxBa = 10;
     private final int minBa = 0;
     @FXML
+    private TableColumn babyCol;
+
+    @FXML
     private DatePicker DepartureDate;
+    @FXML
+    private TableColumn depDateCol;
+
     @FXML
     private ComboBox<String> includeReturn;
     @FXML
+    private TableColumn withReturnCol;
+
+    @FXML
     private DatePicker ReturnDate;
     @FXML
-    private ComboBox<String> includeHotel;
-    @FXML
-    private ComboBox<String> hotelStars;
-    @FXML
-    private ComboBox<String> hotelType;
-    @FXML
-    private ComboBox<String> flightComp;
+    private TableColumn returnDateCol;
+
     @FXML
     private ComboBox<String> vacationType;
     @FXML
+    private TableColumn vacationTypeCol;
+
+    @FXML
+    private ComboBox<String> flightComp;
+    @FXML
+    private TableColumn flightCompCol;
+
+    @FXML
     private ComboBox<String> includeBag;
+    @FXML
+    private TableColumn includeBagCol;
+
+    @FXML
+    private ComboBox<String> includeHotel;
+    @FXML
+    private TableColumn includeHotCol;
+
+    @FXML
+    private ComboBox<String> hotelType;
+    @FXML
+    private TableColumn hotelTypeCol;
+
+    @FXML
+    private ComboBox<String> hotelStars;
+    @FXML
+    private TableColumn hotelRankCol;
+
+
     @FXML
     private TableView<Vacation> vacTable;
 
@@ -90,7 +129,6 @@ public class SearchVacController extends AView {
         accord.setExpanded(false);
         clipRect.setWidth(extendableSearchPane.getWidth());
         toggleExtendableSearch();
-        isNumTouched = false;
         i_AdultNum = 0;
         i_ChildNum = 0;
         i_BabyNum = 0;
@@ -223,63 +261,83 @@ public class SearchVacController extends AView {
         String flightCompany = "", departureDate = "", backDate = "", baggageIncluded = "",
                 Country = "", flightBackIncluded = "", vacationKind = "", hotelIncluded = "";
         int numOfTicketsAdult = -1, numOfTicketsChild = -1, numOfTicketsBaby = -1, rankOfHotel = -1;
-        if (destination.getValue() != null) {
-            Country = destination.getValue();
-        }
-        if (AdultNum.getText() != null && Integer.valueOf(AdultNum.getText()) != 0)
-            numOfTicketsAdult = Integer.valueOf(AdultNum.getText());
-        if (ChildNum.getText() != null && Integer.valueOf(ChildNum.getText()) != 0)
-            numOfTicketsChild = Integer.valueOf(ChildNum.getText());
-        if (BabyNum.getText() != null && Integer.valueOf(BabyNum.getText()) != 0)
-            numOfTicketsBaby = Integer.valueOf(BabyNum.getText());
-
-        if (DepartureDate.getValue() != null) {
-            departureDate = DepartureDate.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        }
-        if (includeReturn.getValue()!=null && !includeReturn.getValue().equals("not must")) {
-            flightBackIncluded = includeReturn.getValue();
-            if (ReturnDate.getValue() != null) { //todo - add check to returndate bigger then departure date
-                backDate = ReturnDate.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        /**get the information from the view objects:**/
+        {
+            if (destination.getValue() != null) {
+                Country = destination.getValue();
             }
-        }
+            try {
+                if (AdultNum.getText() != null && Integer.valueOf(AdultNum.getText()) != 0)
+                    numOfTicketsAdult = Integer.valueOf(AdultNum.getText());
+            } catch (Exception e) {
 
-        if (vacationType.getValue() != null && !vacationType.getValue().equals("Exotic or Urbanic")) {
-            vacationKind = vacationType.getValue();
-        } // else ""
+            }
+            try {
+                if (ChildNum.getText() != null && Integer.valueOf(ChildNum.getText()) != 0)
+                    numOfTicketsChild = Integer.valueOf(ChildNum.getText());
+            } catch (Exception e) {
 
-            if (vacationType.getValue() != null && !vacationType.getValue().equals("Exotic or Urbanic")) {
-            vacationKind = vacationType.getValue();
-        } // else ""
+            }
+            try {
+                if (BabyNum.getText() != null && Integer.valueOf(BabyNum.getText()) != 0)
+                    numOfTicketsBaby = Integer.valueOf(BabyNum.getText());
+            } catch (Exception e) {
 
-        if (flightComp.getValue() != null && !flightComp.getValue().equals("All the companies")) {
-            flightCompany = flightComp.getValue();
-        }
-        if (includeHotel.getValue()!=null && !includeHotel.getValue().equals("not must")) {
-            hotelIncluded = includeHotel.getValue();
-            if (hotelStars.getValue() != null && !hotelStars.getValue().equals("Any rank")) {
-                switch ((String)hotelStars.getValue()){
-                    case "★":
-                        rankOfHotel=1; break;
-                    case "★★":
-                        rankOfHotel=2; break;
-                    case "★★★":
-                        rankOfHotel=3; break;
-                    case "★★★★":
-                        rankOfHotel=4; break;
-                    case "★★★★★":
-                        rankOfHotel=5; break;
-                    default: rankOfHotel=-1;
+            }
+
+            if (DepartureDate.getValue() != null) {
+                departureDate = DepartureDate.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            }
+            if (includeReturn.getValue() != null && !includeReturn.getValue().equals("not must")) {
+                flightBackIncluded = includeReturn.getValue();
+                if (ReturnDate.getValue() != null) { //todo - add check to returndate bigger then departure date
+                    backDate = ReturnDate.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
                 }
             }
-            if (hotelType.getValue() != null && !hotelType.getValue().equals("Any type")){
-                vacationKind=hotelType.getValue();
-            }
-        }//hotels
 
-        if (includeBag.getValue()!=null && !includeBag.getValue().equals("not must")) {
-            baggageIncluded = includeBag.getValue();
-        }
-        
+            if (vacationType.getValue() != null && vacationType.getValue() != null && !vacationType.getValue().equals("Exotic or Urbanic")) {
+                vacationKind = vacationType.getValue();
+            } // else ""
+
+            if (vacationType.getValue() != null && vacationType.getValue() != null && !vacationType.getValue().equals("Exotic or Urbanic")) { //todo!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                vacationKind = vacationType.getValue();
+            } // else ""
+
+            if (flightComp.getValue() != null && flightComp.getValue() != null && !flightComp.getValue().equals("All the companies")) {
+                flightCompany = flightComp.getValue();
+            }
+            if (includeHotel.getValue() != null && !includeHotel.getValue().equals("not must")) {
+                hotelIncluded = includeHotel.getValue();
+                if (hotelStars.getValue() != null && !hotelStars.getValue().equals("Any rank")) {
+                    switch ((String) hotelStars.getValue()) {
+                        case "★":
+                            rankOfHotel = 1;
+                            break;
+                        case "★★":
+                            rankOfHotel = 2;
+                            break;
+                        case "★★★":
+                            rankOfHotel = 3;
+                            break;
+                        case "★★★★":
+                            rankOfHotel = 4;
+                            break;
+                        case "★★★★★":
+                            rankOfHotel = 5;
+                            break;
+                        default:
+                            rankOfHotel = -1;
+                    }
+                }
+                if (hotelType.getValue() != null && hotelType.getValue() != null && !hotelType.getValue().equals("Any type")) {
+                     hotelType.getValue(); //todo
+                }
+            }//hotels
+
+            if (includeBag.getValue() != null && includeBag.getValue() != null && !includeBag.getValue().equals("not must")) {
+                baggageIncluded = (String) includeBag.getValue();
+            }
+        }//get the information from the view object
         VacationController controller = (VacationController) this.controller;
         List<Vacation> vacList = controller.Search(flightCompany, departureDate, backDate, baggageIncluded,
                 Country, flightBackIncluded, numOfTicketsAdult, numOfTicketsChild, numOfTicketsBaby, vacationKind, hotelIncluded, rankOfHotel);
@@ -287,14 +345,49 @@ public class SearchVacController extends AView {
 
         ObservableList<Vacation> vacObsList = FXCollections.observableArrayList();
         vacObsList.addAll(vacList);
+        {
 
-        TableColumn<Vacation,String> flightCompanyColumn = new TableColumn<>("FlightCompany");
-        flightCompanyColumn.setMinWidth(200);
-        flightCompanyColumn.setCellValueFactory(new PropertyValueFactory<>("flightCompany"));
 
-        vacTable.setItems(vacObsList);
-        vacTable.getColumns().addAll(flightCompanyColumn);
+            destionationCol.setCellValueFactory(new PropertyValueFactory<>("Country"));
+            vacTable.setItems(vacObsList);
 
+            adultCol.setCellValueFactory(new PropertyValueFactory<>("numOfTicketsAdult"));
+            vacTable.setItems(vacObsList);
+
+            childCol.setCellValueFactory(new PropertyValueFactory<>("numOfTicketsKid"));
+            vacTable.setItems(vacObsList);
+
+            babyCol.setCellValueFactory(new PropertyValueFactory<>("numOfTicketsBaby"));
+            vacTable.setItems(vacObsList);
+
+            depDateCol.setCellValueFactory(new PropertyValueFactory<>("departureDate"));
+            vacTable.setItems(vacObsList);
+
+            withReturnCol.setCellValueFactory(new PropertyValueFactory<>("flightBackIncluded"));
+            vacTable.setItems(vacObsList);
+
+            returnDateCol.setCellValueFactory(new PropertyValueFactory<>("backDate"));
+            vacTable.setItems(vacObsList);
+
+            vacationTypeCol.setCellValueFactory(new PropertyValueFactory<>("vacationKind"));
+            vacTable.setItems(vacObsList);
+
+            flightCompCol.setCellValueFactory(new PropertyValueFactory<>("flightCompany"));
+            vacTable.setItems(vacObsList);
+
+            includeBagCol.setCellValueFactory(new PropertyValueFactory<>("baggageIncluded"));
+            vacTable.setItems(vacObsList);
+
+            includeHotCol.setCellValueFactory(new PropertyValueFactory<>("hotelIncluded"));
+            vacTable.setItems(vacObsList);
+
+            /**todo hotelTypeCol.setCellValueFactory(new PropertyValueFactory<>(""));
+            vacTable.setItems(vacObsList);**/
+
+            hotelRankCol.setCellValueFactory(new PropertyValueFactory<>("rankOfHotel"));
+            vacTable.setItems(vacObsList);
+
+        }
 
 
     }

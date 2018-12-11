@@ -27,7 +27,7 @@ public class Main extends Application {
 
         try {
             FXMLLoader fxmlLoader=new FXMLLoader();
-            Parent root = fxmlLoader.load(getClass().getResource("/CreateVac.fxml").openStream());
+            Parent root = fxmlLoader.load(getClass().getResource("/Main.fxml").openStream());
             primaryStage.setTitle("Vacation4U");
             Scene scene=new Scene(root);
             primaryStage.setScene(scene);
