@@ -41,6 +41,7 @@ public class ViewController extends AView {
             FXMLLoader fxmlLoader=new FXMLLoader();
             Parent root = fxmlLoader.load(getClass().getResource("/Read.fxml").openStream());
             stage.setTitle("Vacation4U - Read");
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(new Scene(root, 500, 500));
             stage.show();
         }
@@ -120,6 +121,8 @@ public class ViewController extends AView {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             Parent root1 = fxmlLoader.load(getClass().getResource("/SearchVacation.fxml").openStream());
+            SearchVacController controller1=fxmlLoader.<SearchVacController>getController();
+            controller1.setUserName(userName);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Search For Vacation");

@@ -22,70 +22,45 @@ public class VacationModel {
 
     //create
     public boolean Create(Vacation vacation) {
-        String sql = "INSERT INTO Vacations(id, flight_company, departure_date, back_date, baggage_included, country,flight_back_included,num_tickets_adult,num_ticket_kid,num_tickets_baby,vacation_kind,hotel_included,rank_hotel,user_name) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Vacations(id, flight_company, departure_date, back_date, baggage_included, country,flight_back_included,num_tickets_adult,num_tickets_kid,num_tickets_baby,vacation_kind,hotel_included,rank_hotel,user_name) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, String.valueOf(vacation.getId()));
 
-            if(vacation.getFlightCompany().equals(""))
-                pstmt.setString(2, null);
-            else
+
                 pstmt.setString(2, vacation.getFlightCompany());
 
-            if(vacation.getDepartureDate().equals(""))
-                pstmt.setString(3, null);
-            else
+
                 pstmt.setString(3, vacation.getDepartureDate());
 
-            if(vacation.getBackDate().equals(""))
-                pstmt.setString(4, null);
-            else
+
                 pstmt.setString(4, vacation.getBackDate());
 
-            if(vacation.getBaggageIncluded().equals(""))
-                pstmt.setString(5, null);
-            else
                 pstmt.setString(5,vacation.getBaggageIncluded());
 
-            if(vacation.getCountry().equals(""))
-                pstmt.setString(6, null);
-            else
+
                  pstmt.setString(6,vacation.getCountry());
 
-            if(vacation.getFlightBackIncluded().equals(""))
-                pstmt.setString(7, null);
-            else
+
                 pstmt.setString(7,vacation.getFlightBackIncluded());
 
-            if(vacation.getNumOfTicketsAdult()==-1)
-                pstmt.setString(8, null);
-            else
+
                 pstmt.setString(8,String.valueOf(vacation.getNumOfTicketsAdult()));
 
-            if(vacation.getNumOfTicketsKid()==-1)
-                pstmt.setString(9, null);
-            else
+
                 pstmt.setString(9,String.valueOf(vacation.getNumOfTicketsKid()));
 
-            if(vacation.getNumOfTicketsBaby()==-1)
-                pstmt.setString(10, null);
-            else
+
                 pstmt.setString(10,String.valueOf(vacation.getNumOfTicketsBaby()));
 
-            if(vacation.getVacationKind().equals(""))
-                pstmt.setString(11, null);
-            else
+
                 pstmt.setString(11,vacation.getVacationKind());
 
-            if(vacation.getHotelIncluded().equals(""))
-                pstmt.setString(12, null);
-            else
+
                 pstmt.setString(12, vacation.getHotelIncluded());
 
-            if(vacation.getRankOfHotel()==-1)
-                pstmt.setString(13, null);
-            else
+
                 pstmt.setString(13, String.valueOf(vacation.getRankOfHotel()));
 
             pstmt.setString(14, vacation.getUserName());

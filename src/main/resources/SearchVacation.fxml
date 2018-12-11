@@ -19,19 +19,23 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="628.0" prefWidth="1159.0" style="" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.SearchVacController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="688.0" prefWidth="1268.0" style="" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.SearchVacController">
     <children>
         <VBox prefHeight="561.0" prefWidth="995.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="23.0">
             <children>
                 <AnchorPane prefHeight="22.0" prefWidth="1035.0">
                     <children>
-                        <Button mnemonicParsing="false" onAction="#toggleExtendableSearch" prefHeight="25.0" prefWidth="103.0" text="extended search" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                        <Button layoutX="678.0" mnemonicParsing="false" onAction="#toggleExtendableSearch" prefHeight="34.0" prefWidth="122.0" text="extended search" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="468.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Button>
                            <Label layoutX="20.0" layoutY="1.0" text="Destination">
                                <font>
                                    <Font size="16.0" />
                                </font>
                            </Label>
-                           <ComboBox fx:id="destination" layoutX="53.0" layoutY="1.0" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="188.0" promptText="Anywhere">
+                           <ComboBox fx:id="destination" layoutX="116.0" layoutY="-1.0" maxWidth="1.7976931348623157E308" prefHeight="33.0" prefWidth="146.0" promptText="Anywhere">
                                <items>
                                    <FXCollections fx:factory="observableArrayList">
                                        <String fx:value="Anywhere" />
@@ -46,19 +50,24 @@
                                    </FXCollections>
                                </items>
                            </ComboBox>
-                           <DatePicker fx:id="DepartureDate" editable="false" layoutX="348.0" layoutY="2.0" prefHeight="25.0" prefWidth="222.0" promptText="Departure date" />
-                           <Label layoutX="304.0" layoutY="1.0" text="Dates">
+                           <DatePicker fx:id="DepartureDate" editable="false" layoutX="394.0" prefHeight="33.0" prefWidth="210.0" promptText="Departure date" />
+                           <Label layoutX="337.0" layoutY="3.0" text="Dates">
                                <font>
                                    <Font size="16.0" />
                                </font>
                            </Label>
+                  <Button id="searchBtn" fx:id="searchNotEx" alignment="CENTER" contentDisplay="RIGHT" layoutX="800.0" mnemonicParsing="false" onAction="#search" prefHeight="33.0" prefWidth="97.0" text="search" visible="true">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
                     </children>
                 </AnchorPane>
                 <BorderPane id="borderPane" prefHeight="536.0" prefWidth="799.0">
                     <center>
-                        <AnchorPane id="AnchorPane">
+                        <AnchorPane id="AnchorPane" prefHeight="465.0" prefWidth="1268.0">
                             <children>
-                                <TableView id="mytableView" fx:id="vacTable" layoutX="2.0" maxWidth="1.7976931348623157E308" minHeight="200.0" prefHeight="405.0" prefWidth="1035.0" AnchorPane.bottomAnchor="-39.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="0.0">
+                                <TableView id="mytableView" fx:id="vacTable" layoutX="2.0" maxWidth="1.7976931348623157E308" minHeight="200.0" prefHeight="448.0" prefWidth="1268.0" AnchorPane.bottomAnchor="-82.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="0.0">
                                     <columns>
                                         <TableColumn fx:id="destionationCol" maxWidth="75.0" prefWidth="75.0" text="Destination" />
                                         <TableColumn id="fa" fx:id="adultCol" maxWidth="5000.0" minWidth="10.0" prefWidth="52.0" text="Adult" />
@@ -87,17 +96,17 @@
 
                                         </panes>
                                     </Accordion>
-                                    <Label layoutX="312.0" layoutY="77.0" text="Flight company">
+                                    <Label layoutX="345.0" layoutY="70.0" text="Flight company">
                                         <font>
                                             <Font size="16.0" />
                                         </font>
                                     </Label>
-                                    <Button id="searchBtn" alignment="CENTER" contentDisplay="RIGHT" layoutX="685.0" layoutY="73.0" mnemonicParsing="false" onAction="#search" prefHeight="62.0" prefWidth="449.0" text="search">
+                                    <Button id="searchBtn" alignment="CENTER" contentDisplay="RIGHT" layoutX="685.0" layoutY="73.0" mnemonicParsing="false" onAction="#search" prefHeight="62.0" prefWidth="455.0" text="search">
                                         <font>
                                             <Font size="21.0" />
                                         </font>
                                     </Button>
-                                    <Label layoutX="312.0" layoutY="43.0" text="Vacation type">
+                                    <Label layoutX="345.0" layoutY="36.0" text="Vacation type">
                                         <font>
                                             <Font size="16.0" />
                                         </font>
@@ -112,7 +121,7 @@
                                             </FXCollections>
                                         </items>
                                     </ComboBox>
-                                    <ComboBox fx:id="flightComp" layoutX="428.0" layoutY="77.0" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="151.0" promptText="All the companies">
+                                    <ComboBox fx:id="flightComp" layoutX="461.0" layoutY="70.0" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="151.0" promptText="All the companies">
                                         <items>
                                             <FXCollections fx:factory="observableArrayList">
                                                 <String fx:value="All the companies" />
@@ -124,7 +133,7 @@
                                             </FXCollections>
                                         </items>
                                     </ComboBox>
-                                    <ComboBox fx:id="vacationType" layoutX="427.0" layoutY="44.0" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="152.0" promptText="Exotic or Urbanic">
+                                    <ComboBox fx:id="vacationType" layoutX="460.0" layoutY="37.0" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="152.0" promptText="Exotic or Urbanic">
                                         <items>
                                             <FXCollections fx:factory="observableArrayList">
                                                 <String fx:value="Exotic or Urbanic" />
@@ -138,7 +147,7 @@
                                             <Font size="16.0" />
                                         </font>
                                     </Label>
-                                    <ComboBox fx:id="includeBag" layoutX="806.0" layoutY="4.0" prefHeight="25.0" prefWidth="103.0" promptText="not must"><items>
+                                    <ComboBox fx:id="includeBag" layoutX="799.0" layoutY="4.0" prefHeight="25.0" prefWidth="341.0" promptText="not must"><items>
                                         <FXCollections fx:factory="observableArrayList">
                                             <String fx:value="not must" />
                                             <String fx:value="yes" />
@@ -170,12 +179,12 @@
                                         <String fx:value="★★★★★" />
                                         </FXCollections></items>
                                     </ComboBox>
-                                    <Label layoutX="26.0" layoutY="3.0" text="Tickets">
+                                    <Label layoutX="26.0" layoutY="5.0" text="Tickets">
                                         <font>
                                             <Font size="16.0" />
                                         </font>
                                     </Label>
-                                    <TitledPane fx:id="accord" animated="false" layoutX="82.0" layoutY="3.0" prefHeight="113.0" prefWidth="187.0" text="Tickets number">
+                                    <TitledPane fx:id="accord" animated="false" layoutX="82.0" layoutY="5.0" prefHeight="113.0" prefWidth="187.0" text="Tickets number">
                                         <content>
                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="83.0" prefWidth="200.0">
                                                 <children>
@@ -210,8 +219,8 @@
                                             <Font size="13.0" />
                                         </font>
                                     </TitledPane>
-                                    <DatePicker fx:id="ReturnDate" disable="true" layoutX="419.0" layoutY="3.0" prefHeight="25.0" prefWidth="159.0" promptText="Return date" />
-                                    <ComboBox fx:id="includeReturn" layoutX="312.0" layoutY="2.0" onAction="#withReturn" prefHeight="25.0" prefWidth="103.0" promptText="not must">
+                                    <DatePicker fx:id="ReturnDate" disable="true" layoutX="452.0" layoutY="5.0" prefHeight="25.0" prefWidth="159.0" promptText="Return date" />
+                                    <ComboBox fx:id="includeReturn" layoutX="345.0" layoutY="5.0" onAction="#withReturn" prefHeight="25.0" prefWidth="103.0" promptText="not must">
                                         <items>
                                             <FXCollections fx:factory="observableArrayList">
                                                 <String fx:value="not must" />

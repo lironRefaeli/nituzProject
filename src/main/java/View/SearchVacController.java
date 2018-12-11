@@ -1,6 +1,10 @@
 package View;
 
+import Controllers.Controller;
+import Controllers.MessagesController;
 import Controllers.VacationController;
+import Model.Message;
+import Model.MessageModel;
 import Model.Vacation;
 import com.sun.org.apache.regexp.internal.RE;
 import javafx.animation.KeyFrame;
@@ -22,6 +26,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import javafx.util.Duration;
 
 import java.time.format.DateTimeFormatter;
@@ -29,6 +34,7 @@ import java.util.List;
 
 public class SearchVacController extends AView {
 
+    private String userName="";
     @FXML
     private AnchorPane extendableSearchPane;
     @FXML
@@ -109,11 +115,17 @@ public class SearchVacController extends AView {
     private ComboBox<String> hotelStars;
     @FXML
     private TableColumn hotelRankCol;
+    @FXML
+    private Button searchNotEx;
 
 
     @FXML
     private TableView<Vacation> vacTable;
+    private boolean isExtend=false; // true if now its extend mode , false if not.
 
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
     @FXML
     void initialize() {
@@ -129,9 +141,62 @@ public class SearchVacController extends AView {
         accord.setExpanded(false);
         clipRect.setWidth(extendableSearchPane.getWidth());
         toggleExtendableSearch();
+        searchNotEx.setVisible(true);
         i_AdultNum = 0;
         i_ChildNum = 0;
         i_BabyNum = 0;
+        TableColumn actionCol = new TableColumn("Action");
+        actionCol.setCellValueFactory(new PropertyValueFactory<>("DUMMY"));
+
+        Callback<TableColumn<Vacation, String>, TableCell<Vacation, String>> cellFactory
+                = //
+                new Callback<TableColumn<Vacation, String>, TableCell<Vacation, String>>() {
+                    @Override
+                    public TableCell call(final TableColumn<Vacation, String> param) {
+                        final TableCell<Vacation, String> cell = new TableCell<Vacation, String>() {
+
+                            final Button btn = new Button("Submit a\npurchase\nrequest");
+
+                            @Override
+                            public void updateItem(String item, boolean empty) {
+                                super.updateItem(item, empty);
+                                if (empty) {
+                                    setGraphic(null);
+                                    setText(null);
+                                } else {
+                                    btn.setOnAction(event -> {
+                                        Vacation vacation = getTableView().getItems().get(getIndex());
+                                        if(!userName.equals("")){
+                                            MessageModel model = new MessageModel();
+                                            model.Create(new Message(userName,vacation.getUserName(),0,vacation.getId()));
+                                        }
+                                        else{
+                                            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                                            errorAlert.setHeaderText("You are not connected to our system.");
+                                            errorAlert.setContentText("Please close all the windows,\n" +
+                                                    "and sign in first. ");
+                                            errorAlert.show();
+
+                                        }
+                                    });
+                                    setGraphic(btn);
+                                    setText(null);
+                                }
+                            }
+                        };
+                        return cell;
+                    }
+                };
+        VacationController controller = (VacationController) this.controller;
+        actionCol.setCellFactory(cellFactory);
+        List<Vacation> vacList = controller.Search("", "", "", "",
+                "", "", -1, -1, -1, "", "", -1);
+
+
+        ObservableList<Vacation> vacObsList = FXCollections.observableArrayList();
+
+        vacTable.setItems(vacObsList);
+        vacTable.getColumns().addAll(actionCol);
 
     }
 
@@ -142,7 +207,8 @@ public class SearchVacController extends AView {
         clipRect.setWidth(extendableSearchPane.getWidth());
 
         if (clipRect.heightProperty().get() != 0) {
-
+            isExtend=false;
+            searchNotEx.setVisible(true);
             // Animation for scroll up.
             Timeline timelineUp = new Timeline();
 
@@ -161,7 +227,8 @@ public class SearchVacController extends AView {
             timelineUp.play();
             accord.setExpanded(false);
         } else {
-
+            isExtend=true;
+            searchNotEx.setVisible(false);
             // Animation for scroll down.
             Timeline timelineDown = new Timeline();
 
@@ -266,76 +333,79 @@ public class SearchVacController extends AView {
             if (destination.getValue() != null) {
                 Country = destination.getValue();
             }
-            try {
-                if (AdultNum.getText() != null && Integer.valueOf(AdultNum.getText()) != 0)
-                    numOfTicketsAdult = Integer.valueOf(AdultNum.getText());
-            } catch (Exception e) {
-
-            }
-            try {
-                if (ChildNum.getText() != null && Integer.valueOf(ChildNum.getText()) != 0)
-                    numOfTicketsChild = Integer.valueOf(ChildNum.getText());
-            } catch (Exception e) {
-
-            }
-            try {
-                if (BabyNum.getText() != null && Integer.valueOf(BabyNum.getText()) != 0)
-                    numOfTicketsBaby = Integer.valueOf(BabyNum.getText());
-            } catch (Exception e) {
-
-            }
-
             if (DepartureDate.getValue() != null) {
                 departureDate = DepartureDate.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
             }
-            if (includeReturn.getValue() != null && !includeReturn.getValue().equals("not must")) {
-                flightBackIncluded = includeReturn.getValue();
-                if (ReturnDate.getValue() != null) { //todo - add check to returndate bigger then departure date
-                    backDate = ReturnDate.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            if(isExtend) {
+                try {
+                    if (AdultNum.getText() != null && Integer.valueOf(AdultNum.getText()) != 0)
+                        numOfTicketsAdult = Integer.valueOf(AdultNum.getText());
+                } catch (Exception e) {
+
                 }
-            }
+                try {
+                    if (ChildNum.getText() != null && Integer.valueOf(ChildNum.getText()) != 0)
+                        numOfTicketsChild = Integer.valueOf(ChildNum.getText());
+                } catch (Exception e) {
 
-            if (vacationType.getValue() != null && vacationType.getValue() != null && !vacationType.getValue().equals("Exotic or Urbanic")) {
-                vacationKind = vacationType.getValue();
-            } // else ""
+                }
+                try {
+                    if (BabyNum.getText() != null && Integer.valueOf(BabyNum.getText()) != 0)
+                        numOfTicketsBaby = Integer.valueOf(BabyNum.getText());
+                } catch (Exception e) {
 
-            if (vacationType.getValue() != null && vacationType.getValue() != null && !vacationType.getValue().equals("Exotic or Urbanic")) { //todo!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                vacationKind = vacationType.getValue();
-            } // else ""
+                }
 
-            if (flightComp.getValue() != null && flightComp.getValue() != null && !flightComp.getValue().equals("All the companies")) {
-                flightCompany = flightComp.getValue();
-            }
-            if (includeHotel.getValue() != null && !includeHotel.getValue().equals("not must")) {
-                hotelIncluded = includeHotel.getValue();
-                if (hotelStars.getValue() != null && !hotelStars.getValue().equals("Any rank")) {
-                    switch ((String) hotelStars.getValue()) {
-                        case "★":
-                            rankOfHotel = 1;
-                            break;
-                        case "★★":
-                            rankOfHotel = 2;
-                            break;
-                        case "★★★":
-                            rankOfHotel = 3;
-                            break;
-                        case "★★★★":
-                            rankOfHotel = 4;
-                            break;
-                        case "★★★★★":
-                            rankOfHotel = 5;
-                            break;
-                        default:
-                            rankOfHotel = -1;
+
+                if (includeReturn.getValue() != null && !includeReturn.getValue().equals("not must")) {
+                    flightBackIncluded = includeReturn.getValue();
+                    if (ReturnDate.getValue() != null) { //todo - add check to returndate bigger then departure date
+                        backDate = ReturnDate.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
                     }
                 }
-                if (hotelType.getValue() != null && hotelType.getValue() != null && !hotelType.getValue().equals("Any type")) {
-                     hotelType.getValue(); //todo
-                }
-            }//hotels
 
-            if (includeBag.getValue() != null && includeBag.getValue() != null && !includeBag.getValue().equals("not must")) {
-                baggageIncluded = (String) includeBag.getValue();
+                if (vacationType.getValue() != null && !vacationType.getValue().equals("Exotic or Urbanic")) {
+                    vacationKind = vacationType.getValue();
+                } // else ""
+
+                if (vacationType.getValue() != null && !vacationType.getValue().equals("Exotic or Urbanic")) { //todo!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    vacationKind = vacationType.getValue();
+                } // else ""
+
+                if (flightComp.getValue() != null && !flightComp.getValue().equals("All the companies")) {
+                    flightCompany = flightComp.getValue();
+                }
+                if (includeHotel.getValue() != null && !includeHotel.getValue().equals("not must")) {
+                    hotelIncluded = includeHotel.getValue();
+                    if (hotelStars.getValue() != null && !hotelStars.getValue().equals("Any rank")) {
+                        switch ((String) hotelStars.getValue()) {
+                            case "★":
+                                rankOfHotel = 1;
+                                break;
+                            case "★★":
+                                rankOfHotel = 2;
+                                break;
+                            case "★★★":
+                                rankOfHotel = 3;
+                                break;
+                            case "★★★★":
+                                rankOfHotel = 4;
+                                break;
+                            case "★★★★★":
+                                rankOfHotel = 5;
+                                break;
+                            default:
+                                rankOfHotel = -1;
+                        }
+                    }
+                    if (hotelType.getValue() != null && !hotelType.getValue().equals("Any type")) {
+                        hotelType.getValue(); //todo
+                    }
+                }//hotels
+
+                if (includeBag.getValue() != null && !includeBag.getValue().equals("not must")) {
+                    baggageIncluded = (String) includeBag.getValue();
+                }
             }
         }//get the information from the view object
         VacationController controller = (VacationController) this.controller;
