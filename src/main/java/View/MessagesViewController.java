@@ -1,14 +1,23 @@
 package View;
 
 import Controllers.MessagesController;
+import Controllers.PaymentController;
 import Model.Message;
+import Model.MessageModel;
+import Model.PaymentModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,13 +28,20 @@ public class MessagesViewController extends AView {
     @FXML private AnchorPane pane;
     @FXML private Button msg;
     TableView<Message> tableView;
+    PaymentViewController controller1;
 
 
     String userNameReciever; //own- he is now the reciever
-
+    String payed="false";
+    boolean need_to_update=false;
+    int id_to_update;
 
     public void setUserName(String reciever) {
         this.userNameReciever=reciever;
+    }
+
+    public void setPayed(String payed){
+        this.payed=payed;
     }
 
 
@@ -38,9 +54,7 @@ public class MessagesViewController extends AView {
         }
         return observableList;
     }
-
-    public void seeMsg(ActionEvent actionEvent) {
-
+    public void setMsg(){
         TableColumn<Message,String> senderCol=new TableColumn<>("Sender");
         senderCol.setMinWidth(200);
         senderCol.setCellValueFactory(new PropertyValueFactory<Message,String>("sender"));
@@ -77,6 +91,27 @@ public class MessagesViewController extends AView {
                     }
                 }
                 else if(clickedRow.getSeen()==1){
+                    PaymentModel model = new PaymentModel();
+                    PaymentViewController view=new PaymentViewController ();
+                    PaymentController controller = new PaymentController(model,view);
+                    view.setController(controller);
+                    Stage stage = new Stage();
+                    try {
+                        FXMLLoader fxmlLoader = new FXMLLoader();
+                        Parent root1 = fxmlLoader.load(getClass().getResource("/PaymentView.fxml").openStream());
+                        controller1=fxmlLoader.<PaymentViewController>getController();
+                        controller1.setBuyer(clickedRow.getReciever());
+                        controller1.setSeller(clickedRow.getSender());
+                        stage.initStyle(StageStyle.UNDECORATED);
+                        stage.setTitle("Pay!");
+                        stage.setScene(new Scene(root1));
+                        stage.show();
+                    }
+                    catch(Exception e){
+
+                    }
+                    need_to_update=true;
+                    id_to_update=clickedRow.getId();
 
                 }
                 else if(clickedRow.getSeen()==2){
@@ -95,12 +130,23 @@ public class MessagesViewController extends AView {
                     error.showAndWait();
                 }
             });
+
             return row ;
         });
 
 
         pane.getChildren().add(tableView);
         msg.setVisible(false);
+    }
+
+    public void seeMsg(ActionEvent actionEvent) {
+        setMsg();
+    }
+
+    public void update_message(){
+        MessagesController msgs = (MessagesController) controller;
+        msgs.updateSeenToMessage(id_to_update, 3);
+        setMsg();
 
     }
 }

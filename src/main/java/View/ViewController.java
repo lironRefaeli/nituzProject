@@ -142,12 +142,14 @@ public class ViewController extends AView {
             FXMLLoader fxmlLoader = new FXMLLoader();
             Parent root1 = fxmlLoader.load(getClass().getResource("/Messages.fxml").openStream());
             MessagesViewController controller1=fxmlLoader.<MessagesViewController>getController();
+            controller1.setUserName(userName);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Messages:");
             stage.setScene(new Scene(root1));
             stage.show();
         }
+
         catch (IOException e){
 
         }

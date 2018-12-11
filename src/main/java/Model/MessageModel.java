@@ -64,19 +64,21 @@ public class MessageModel {
     }
 
     public boolean UpdateSeen(int id,int seen) {//seen=1/2
-        String sql = "UPDATE Messages SET seen = ? WHERE id = ?";
+        String sql = "UPDATE Messages SET seen = "
+                +seen+" WHERE id = "+id;
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             // set the corresponding param
-            pstmt.setString(1, String.valueOf(seen));
-            pstmt.setString(2, String.valueOf(id));
+            //pstmt.setString(1, String.valueOf(seen));
+            //pstmt.setString(2, String.valueOf(id));
 
             // update
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            System.out.println("why");
             return false;
         }
         return true;

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="323.0" prefWidth="418.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.PaymentViewController">
+<AnchorPane fx:id="thePane" prefHeight="323.0" prefWidth="418.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.PaymentViewController">
 
 
         <children>
@@ -36,6 +36,7 @@
                               <Font size="27.0" />
                            </font>
                         </Label>
+                        <Button mnemonicParsing="false" onAction="#exit" text="X" GridPane.columnIndex="2" />
                      </children>
                             </GridPane>
                             <StackPane prefHeight="-1.0" prefWidth="-1.0" />
@@ -43,12 +44,14 @@
                     </VBox>
                 </children>
             </StackPane>
-                  <Button fx:id="loginButton" alignment="CENTER" defaultButton="true" layoutX="170.0" layoutY="227.0" mnemonicParsing="false" onAction="#login" text="Login" />
+                  <Button fx:id="loginButton" alignment="CENTER" defaultButton="true" layoutX="173.0" layoutY="275.0" mnemonicParsing="false" onAction="#login" text="Pay" />
                   <TextField fx:id="password" layoutX="163.0" layoutY="182.0" promptText="Use &quot;password&quot; to login" />
                   <TextField fx:id="user" layoutX="163.0" layoutY="143.0" promptText="Use &quot;open&quot; to login" />
                   <Label layoutX="80.0" layoutY="147.0" text="Username:" />
-                  <Label layoutX="82.0" layoutY="186.0" text="Password:" />
-      <Label layoutX="71.0" layoutY="117.0" prefHeight="17.0" prefWidth="364.0" text="enter your username and password of one of the options" />
+                  <Label layoutX="81.0" layoutY="186.0" text="Password:" />
+      <Label layoutX="71.0" layoutY="95.0" prefHeight="39.0" prefWidth="364.0" text="enter your username and password of one of the options. " />
+      <Label layoutX="83.0" layoutY="228.0" prefHeight="17.0" prefWidth="56.0" text="Amount:" />
+      <TextField fx:id="amount" layoutX="163.0" layoutY="224.0" promptText="The amount of money" />
         </children>
 
 
