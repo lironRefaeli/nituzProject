@@ -169,6 +169,11 @@ public class SearchVacController extends AView {
                                         if(!userName.equals("")){
                                             MessageModel model = new MessageModel();
                                             model.Create(new Message(userName,vacation.getUserName(),0,vacation.getId()));
+                                            Alert success = new Alert(Alert.AlertType.INFORMATION);
+                                            success.setHeaderText("The request has submitted.");
+                                            success.setContentText("If the seller will agree,\n" +
+                                                    "a payment request will wait for you in the mail box. ");
+                                            success.show();
                                         }
                                         else{
                                             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
@@ -330,7 +335,7 @@ public class SearchVacController extends AView {
         int numOfTicketsAdult = -1, numOfTicketsChild = -1, numOfTicketsBaby = -1, rankOfHotel = -1;
         /**get the information from the view objects:**/
         {
-            if (destination.getValue() != null) {
+            if (destination.getValue() != null && !includeReturn.getValue().equals("Anywhere")) {
                 Country = destination.getValue();
             }
             if (DepartureDate.getValue() != null) {
