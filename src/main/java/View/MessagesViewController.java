@@ -66,7 +66,9 @@ public class MessagesViewController extends AView {
         TableColumn<Message,Integer> vacId=new TableColumn<>("Vacation");
         vacId.setMinWidth(200);
         vacId.setCellValueFactory(new PropertyValueFactory<Message,Integer>("vacationID"));
-
+        if(tableView==null){
+            tableView=null;
+        }
         tableView=new TableView<>();
         tableView.setItems(getMessages(userNameReciever));
         tableView.getColumns().addAll(senderCol,seenCol,vacId);
@@ -146,7 +148,7 @@ public class MessagesViewController extends AView {
     public void update_message(){
         MessagesController msgs = (MessagesController) controller;
         msgs.updateSeenToMessage(id_to_update, 3);
-        setMsg();
+        //setMsg();
 
     }
 }
