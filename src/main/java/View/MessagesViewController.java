@@ -29,6 +29,7 @@ public class MessagesViewController extends AView {
     @FXML
     public void initialize(){
 
+
         /**
          *  private int id;
          private String sender;
