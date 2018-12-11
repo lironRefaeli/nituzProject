@@ -81,6 +81,7 @@ public class MainViewController extends AView {
             Stage stage = new Stage();
             FXMLLoader fxmlLoader=new FXMLLoader();
             Parent root = fxmlLoader.load(getClass().getResource("/Read.fxml").openStream());
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Vacation4U - Read");
             stage.setScene(new Scene(root, 500, 500));
             stage.show();
@@ -139,7 +140,7 @@ public class MainViewController extends AView {
     }
 
     @FXML
-    private void startMain(ActionEvent event) {
+    private void startSearch(ActionEvent event) {
         VacationModel model2=new VacationModel();
         SearchVacController loginView=new SearchVacController();
         VacationController loginController=new VacationController("",model2,loginView);
@@ -154,10 +155,10 @@ public class MainViewController extends AView {
         Stage stage = new Stage();
         Scene scene = new Scene(root);
 
-        stage.setTitle("Extendable search pane demo");
+        stage.setTitle("Search Vacation");
+        stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
         stage.show();
+        
     }
-
-
 }
