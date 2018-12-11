@@ -78,7 +78,6 @@ public class MessageModel {
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            System.out.println("why");
             return false;
         }
         return true;
