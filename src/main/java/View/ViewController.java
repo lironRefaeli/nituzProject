@@ -1,27 +1,22 @@
 package View;
 
 import Controllers.Controller;
-import Controllers.LoginController;
 import Controllers.VacationController;
+import Controllers.MessagesController;
 import Model.IModel;
-import Model.LoginModel;
 import Model.Model;
+import Model.MessageModel;
 import Model.VacationModel;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 import javafx.event.ActionEvent;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
+
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
-
-import javax.swing.text.View;
 
 import java.io.IOException;
 
@@ -84,6 +79,8 @@ public class ViewController extends AView {
             e.printStackTrace();
         }
 
+
+
     }
 
     /**
@@ -129,6 +126,29 @@ public class ViewController extends AView {
             stage.setScene(new Scene(root1));
             stage.show();
             System.out.println(userName);
+        }
+        catch (IOException e){
+
+        }
+
+    }
+
+    //todo check if username passes
+    public void openMessages(ActionEvent actionEvent) {
+        MessageModel model = new MessageModel();
+        MessagesViewController view=new MessagesViewController ();
+        MessagesController controller = new MessagesController(model,view);
+        view.setController(controller);
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            Parent root1 = fxmlLoader.load(getClass().getResource("/Messages.fxml").openStream());
+            MessagesViewController controller1=fxmlLoader.<MessagesViewController>getController();
+            controller1.setUserName(userName);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Messages:");
+            stage.setScene(new Scene(root1));
+            stage.show();
         }
         catch (IOException e){
 

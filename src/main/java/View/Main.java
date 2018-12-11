@@ -111,6 +111,29 @@ public class Main extends Application {
         }
     }
 
+    public static void createNewPaymentTable() {
+        // SQLite connection string
+        String url = "jdbc:sqlite:Users.db";
+
+        // SQL statement for creating a new table
+
+        String sql = "CREATE TABLE IF NOT EXISTS Payments (\n"
+                + "   user_name text PRIMARY KEY,\n"
+                + "   password text NOT NULL,\n"
+                + "   seller text NOT NULL,\n"
+                + "   buyer text NOT NULL,\n"
+                + "   amountOfMoney text NOT NULL,\n"
+                + ");";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement()) {
+            // create a new table
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     //
     public static void createNewVacationTable() {
         // SQLite connection string
@@ -171,10 +194,11 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-        //connect();
-        //createNewDatabase("Users.db");
-        //createNewTable();
-        //createNewVacationTable();
+        connect();
+        createNewDatabase("Users.db");
+        createNewTable();
+        createNewVacationTable();
+        createNewPaymentTable();
         createNewMessageTable();
         launch(args);
     }
