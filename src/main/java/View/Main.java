@@ -118,11 +118,12 @@ public class Main extends Application {
         // SQL statement for creating a new table
 
         String sql = "CREATE TABLE IF NOT EXISTS Payments (\n"
-                + "   user_name text PRIMARY KEY,\n"
+                + "   id text PRIMARY KEY,\n"
+                + "   user_name text NOT NULL,\n"
                 + "   password text NOT NULL,\n"
                 + "   seller text NOT NULL,\n"
                 + "   buyer text NOT NULL,\n"
-                + "   amountOfMoney text NOT NULL,\n"
+                + "   amountOfMoney text NOT NULL\n"
                 + ");";
 
         try (Connection conn = DriverManager.getConnection(url);
@@ -173,7 +174,7 @@ public class Main extends Application {
         // SQL statement for creating a new table
 
         String sql = "CREATE TABLE IF NOT EXISTS Messages (\n"
-                + "   id text PRIMARY KEY,\n"
+                + "   id text,\n"
                 + "   sender text NOT NULL,\n"
                 + "   reciever text NOT NULL,\n"
                 + "   seen integer NOT NULL,\n"
