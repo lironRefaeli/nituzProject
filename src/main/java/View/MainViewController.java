@@ -2,8 +2,10 @@ package View;
 
 import Controllers.Controller;
 import Controllers.LoginController;
+import Controllers.VacationController;
 import Model.IModel;
 import Model.LoginModel;
+import Model.VacationModel;
 import Model.Model;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -129,8 +131,6 @@ public class MainViewController extends AView {
             stage.setTitle("DeleteForm");
             stage.setScene(new Scene(root1));
             stage.show();
-
-
         }
         catch(IOException e){
             e.printStackTrace();
@@ -140,6 +140,10 @@ public class MainViewController extends AView {
 
     @FXML
     private void startMain(ActionEvent event) {
+        VacationModel model2=new VacationModel();
+        SearchVacController loginView=new SearchVacController();
+        VacationController loginController=new VacationController("",model2,loginView);
+        loginView.setController(loginController);
         FXMLLoader fxmlLoader=new FXMLLoader();
         Parent root = null;
         try {
