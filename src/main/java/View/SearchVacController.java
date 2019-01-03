@@ -25,10 +25,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -166,6 +168,35 @@ public class SearchVacController extends AView {
                                 } else {
                                     btn.setOnAction(event -> {
                                         Vacation vacation = getTableView().getItems().get(getIndex());
+                                        if(!userName.equals("")) {
+                                            FXMLLoader fxmlLoader = new FXMLLoader();
+                                            Parent root1 = null;
+                                            try {
+                                                root1 = fxmlLoader.load(getClass().getResource("/ChangeOrPayViewController.fxml").openStream());
+                                                ViewController controller1=fxmlLoader.<ViewController>getController();
+                                                controller1.setUserName(userName);
+                                            } catch (IOException e) {
+                                                e.printStackTrace();
+                                            }
+                                            Stage stage = new Stage();
+                                            stage.initModality(Modality.APPLICATION_MODAL);
+                                            stage.setTitle("Choose action");
+                                            stage.setScene(new Scene(root1, 500, 500));
+                                            stage.show();
+                                        }
+                                        else{
+                                            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                                            errorAlert.setHeaderText("You are not connected to our system.");
+                                            errorAlert.setContentText("Please close all the windows,\n" +
+                                                    "and sign in first. ");
+                                            errorAlert.show();
+
+                                        }
+
+
+                                        /*
+
+                                        Vacation vacation = getTableView().getItems().get(getIndex());
                                         if(!userName.equals("")){
                                             MessageModel model = new MessageModel();
                                             model.Create(new Message(userName,vacation.getUserName(),0,vacation.getId()));
@@ -183,6 +214,7 @@ public class SearchVacController extends AView {
                                             errorAlert.show();
 
                                         }
+                                        */
                                     });
                                     setGraphic(btn);
                                     setText(null);

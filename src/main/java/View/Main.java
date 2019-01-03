@@ -19,7 +19,7 @@ public class Main extends Application {
      *
      * @param primaryStage
      * @throws
-     * The function opens the view form.
+     * *The function opens the view form.
      */
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -180,7 +180,9 @@ public class Main extends Application {
                 + "   sender text NOT NULL,\n"
                 + "   reciever text NOT NULL,\n"
                 + "   seen integer NOT NULL,\n"
-                + "   vacation_ID integer NOT NULL\n"
+                + "   vacation_ID_source integer NOT NULL\n"
+                + "   vacation_ID_dest integer NOT NULL\n"
+                + "   kind integer NOT NULL,\n"
 
                 + ");";
 

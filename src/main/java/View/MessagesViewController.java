@@ -63,15 +63,19 @@ public class MessagesViewController extends AView {
         seenCol.setMinWidth(200);
         seenCol.setCellValueFactory(new PropertyValueFactory<Message,String>("isOpended"));
 
-        TableColumn<Message,Integer> vacId=new TableColumn<>("Vacation");
-        vacId.setMinWidth(200);
-        vacId.setCellValueFactory(new PropertyValueFactory<Message,Integer>("vacationID"));
+        TableColumn<Message,Integer> vacIdSource=new TableColumn<>("VacationSource");
+        vacIdSource.setMinWidth(200);
+        vacIdSource.setCellValueFactory(new PropertyValueFactory<Message,Integer>("vacationIDSource"));
+
+        TableColumn<Message,Integer> vacIdDest=new TableColumn<>("VacationDest");
+        vacIdDest.setMinWidth(200);
+        vacIdDest.setCellValueFactory(new PropertyValueFactory<Message,Integer>("vacationIDDest"));
         if(tableView==null){
             tableView=null;
         }
         tableView=new TableView<>();
         tableView.setItems(getMessages(userNameReciever));
-        tableView.getColumns().addAll(senderCol,seenCol,vacId);
+        tableView.getColumns().addAll(senderCol,seenCol,vacIdSource,vacIdDest);
         tableView.setRowFactory(tv -> {
             TableRow<Message> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -79,52 +83,70 @@ public class MessagesViewController extends AView {
                 if(clickedRow.getSeen()==0){//need to open confirmation to vacation request. updates only if user confirmed or denied request!!
                     Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
                     confirmation.setHeaderText("Confirm");
-                    confirmation.setContentText("Do you want to approve request from " + clickedRow.getSender()+ " ?\n Click OK to approve, cancel to dent and x to exit.");
+                    confirmation.setContentText("Do you want to approve replace request from " + clickedRow.getSender()+ "about the vacation ID "+clickedRow.getVacationIDDest()+" ?\n Click OK to approve, cancel to dent and x to exit.");
                     Optional<ButtonType> result= confirmation.showAndWait();
                     MessagesController msgs=(MessagesController)controller;
-                    if (result.get() == ButtonType.OK){
-                        msgs.Create(clickedRow.getReciever(),clickedRow.getSender(),1,clickedRow.getVacationID());
-                        msgs.updateSeenToMessage(clickedRow.getId(),3);
+                    if (result.get() == ButtonType.OK){//Replace is approved
+                        msgs.Create(clickedRow.getReciever(),clickedRow.getSender(),1,clickedRow.getVacationIDSource(),clickedRow.getVacationIDDest(),clickedRow.getKind());
+                        msgs.updateSeenToMessage(clickedRow.getId(),7);
+                        msgs.changeVacations(clickedRow);
 
                     } else {
-                        msgs.Create(clickedRow.getReciever(),clickedRow.getSender(),2,clickedRow.getVacationID());
-                        msgs.updateSeenToMessage(clickedRow.getId(),3);
+                        msgs.Create(clickedRow.getReciever(),clickedRow.getSender(),2,clickedRow.getVacationIDSource(),clickedRow.getVacationIDDest(),clickedRow.getKind());
+                        msgs.updateSeenToMessage(clickedRow.getId(),7);
 
                     }
                 }
                 else if(clickedRow.getSeen()==1){
-                    PaymentModel model = new PaymentModel();
-                    PaymentViewController view=new PaymentViewController ();
-                    PaymentController controller = new PaymentController(model,view);
-                    view.setController(controller);
-                    Stage stage = new Stage();
-                    try {
-                        FXMLLoader fxmlLoader = new FXMLLoader();
-                        Parent root1 = fxmlLoader.load(getClass().getResource("/PaymentView.fxml").openStream());
-                        controller1=fxmlLoader.<PaymentViewController>getController();
-                        controller1.setBuyer(clickedRow.getReciever());
-                        controller1.setSeller(clickedRow.getSender());
-                        stage.initStyle(StageStyle.UNDECORATED);
-                        stage.setTitle("Pay!");
-                        stage.setScene(new Scene(root1));
-                        stage.show();
-                    }
-                    catch(Exception e){
-
-                    }
-                    need_to_update=true;
-                    id_to_update=clickedRow.getId();
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setHeaderText("Replacement succeed!");
+                    alert.setContentText("The Replacement request was approved and yours vacation are replaced.");
+                    alert.showAndWait();
+                    MessagesController msgs=(MessagesController)controller;
+                    msgs.updateSeenToMessage(clickedRow.getId(),7);
 
                 }
                 else if(clickedRow.getSeen()==2){
                     Alert error = new Alert(Alert.AlertType.INFORMATION);
                     error.setHeaderText("Sorry");
+                    error.setContentText("Vacation replacement request were denied by user.");
+                    error.showAndWait();
+                    MessagesController msgs=(MessagesController)controller;
+                    msgs.updateSeenToMessage(clickedRow.getId(),7);
+                }
+                else if(clickedRow.getSeen()==3){
+                    Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+                    confirmation.setHeaderText("Confirm");
+                    confirmation.setContentText("Do you want to approve cash request from " + clickedRow.getSender()+" ?\n Click OK to approve, cancel to dent and x to exit.");
+                    Optional<ButtonType> result= confirmation.showAndWait();
+                    MessagesController msgs=(MessagesController)controller;
+                    if (result.get() == ButtonType.OK){//cash is approved
+                        msgs.Create(clickedRow.getReciever(),clickedRow.getSender(),4,clickedRow.getVacationIDSource(),clickedRow.getVacationIDDest(),clickedRow.getKind());
+                        msgs.updateSeenToMessage(clickedRow.getId(),7);
+                        msgs.changeVacations(clickedRow);
+
+                    } else {
+                        msgs.Create(clickedRow.getReciever(),clickedRow.getSender(),5,clickedRow.getVacationIDSource(),clickedRow.getVacationIDDest(),clickedRow.getKind());
+                        msgs.updateSeenToMessage(clickedRow.getId(),7);
+
+                    }
+                }
+                else if(clickedRow.getSeen()==4){
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setHeaderText("Request is approved!");
+                    alert.setContentText("The request was approved.\nGo to the seller and give him the money!");
+                    alert.showAndWait();
+                    MessagesController msgs=(MessagesController)controller;
+                    msgs.updateSeenToMessage(clickedRow.getId(),7);
+                }
+                else if(clickedRow.getSeen()==5){
+                    Alert error = new Alert(Alert.AlertType.INFORMATION);
+                    error.setHeaderText("Sorry");
                     error.setContentText("Vacation request were denied by user.");
                     error.showAndWait();
                     MessagesController msgs=(MessagesController)controller;
-                    msgs.updateSeenToMessage(clickedRow.getId(),3);
+                    msgs.updateSeenToMessage(clickedRow.getId(),7);
                 }
-
                 else{//alreadyseen
                     Alert error = new Alert(Alert.AlertType.INFORMATION);
                     error.setHeaderText("Seen Message");
