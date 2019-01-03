@@ -29,7 +29,6 @@ public class Model implements IModel {
         return conn;
     }
 
-    @Override
     public boolean Create(String userName, String password, String firstName, String lastName, String birthday, String city) {
         String sql = "INSERT INTO Users(user_name,password,first_name,last_name,city,birthdate) VALUES(?,?,?,?,?,?)";
 
@@ -49,7 +48,6 @@ public class Model implements IModel {
         return true;
     }
 
-    @Override
     public Vector<String> Read(String userName) {
         String sql = "SELECT user_name, password, first_name, last_name, city, birthdate FROM Users WHERE user_name = ? ";
         Vector<String> ans = new Vector<>();
@@ -82,7 +80,6 @@ public class Model implements IModel {
      */
 
 
-    @Override
     public boolean Update(String userName, String password, String firstName, String lastName, String birthday, String city) {
         String sql = "UPDATE Users SET password = ? ,first_name = ? ,last_name = ? ,birthdate = ? ,city = ? WHERE user_name = ?";
 
@@ -151,7 +148,6 @@ public class Model implements IModel {
     }
  **/
 
-    @Override
     /**
      * Delete function get the strings username and password.
      * It checks if the username exists, and also if the password is match.
@@ -203,7 +199,6 @@ public class Model implements IModel {
         return true;
     }
 
-    @Override
     public boolean Delete2(String userName) {
         //check if exist:
         if(!IsRecordExist(userName)) return false;

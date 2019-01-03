@@ -10,11 +10,11 @@ import java.time.Period;
 import java.util.Vector;
 
 public class Controller extends AController{
-    IModel model = new Model();
+    Model model;
     AView mainView;
 
     public Controller(IModel model, AView mainView) {
-        this.model = model;
+        this.model = (Model)model;
         this.mainView = mainView;
 
     }

@@ -3,9 +3,10 @@ package Model;
 import java.sql.*;
 import java.util.Vector;
 
-public class LoginModel {
+public class LoginModel implements IModel{
 
-    private Connection connect() {
+    @Override
+    public Connection connect() {
         // SQLite connection string
         String url = "jdbc:sqlite:Users.db";
         Connection conn = null;

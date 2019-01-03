@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-public class VacationModel {
+public class VacationModel implements IModel{
 
-    //connection function
-    private Connection connect() {
+    @Override
+    public Connection connect() {
         // SQLite connection string
         String url = "jdbc:sqlite:Users.db";
         Connection conn = null;
