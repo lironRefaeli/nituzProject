@@ -16,6 +16,7 @@ public class Vacation {
     private String vacationKind;
     private String hotelIncluded; //boolean
     private int rankOfHotel;
+    private String kindOfHotel;
     private int id;
     private String userName;
 
@@ -25,7 +26,8 @@ public class Vacation {
     //int =-1 -->empty
 
 
-    public Vacation(String flightCompany, String departureDate, String backDate, String baggageIncluded, String country, String flightBackIncluded, int numOfTicketsAdult,int numOfTicketsChild,int numOfTicketsBaby, String vacationKind, String hotelIncluded, int rankOfHotel,String userName) {
+    public Vacation(String flightCompany, String departureDate, String backDate, String baggageIncluded, String country, String flightBackIncluded, int numOfTicketsAdult,int numOfTicketsChild,
+                    int numOfTicketsBaby, String vacationKind, String hotelIncluded, int rankOfHotel,String kindOfHotel,String userName) {
         this.flightCompany = flightCompany;
         this.departureDate = departureDate;
         this.backDate = backDate;
@@ -38,12 +40,15 @@ public class Vacation {
         this.vacationKind = vacationKind;
         this.hotelIncluded = hotelIncluded;
         this.rankOfHotel = rankOfHotel;
+        this.kindOfHotel=kindOfHotel;
         this.userName=userName;
         id=getFromDataBaseAndUpdate();
 
     }
 
-    public Vacation(int id,String flightCompany, String departureDate, String backDate, String baggageIncluded, String country, String flightBackIncluded, int numOfTicketsAdult,int numOfTicketsChild,int numOfTicketsBaby, String vacationKind, String hotelIncluded, int rankOfHotel,String userName) {
+    public Vacation(int id,String flightCompany, String departureDate, String backDate, String baggageIncluded,
+                    String country, String flightBackIncluded, int numOfTicketsAdult,int numOfTicketsChild,
+                    int numOfTicketsBaby, String vacationKind, String hotelIncluded, int rankOfHotel,String kindOfHotel,String userName) {
         this.flightCompany = flightCompany;
         this.departureDate = departureDate;
         this.backDate = backDate;
@@ -56,6 +61,7 @@ public class Vacation {
         this.vacationKind = vacationKind;
         this.hotelIncluded = hotelIncluded;
         this.rankOfHotel = rankOfHotel;
+        this.kindOfHotel=kindOfHotel;
         this.userName=userName;
         this.id=id;
         }
@@ -105,6 +111,10 @@ public class Vacation {
 
     public int getRankOfHotel() {
         return rankOfHotel;
+    }
+
+    public String getKindOfHotel() {
+        return kindOfHotel;
     }
 
     public String getUserName() {
