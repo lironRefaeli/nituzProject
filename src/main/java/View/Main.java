@@ -158,6 +158,7 @@ public class Main extends Application {
                 + "   vacation_kind text,\n"
                 + "   hotel_included text,\n"
                 + "   rank_hotel text,\n"
+                + "   hotel_kind text,\n"
                 + "   user_name text NOT NULL\n"
                 + ");";
 

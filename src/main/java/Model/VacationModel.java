@@ -22,7 +22,7 @@ public class VacationModel implements IModel{
 
     //create
     public boolean Create(Vacation vacation) {
-        String sql = "INSERT INTO Vacations(id, flight_company, departure_date, back_date, baggage_included, country,flight_back_included,num_tickets_adult,num_tickets_kid,num_tickets_baby,vacation_kind,hotel_included,rank_hotel,user_name) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Vacations(id, flight_company, departure_date, back_date, baggage_included, country,flight_back_included,num_tickets_adult,num_tickets_kid,num_tickets_baby,vacation_kind,hotel_included,rank_hotel,hotel_kind,user_name) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -63,7 +63,10 @@ public class VacationModel implements IModel{
 
                 pstmt.setString(13, String.valueOf(vacation.getRankOfHotel()));
 
-            pstmt.setString(14, vacation.getUserName());
+            pstmt.setString(14, vacation.getKindOfHotel());
+
+
+            pstmt.setString(15, vacation.getUserName());
 
             pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -75,13 +78,16 @@ public class VacationModel implements IModel{
 
     //read
     public List<Vacation> findVacations(String flightCompany,String departureDate,String backDate,String baggageIncluded,
-            String Country,String flightBackIncluded,int numOfTicketsAdult,int numOfTicketsChild,int numOfTicketsBaby,String vacationKind,String hotelIncluded,int rankOfHotel){
-        String sql="SELECT id, flight_company, departure_date, back_date, baggage_included, country, flight_back_included, num_tickets_adult, num_tickets_kid ,num_tickets_baby,vacation_kind,hotel_included,rank_hotel,user_name FROM Vacations ";
+            String Country,String flightBackIncluded,int numOfTicketsAdult,int numOfTicketsChild,int numOfTicketsBaby,
+                                        String vacationKind,String hotelIncluded,int rankOfHotel,String kindOfHotel){
+        String sql="SELECT id, flight_company, departure_date, back_date, baggage_included, country, " +
+                "flight_back_included, num_tickets_adult, num_tickets_kid ,num_tickets_baby," +
+                "vacation_kind,hotel_included,rank_hotel,hotel_kind,user_name FROM Vacations ";
         String constraints="";
         List<Vacation> vacations=new ArrayList<Vacation>();
-        boolean [] isAdded=new boolean[12];
+        boolean [] isAdded=new boolean[13];
         boolean somethingAdded=false;
-        for(int i=0;i<10;i++){
+        for(int i=0;i<13;i++){
             isAdded[i]=false;
         }
         if(!flightCompany.equals("")){
@@ -166,6 +172,13 @@ public class VacationModel implements IModel{
             isAdded[11]=true;
             somethingAdded=true;
         }
+        if(!kindOfHotel.equals("")){
+            if(somethingAdded)
+                constraints=constraints+ "AND";
+            constraints=constraints+" hotel_kind=?";
+            isAdded[12]=true;
+            somethingAdded=true;
+        }
         if(somethingAdded) {
             sql = sql + "WHERE" + constraints;
         }
@@ -221,6 +234,10 @@ public class VacationModel implements IModel{
                     }
                     if (isAdded[11]) {
                         pstmt.setString(index, String.valueOf(rankOfHotel));
+                        index+=1;
+                    }
+                    if (isAdded[12]) {
+                         pstmt.setString(index, kindOfHotel);
                     }
 
 
@@ -240,6 +257,7 @@ public class VacationModel implements IModel{
             String vacationKind_;
             String hotelIncluded_;
             int rankOfHotel_;
+            String kindOfHotel_;
             String userName_;
                 ResultSet rs = pstmt.executeQuery();
                 while (rs.next()) {
@@ -256,9 +274,10 @@ public class VacationModel implements IModel{
                     vacationKind_=rs.getString(11);
                     hotelIncluded_=rs.getString(12);
                     rankOfHotel_=Integer.parseInt(rs.getString(13));
-                    userName_=rs.getString(14);
+                    kindOfHotel_=rs.getString(14);
+                    userName_=rs.getString(15);
                     Vacation vacation = new Vacation(id_,flightCompany_ ,departureDate_, backDate_, baggageIncluded_, Country_, flightBackIncluded_,numOfTicketsAdult_,
-                            numOfTicketsChild_, numOfTicketsBaby_,vacationKind_ ,hotelIncluded_, rankOfHotel_, userName_);
+                            numOfTicketsChild_, numOfTicketsBaby_,vacationKind_ ,hotelIncluded_, rankOfHotel_,kindOfHotel_, userName_);
                     vacations.add(vacation);
                 }
                 return vacations;

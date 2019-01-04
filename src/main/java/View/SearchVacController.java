@@ -239,7 +239,7 @@ public class SearchVacController extends AView {
         VacationController controller = (VacationController) this.controller;
         actionCol.setCellFactory(cellFactory);
         List<Vacation> vacList = controller.Search("", "", "", "",
-                "", "", -1, -1, -1, "", "", -1);
+                "", "", -1, -1, -1, "", "", -1,"");
 
 
         ObservableList<Vacation> vacObsList = FXCollections.observableArrayList();
@@ -375,7 +375,7 @@ public class SearchVacController extends AView {
     @FXML
     private void search(ActionEvent ae) {
         String flightCompany = "", departureDate = "", backDate = "", baggageIncluded = "",
-                Country = "", flightBackIncluded = "", vacationKind = "", hotelIncluded = "";
+                Country = "", flightBackIncluded = "", vacationKind = "", hotelIncluded = "", hotelKind="";
         int numOfTicketsAdult = -1, numOfTicketsChild = -1, numOfTicketsBaby = -1, rankOfHotel = -1;
         /**get the information from the view objects:**/
         {
@@ -448,7 +448,7 @@ public class SearchVacController extends AView {
                         }
                     }
                     if (hotelType.getValue() != null && !hotelType.getValue().equals("Any type")) {
-                        hotelType.getValue(); //todo
+                        hotelKind=hotelType.getValue();
                     }
                 }//hotels
 
@@ -459,7 +459,7 @@ public class SearchVacController extends AView {
         }//get the information from the view object
         VacationController controller = (VacationController) this.controller;
         List<Vacation> vacList = controller.Search(flightCompany, departureDate, backDate, baggageIncluded,
-                Country, flightBackIncluded, numOfTicketsAdult, numOfTicketsChild, numOfTicketsBaby, vacationKind, hotelIncluded, rankOfHotel);
+                Country, flightBackIncluded, numOfTicketsAdult, numOfTicketsChild, numOfTicketsBaby, vacationKind, hotelIncluded, rankOfHotel,hotelKind);
 
 
         ObservableList<Vacation> vacObsList = FXCollections.observableArrayList();
@@ -500,10 +500,11 @@ public class SearchVacController extends AView {
             includeHotCol.setCellValueFactory(new PropertyValueFactory<>("hotelIncluded"));
             vacTable.setItems(vacObsList);
 
-            /**todo hotelTypeCol.setCellValueFactory(new PropertyValueFactory<>(""));
-            vacTable.setItems(vacObsList);**/
 
             hotelRankCol.setCellValueFactory(new PropertyValueFactory<>("rankOfHotel"));
+            vacTable.setItems(vacObsList);
+
+            hotelTypeCol.setCellValueFactory(new PropertyValueFactory<>("kindOfHotel"));
             vacTable.setItems(vacObsList);
 
         }

@@ -79,8 +79,9 @@
                                         <TableColumn fx:id="vacationTypeCol" maxWidth="5000.0" minWidth="0.0" prefWidth="102.0" text="Vacation type" />
                                         <TableColumn fx:id="flightCompCol" maxWidth="5000.0" minWidth="0.0" prefWidth="102.0" text="Flight Company" />
                                         <TableColumn fx:id="includeBagCol" maxWidth="5000.0" minWidth="0.0" prefWidth="101.0" text="Include Bagage" />
-                                        <TableColumn fx:id="includeHotCol" maxWidth="5000.0" minWidth="0.0" prefWidth="91.0" text="Include hotel" />
-                              <TableColumn fx:id="hotelRankCol" maxWidth="5000.0" minWidth="0.0" prefWidth="235.0" text="Hotel rank (it's -1 if not filled)" />
+                                        <TableColumn fx:id="includeHotCol" maxWidth="5000.0" minWidth="0.0" prefWidth="91.0" text="Include Hotel" />
+                                        <TableColumn fx:id="hotelTypeCol" maxWidth="5000.0" minWidth="0.0" prefWidth="90.0" text="Hotel Type" />
+                                        <TableColumn fx:id="hotelRankCol" maxWidth="5000.0" minWidth="0.0" prefWidth="170.0" text="Hotel Rank (-1 if not filled)" />
                                     </columns>
                                 </TableView>
                             </children>

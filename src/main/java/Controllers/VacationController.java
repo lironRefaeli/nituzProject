@@ -32,10 +32,11 @@ public class VacationController extends AController {
 
 
     public void Create(String flightCompany,String departureDate,String backDate,String baggageIncluded,
-                       String Country,String flightBackIncluded,int numOfTicketsAdult,int numOfTicketsChild,int numOfTicketsBaby,String vacationKind,String hotelIncluded,int rankOfHotel) {
+                       String Country,String flightBackIncluded,int numOfTicketsAdult,int numOfTicketsChild,
+                       int numOfTicketsBaby,String vacationKind,String hotelIncluded,int rankOfHotel,String hotelKind) {
        //connected so can publish vacation
             Vacation vacation=new Vacation(flightCompany,departureDate,backDate,baggageIncluded,Country,flightBackIncluded,numOfTicketsAdult,numOfTicketsChild
-                    ,numOfTicketsBaby,vacationKind,hotelIncluded,rankOfHotel,user.getUserName());
+                    ,numOfTicketsBaby,vacationKind,hotelIncluded,rankOfHotel,hotelKind,user.getUserName());
             boolean flag=vacationModel.Create(vacation);
             if(flag){
                 Alert success = new Alert(Alert.AlertType.CONFIRMATION);
@@ -47,9 +48,10 @@ public class VacationController extends AController {
     }
 
     public List<Vacation> Search(String flightCompany, String departureDate, String backDate, String baggageIncluded,
-                       String Country, String flightBackIncluded, int numOfTicketsAdult, int numOfTicketsChild, int numOfTicketsBaby, String vacationKind, String hotelIncluded, int rankOfHotel){
+                       String Country, String flightBackIncluded, int numOfTicketsAdult, int numOfTicketsChild, int numOfTicketsBaby, String vacationKind, String hotelIncluded, int rankOfHotel,
+                                 String hotelKind){
         List<Vacation> vacations=vacationModel.findVacations(flightCompany,departureDate,backDate,baggageIncluded,
-                 Country,flightBackIncluded,numOfTicketsAdult,numOfTicketsChild, numOfTicketsBaby,vacationKind,hotelIncluded, rankOfHotel);
+                 Country,flightBackIncluded,numOfTicketsAdult,numOfTicketsChild, numOfTicketsBaby,vacationKind,hotelIncluded, rankOfHotel,hotelKind);
         if(vacations.size()==0){//no vacation founded
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setHeaderText("Error");

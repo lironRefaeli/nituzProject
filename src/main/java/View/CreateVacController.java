@@ -147,7 +147,7 @@ public class CreateVacController extends AView {
     @FXML
     private void createVac(ActionEvent ae) {
         String flightCompany = "", departureDate = "", backDate = "", baggageIncluded = "",
-                Country = "", flightBackIncluded = "", vacationKind = "", hotelIncluded = "";
+                Country = "", flightBackIncluded = "", vacationKind = "", hotelIncluded = "", hotelKind="";
         int numOfTicketsAdult = -1, numOfTicketsChild = -1, numOfTicketsBaby = -1, rankOfHotel = -1;
         /**get the information from the view objects:**/
         {
@@ -218,7 +218,7 @@ public class CreateVacController extends AView {
                     }
                 }
                 if (hotelType.getValue() != null && !hotelType.getValue().equals("Any type")) {
-                    hotelType.getValue(); //todo
+                    hotelKind=hotelType.getValue();
                 }
             }//hotels
 
@@ -229,7 +229,7 @@ public class CreateVacController extends AView {
 
         VacationController controller = (VacationController) this.controller;
         controller.Create(flightCompany,departureDate,backDate,baggageIncluded,Country,flightBackIncluded,numOfTicketsAdult,numOfTicketsChild,numOfTicketsBaby,
-                vacationKind,hotelIncluded,rankOfHotel);
+                vacationKind,hotelIncluded,rankOfHotel,hotelKind);
 
         this.ShowAlert();
 
