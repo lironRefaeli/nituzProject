@@ -11,7 +11,7 @@ import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
 import java.util.Vector;
-
+import Model.User;
 public class UpdateController extends AView{
     @FXML
     private GridPane resultsView;
@@ -33,16 +33,16 @@ public class UpdateController extends AView{
     private Label sorrymessage;
 
 
-    String userName;
+    User user;
 
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUser(User user) {
+        this.user= user;
     }
 
     public void start(){
         Controller controller=(Controller)this.controller;
-        Vector<String> ans = controller.Read(userName);
+        Vector<String> ans = controller.Read(user.getUserName());
         sorrymessage.setVisible(false);
         resultsView.setVisible(false);
         if (ans.size() != 0) {
@@ -72,7 +72,7 @@ public class UpdateController extends AView{
 
 
             Controller controller=(Controller)this.controller;
-            controller.Delete2(userName);
+            controller.Delete2(user.getUserName());
             controller.Create(usernameS, passwordS,conpasswordS, firstnameS, lastnameS, birthdateS, cityS);
             if(alert.getAlertType().equals(Alert.AlertType.ERROR)||alert.getAlertType().equals(Alert.AlertType.WARNING)){
                 this.ShowAlert();;
