@@ -17,7 +17,7 @@ public class Model implements IModel {
      * @return the Connection object
      */
 
-    private Connection connect() {
+    public Connection connect() {
         // SQLite connection string
         String url = "jdbc:sqlite:Users.db";
         Connection conn = null;

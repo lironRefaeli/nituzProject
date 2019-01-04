@@ -21,8 +21,8 @@ public class MessagesController extends AController {
         this.view = view;
     }
 
-    public boolean Create(String sender, String reciever,int seen,int vacationId) {
-            Message message=new Message(sender,reciever,seen,vacationId);
+    public boolean Create(String sender, String reciever,int seen,int vacationIdSource, int vacationIdDest, int kind) {
+            Message message=new Message(sender,reciever,seen,vacationIdSource,vacationIdDest,kind);
             return messageModel.Create(message);
     }
 
@@ -34,4 +34,7 @@ public class MessagesController extends AController {
         return messageModel.searchByReciever(reciever);
     }
 
+    public void changeVacations(Message clickedRow) {
+        messageModel.changeVacations(clickedRow);
+    }
 }

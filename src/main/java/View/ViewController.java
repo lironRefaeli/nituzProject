@@ -22,8 +22,7 @@ import java.io.IOException;
 
 public class ViewController extends AView {
 
-
-    String userName;
+    private String userName;
 
 
     public void setUserName(String userName) {
