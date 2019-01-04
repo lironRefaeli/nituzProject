@@ -227,7 +227,7 @@ public class VacationModel implements IModel{
 
 
                     //show
-            String id_;
+            int id_;
             String flightCompany_;
             String departureDate_;
             String backDate_;
@@ -243,7 +243,7 @@ public class VacationModel implements IModel{
             String userName_;
                 ResultSet rs = pstmt.executeQuery();
                 while (rs.next()) {
-                    //id_=rs.getString(1); no need for vacation
+                    id_=Integer.parseInt(rs.getString(1));
                     flightCompany_=rs.getString(2);
                     departureDate_= rs.getString(3);
                     backDate_=rs.getString(4);
@@ -257,7 +257,7 @@ public class VacationModel implements IModel{
                     hotelIncluded_=rs.getString(12);
                     rankOfHotel_=Integer.parseInt(rs.getString(13));
                     userName_=rs.getString(14);
-                    Vacation vacation = new Vacation(flightCompany_ ,departureDate_, backDate_, baggageIncluded_, Country_, flightBackIncluded_,numOfTicketsAdult_,
+                    Vacation vacation = new Vacation(id_,flightCompany_ ,departureDate_, backDate_, baggageIncluded_, Country_, flightBackIncluded_,numOfTicketsAdult_,
                             numOfTicketsChild_, numOfTicketsBaby_,vacationKind_ ,hotelIncluded_, rankOfHotel_, userName_);
                     vacations.add(vacation);
                 }

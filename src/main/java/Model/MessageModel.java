@@ -54,14 +54,14 @@ public class MessageModel implements IModel{
             pstmt.setString(1, reciever);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()){
-               // String id=rs.getString(1);
+                int id=Integer.parseInt(rs.getString(1));
                 String sender= rs.getString(2);
 //                String reciever_=rs.getString(3);
                String seen=rs.getString(4);//0
                String VacationSource=rs.getString(5);
                String VacationDest=rs.getString(6);
                String kind=rs.getString(7);
-               Message message=new Message(sender,reciever,Integer.valueOf(seen),Integer.valueOf(VacationSource),Integer.valueOf(VacationDest),Integer.valueOf(kind));
+               Message message=new Message(id,sender,reciever,Integer.valueOf(seen),Integer.valueOf(VacationSource),Integer.valueOf(VacationDest),Integer.valueOf(kind));
                msgs.add(message);
             }
             return msgs;

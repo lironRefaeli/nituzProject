@@ -143,7 +143,7 @@ public class MainViewController extends AView {
     private void startSearch(ActionEvent event) {
         VacationModel model2=new VacationModel();
         SearchVacController loginView=new SearchVacController();
-        VacationController loginController=new VacationController("",model2,loginView);
+        VacationController loginController=new VacationController(null,model2,loginView);
         loginView.setController(loginController);
         FXMLLoader fxmlLoader=new FXMLLoader();
         Parent root = null;

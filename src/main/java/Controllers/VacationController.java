@@ -6,23 +6,21 @@ import View.AView;
 import javafx.scene.control.Alert;
 
 import java.util.List;
+import Model.User;
 
 public class VacationController extends AController {
 
     boolean isConnected;
-    String username;
+    User user;
     VacationModel vacationModel;
     AView searchView;
 
-    public VacationController(String username, VacationModel vacationModel, AView searchView) {
-        this.username = username;
-        if(username!=null) {
-            if (username.equals(""))
+    public VacationController(User user, VacationModel vacationModel, AView searchView) {
+        this.user = user;
+        if(user!=null)
                 isConnected = false;
-            else {
+        else {
                 isConnected = true;
-                this.username=username;
-            }
         }
         this.vacationModel = vacationModel;
         this.searchView = searchView;
@@ -35,14 +33,9 @@ public class VacationController extends AController {
 
     public void Create(String flightCompany,String departureDate,String backDate,String baggageIncluded,
                        String Country,String flightBackIncluded,int numOfTicketsAdult,int numOfTicketsChild,int numOfTicketsBaby,String vacationKind,String hotelIncluded,int rankOfHotel) {
-        if(!isConnected){
-            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setHeaderText("You Are Not Connected!");
-            errorAlert.setContentText("You are not connected.\n Please connect - you can do it by press \"Connect\" on the top of the page. ");
-            searchView.setAlert(errorAlert);
-        }
-        else{//connected so can publish vacation
-            Vacation vacation=new Vacation(flightCompany,departureDate,backDate,baggageIncluded,Country,flightBackIncluded,numOfTicketsAdult,numOfTicketsChild,numOfTicketsBaby,vacationKind,hotelIncluded,rankOfHotel,username);
+       //connected so can publish vacation
+            Vacation vacation=new Vacation(flightCompany,departureDate,backDate,baggageIncluded,Country,flightBackIncluded,numOfTicketsAdult,numOfTicketsChild
+                    ,numOfTicketsBaby,vacationKind,hotelIncluded,rankOfHotel,user.getUserName());
             boolean flag=vacationModel.Create(vacation);
             if(flag){
                 Alert success = new Alert(Alert.AlertType.CONFIRMATION);
@@ -50,7 +43,6 @@ public class VacationController extends AController {
                 success.setContentText("New vacation added successfully! ");
                 searchView.setAlert(success);
             }
-        }
 
     }
 

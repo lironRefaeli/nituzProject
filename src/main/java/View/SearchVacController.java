@@ -1,11 +1,10 @@
 package View;
 
+import Controllers.ChangeOrPayController;
 import Controllers.Controller;
 import Controllers.MessagesController;
 import Controllers.VacationController;
-import Model.Message;
-import Model.MessageModel;
-import Model.Vacation;
+import Model.*;
 import com.sun.org.apache.regexp.internal.RE;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -36,7 +35,7 @@ import java.util.List;
 
 public class SearchVacController extends AView {
 
-    private String userName="";
+    private User user;
     @FXML
     private AnchorPane extendableSearchPane;
     @FXML
@@ -125,8 +124,8 @@ public class SearchVacController extends AView {
     private TableView<Vacation> vacTable;
     private boolean isExtend=false; // true if now its extend mode , false if not.
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @FXML
@@ -168,13 +167,19 @@ public class SearchVacController extends AView {
                                 } else {
                                     btn.setOnAction(event -> {
                                         Vacation vacation = getTableView().getItems().get(getIndex());
-                                        if(!userName.equals("")) {
+                                        if(user!=null&&!user.getUserName().equals(vacation.getUserName())) {//user get sell for himself
+                                            ChangeOrPayModel model = new ChangeOrPayModel();
+                                            ChangeOrPayViewController view=new ChangeOrPayViewController ();
+                                            ChangeOrPayController controller = new ChangeOrPayController(model,view);
+                                            view.setController(controller);
                                             FXMLLoader fxmlLoader = new FXMLLoader();
                                             Parent root1 = null;
                                             try {
                                                 root1 = fxmlLoader.load(getClass().getResource("/ChangeOrPayVacation.fxml").openStream());
 //                                                ViewController controller1=fxmlLoader.<ViewController>getController();
 //                                                controller1.setUserName(userName);
+                                                ChangeOrPayViewController controller1=fxmlLoader.<ChangeOrPayViewController>getController();
+                                                controller1.setUser(user);
                                             } catch (IOException e) {
                                                 e.printStackTrace();
                                             }
@@ -186,9 +191,16 @@ public class SearchVacController extends AView {
                                         }
                                         else{
                                             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                                            errorAlert.setHeaderText("You are not connected to our system.");
-                                            errorAlert.setContentText("Please close all the windows,\n" +
-                                                    "and sign in first. ");
+                                            if(user==null) {//not connected
+                                                errorAlert.setHeaderText("You are not connected to our system.");
+                                                errorAlert.setContentText("Please close all the windows,\n" +
+                                                        "and sign in first. ");
+                                            }
+                                            else if(user.getUserName().equals(vacation.getUserName())) {
+                                                //the user can't buy from himself
+                                                errorAlert.setHeaderText("Its your vacation!");
+                                                errorAlert.setContentText("You can't buy you own vacation!");
+                                            }
                                             errorAlert.show();
 
                                         }

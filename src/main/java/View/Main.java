@@ -180,9 +180,9 @@ public class Main extends Application {
                 + "   sender text NOT NULL,\n"
                 + "   reciever text NOT NULL,\n"
                 + "   seen integer NOT NULL,\n"
-                + "   vacation_ID_source integer NOT NULL\n"
-                + "   vacation_ID_dest integer NOT NULL\n"
                 + "   kind integer NOT NULL,\n"
+                + "   vacation_ID_source integer NOT NULL,\n"
+                + "   vacation_ID_dest integer NOT NULL\n"
 
                 + ");";
 
@@ -194,19 +194,61 @@ public class Main extends Application {
             System.out.println(e.getMessage());
         }
     }
+    public static void createdetailsTable() {
+        // SQLite connection string
+        String url = "jdbc:sqlite:Users.db";
 
+        // SQL statement for creating a new table
 
+        String sql = "CREATE TABLE IF NOT EXISTS Details (\n"
+                + "   id INTEGER PRIMARY KEY,\n"
+                + "   msg_num INTEGER NOT NULL,\n"
+                + "   vac_num INTEGER NOT NULL\n"
+                + ");";
 
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement()) {
+            // create a new table
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        AddRowToDeatils();
 
+    }
+    public static void AddRowToDeatils() {
+        String sql = "INSERT INTO Details(id, msg_num, vac_num) VALUES(?,?,?)";
 
+        try (Connection conn = connectReturn();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, String.valueOf(0));
+            pstmt.setString(2, String.valueOf(0));
+            pstmt.setString(3, String.valueOf(0));
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+        }
+    }
 
-    public static void main(String[] args) {
+        public static Connection connectReturn() {
+            // SQLite connection string
+            String url = "jdbc:sqlite:Users.db";
+            Connection conn = null;
+            try {
+                conn = DriverManager.getConnection(url);
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+            return conn;
+        }
+
+        public static void main(String[] args) {
         connect();
         createNewDatabase("Users.db");
         createNewTable();
         createNewVacationTable();
         createNewPaymentTable();
         createNewMessageTable();
+        createdetailsTable();
         launch(args);
     }
 }

@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import Model.User;
 
 import java.io.IOException;
 
@@ -52,7 +53,7 @@ public class LoginViewController extends AView{
                     FXMLLoader fxmlLoader=new FXMLLoader();
                     Parent root1 = fxmlLoader.load(getClass().getResource("/View.fxml").openStream());
                     ViewController controller1=fxmlLoader.<ViewController>getController();
-                    controller1.setUserName(user.getText());
+                    controller1.setUser(new User(user.getText()));
                     stage = new Stage();
                     stage.initModality(Modality.APPLICATION_MODAL);
                     stage.setTitle("Welcome to Vacation 4 U");

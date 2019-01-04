@@ -3,6 +3,7 @@ package Controllers;
 import Model.ChangeOrPayModel;
 import Model.IModel;
 import Model.Message;
+import Model.User;
 import View.AView;
 import View.ChangeOrPayViewController;
 
@@ -16,6 +17,7 @@ public class ChangeOrPayController extends AController {
         changeOrPayModel=(ChangeOrPayModel)model;
         changeOrPayViewController=(ChangeOrPayViewController)view;
     }
+
 
 
     public void PayCash(Message message) {

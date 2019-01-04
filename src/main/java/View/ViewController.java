@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import Model.User;
 
 import javafx.event.ActionEvent;
 
@@ -22,11 +23,11 @@ import java.io.IOException;
 
 public class ViewController extends AView {
 
-    private String userName;
+    private User user;
 
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @FXML
@@ -66,7 +67,7 @@ public class ViewController extends AView {
             FXMLLoader fxmlLoader=new FXMLLoader();
             Parent root1 = fxmlLoader.load(getClass().getResource("/Update.fxml").openStream());
             UpdateController controller1=fxmlLoader.<UpdateController>getController();
-            controller1.setUserName(userName);
+            controller1.setUser(user);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             //stage.initStyle(StageStyle.UNDECORATED);
@@ -115,13 +116,13 @@ public class ViewController extends AView {
     public void openSearchVacationForm(ActionEvent actionEvent) {
         VacationModel model = new VacationModel();
         SearchVacController view=new SearchVacController();
-        VacationController controller = new VacationController(userName,model,view);
+        VacationController controller = new VacationController(user,model,view);
         view.setController(controller);
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             Parent root1 = fxmlLoader.load(getClass().getResource("/SearchVacation.fxml").openStream());
             SearchVacController controller1=fxmlLoader.<SearchVacController>getController();
-            controller1.setUserName(userName);
+            controller1.setUser(user);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Search For Vacation");
@@ -144,7 +145,7 @@ public class ViewController extends AView {
             FXMLLoader fxmlLoader = new FXMLLoader();
             Parent root1 = fxmlLoader.load(getClass().getResource("/Messages.fxml").openStream());
             MessagesViewController controller1=fxmlLoader.<MessagesViewController>getController();
-            controller1.setUserName(userName);
+            controller1.setUser(user);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Messages:");
@@ -161,7 +162,7 @@ public class ViewController extends AView {
     public void openNewVacationForm(ActionEvent actionEvent) {
         VacationModel model = new VacationModel();
         SearchVacController view=new SearchVacController();
-        VacationController controller = new VacationController(userName,model,view);
+        VacationController controller = new VacationController(user,model,view);
         view.setController(controller);
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();

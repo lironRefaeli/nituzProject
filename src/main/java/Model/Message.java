@@ -1,5 +1,8 @@
 package Model;
 
+import java.sql.*;
+import java.util.Vector;
+
 public class Message {
 
     private int id;
@@ -13,9 +16,9 @@ public class Message {
     // 3 seen and accepted cash invite but still waiting for payment.
     // 4
     private String isOpended;
-    private static int NumOfMessages=0;
     private int vacationIDSource;
     private int vacationIDDest;
+
 
 
     public Message(String sender, String reciever,int seen,int vacationIdSource,int vacationIdDest, int kind) {
@@ -24,14 +27,27 @@ public class Message {
         this.vacationIDSource=vacationIdSource;
         this.vacationIDDest=vacationIdDest;
         this.kind=kind;
-        id=NumOfMessages;
+        id=getFromDataBaseAndUpdate();
         this.seen=seen;
         if(seen==0||seen==3)
             isOpended="Unread";
         else{
             isOpended="Read";
         }
-        NumOfMessages+=1;
+    }
+    public Message(int id,String sender, String reciever,int seen,int vacationIdSource,int vacationIdDest, int kind) {
+        this.sender = sender;
+        this.reciever = reciever;
+        this.vacationIDSource=vacationIdSource;
+        this.vacationIDDest=vacationIdDest;
+        this.kind=kind;
+        this.id=id;
+        this.seen=seen;
+        if(seen==0||seen==3)
+            isOpended="Unread";
+        else{
+            isOpended="Read";
+        }
     }
 
     public int getKind() {
@@ -66,7 +82,50 @@ public class Message {
         return vacationIDDest;
     }
 
-    public static int getNumOfMessages() {
-        return NumOfMessages;
+    public int getFromDataBaseAndUpdate() {
+        int num=-1;
+        //find the current msg number
+        String sql = "SELECT msg_num FROM Details WHERE id = ? ";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            // set the value
+            pstmt.setString(1,"0");
+            ResultSet rs = pstmt.executeQuery();
+            num=Integer.parseInt(rs.getString(1));
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        //update
+        int num_plus_1=num+1;
+        String sql2 = "UPDATE Details SET msg_num = "
+                +num_plus_1+" WHERE id = 0";
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql2)) {
+
+            // set the corresponding param
+            //pstmt.setString(1, String.valueOf(seen));
+            //pstmt.setString(2, String.valueOf(id));
+
+            // update
+            pstmt.executeUpdate();
+        }
+        catch(Exception e){
+
+        }
+        //return
+        return num;
+    }
+    public Connection connect() {
+        // SQLite connection string
+        String url = "jdbc:sqlite:Users.db";
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection(url);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return conn;
     }
 }

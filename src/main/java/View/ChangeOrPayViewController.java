@@ -2,6 +2,7 @@ package View;
 
 import Controllers.ChangeOrPayController;
 import Model.Message;
+import Model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -29,6 +30,8 @@ public class ChangeOrPayViewController extends AView {
 
     private ChangeOrPayController changeOrPayController;
 
+    private User user;
+
 
     public void setBuyerName(String userName){
         this.buyer=userName;
@@ -37,6 +40,11 @@ public class ChangeOrPayViewController extends AView {
     public void setSellerName(String userName){
         this.buyer=userName;
     }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
 
     @FXML
     private void PayCash(ActionEvent event) throws IOException {

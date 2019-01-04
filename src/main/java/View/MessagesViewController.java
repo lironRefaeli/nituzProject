@@ -1,26 +1,18 @@
 package View;
 
 import Controllers.MessagesController;
-import Controllers.PaymentController;
 import Model.Message;
-import Model.MessageModel;
-import Model.PaymentModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.util.List;
 import java.util.Optional;
+import Model.User;
 
 public class MessagesViewController extends AView {
 
@@ -28,16 +20,16 @@ public class MessagesViewController extends AView {
     @FXML private AnchorPane pane;
     @FXML private Button msg;
     TableView<Message> tableView;
-    PaymentViewController controller1;
+    ChangeOrPayViewController controller1;
 
 
-    String userNameReciever; //own- he is now the reciever
+    User user_Reciever; //own- he is now the reciever
     String payed="false";
     boolean need_to_update=false;
     int id_to_update;
 
-    public void setUserName(String reciever) {
-        this.userNameReciever=reciever;
+    public void setUser(User reciever) {
+        this.user_Reciever=reciever;
     }
 
     public void setPayed(String payed){
@@ -74,7 +66,7 @@ public class MessagesViewController extends AView {
             tableView=null;
         }
         tableView=new TableView<>();
-        tableView.setItems(getMessages(userNameReciever));
+        tableView.setItems(getMessages(user_Reciever.getUserName()));
         tableView.getColumns().addAll(senderCol,seenCol,vacIdSource,vacIdDest);
         tableView.setRowFactory(tv -> {
             TableRow<Message> row = new TableRow<>();
