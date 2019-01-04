@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChangeOrPayModel implements IModel
 {
@@ -38,6 +40,10 @@ public class ChangeOrPayModel implements IModel
         }
     }
 
+    /**
+     * create a request message of replacement vacations to the seller
+     * @param message -the message that will be create in the DB
+     */
     public void changeVacation(Message message){
         String sql = "INSERT INTO Messages(id, sender, reciever ,seen, vacation_ID_source, vacation_ID_dest, kind) VALUES(?,?,?,?,?,?,?)";
 
@@ -54,5 +60,14 @@ public class ChangeOrPayModel implements IModel
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    /**
+     * get all the vacations of the connected user
+     * @return all the vacations of the user
+     */
+    public List<String> setVacations() {//todo
+        List<String> allVacations = new ArrayList<>();
+        return allVacations;
     }
 }

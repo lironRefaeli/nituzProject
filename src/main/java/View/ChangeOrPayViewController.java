@@ -2,19 +2,26 @@ package View;
 
 import Controllers.ChangeOrPayController;
 import Model.Message;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.List;
 
 public class ChangeOrPayViewController extends AView {
     @FXML
     private Button payButton;
     @FXML
     private Button changeButton;
+    @FXML
+    private ComboBox listVacations;
 
     private String buyer;
 
@@ -47,5 +54,12 @@ public class ChangeOrPayViewController extends AView {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText("A message send to the seller");
         alert.showAndWait();
+    }
+
+    private void setVacations(ActionEvent event){
+        List<String> list = changeOrPayController.setVacations();
+        ObservableList<String> obList = FXCollections.observableArrayList(list);
+        obList.sort(String::compareToIgnoreCase);
+        listVacations.setItems(obList);
     }
 }
