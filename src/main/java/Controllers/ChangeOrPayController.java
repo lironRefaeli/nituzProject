@@ -6,6 +6,8 @@ import Model.Message;
 import View.AView;
 import View.ChangeOrPayViewController;
 
+import java.util.List;
+
 public class ChangeOrPayController extends AController {
     private ChangeOrPayModel changeOrPayModel;
     private ChangeOrPayViewController changeOrPayViewController;
@@ -22,5 +24,9 @@ public class ChangeOrPayController extends AController {
 
     public void ChangeVacation(Message message) {
         changeOrPayModel.changeVacation(message);
+    }
+
+    public List<String> setVacations() {
+        return changeOrPayModel.setVacations();
     }
 }

@@ -157,7 +157,7 @@ public class SearchVacController extends AView {
                     public TableCell call(final TableColumn<Vacation, String> param) {
                         final TableCell<Vacation, String> cell = new TableCell<Vacation, String>() {
 
-                            final Button btn = new Button("Submit a\npurchase\nrequest");
+                            final Button btn = new Button("Submit a\nrequest");
 
                             @Override
                             public void updateItem(String item, boolean empty) {
@@ -172,9 +172,9 @@ public class SearchVacController extends AView {
                                             FXMLLoader fxmlLoader = new FXMLLoader();
                                             Parent root1 = null;
                                             try {
-                                                root1 = fxmlLoader.load(getClass().getResource("/ChangeOrPayViewController.fxml").openStream());
-                                                ViewController controller1=fxmlLoader.<ViewController>getController();
-                                                controller1.setUserName(userName);
+                                                root1 = fxmlLoader.load(getClass().getResource("/ChangeOrPayVacation.fxml").openStream());
+//                                                ViewController controller1=fxmlLoader.<ViewController>getController();
+//                                                controller1.setUserName(userName);
                                             } catch (IOException e) {
                                                 e.printStackTrace();
                                             }
