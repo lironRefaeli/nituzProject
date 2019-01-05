@@ -20,7 +20,6 @@ public class MessagesViewController extends AView {
     @FXML private AnchorPane pane;
     @FXML private Button msg;
     TableView<Message> tableView;
-    ChangeOrPayViewController controller1;
 
 
     User user_Reciever; //own- he is now the reciever
@@ -75,7 +74,7 @@ public class MessagesViewController extends AView {
                 if(clickedRow.getSeen()==0){//need to open confirmation to vacation request. updates only if user confirmed or denied request!!
                     Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
                     confirmation.setHeaderText("Confirm");
-                    confirmation.setContentText("Do you want to approve replace request from " + clickedRow.getSender()+ "about the vacation ID "+clickedRow.getVacationIDDest()+" ?\n Click OK to approve, cancel to dent and x to exit.");
+                    confirmation.setContentText("Do you want to approve replace request from " + clickedRow.getSender()+ " about the vacation ID "+clickedRow.getVacationIDDest()+" ?\n Click OK to approve, cancel to dent and x to exit.");
                     Optional<ButtonType> result= confirmation.showAndWait();
                     MessagesController msgs=(MessagesController)controller;
                     if (result.get() == ButtonType.OK){//Replace is approved
@@ -114,7 +113,7 @@ public class MessagesViewController extends AView {
                     MessagesController msgs=(MessagesController)controller;
                     if (result.get() == ButtonType.OK){//cash is approved
                         msgs.Create(clickedRow.getReciever(),clickedRow.getSender(),4,clickedRow.getVacationIDSource(),clickedRow.getVacationIDDest(),clickedRow.getKind());
-                        msgs.updateSeenToMessage(clickedRow.getId(),7);
+                        msgs.updateSeenToMessage(clickedRow.getId(),6);
                         msgs.changeVacations(clickedRow);
 
                     } else {
@@ -138,6 +137,19 @@ public class MessagesViewController extends AView {
                     error.showAndWait();
                     MessagesController msgs=(MessagesController)controller;
                     msgs.updateSeenToMessage(clickedRow.getId(),7);
+                }
+                else if(clickedRow.getSeen()==6){
+                    Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+                    confirmation.setHeaderText("Confirm");
+                    confirmation.setContentText("Did you get the money from sender and you are approving the selling?\n Click OK to approve, cancel to dent and x to exit.");
+                    Optional<ButtonType> result= confirmation.showAndWait();
+                    MessagesController msgs=(MessagesController)controller;
+                    if (result.get() == ButtonType.OK){//cash is approved
+                        msgs.updateSeenToMessage(clickedRow.getId(),7);
+                        msgs.changeOwnerOfVacation(clickedRow);
+                    } else {
+                        msgs.updateSeenToMessage(clickedRow.getId(),7);
+                    }
                 }
                 else{//alreadyseen
                     Alert error = new Alert(Alert.AlertType.INFORMATION);

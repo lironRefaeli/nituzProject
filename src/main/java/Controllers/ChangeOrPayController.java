@@ -28,7 +28,7 @@ public class ChangeOrPayController extends AController {
         changeOrPayModel.changeVacation(message);
     }
 
-    public List<String> setVacations() {
-        return changeOrPayModel.setVacations();
+    public List<String> setVacations(String userName) {
+        return changeOrPayModel.setVacations(userName);
     }
 }

@@ -1,9 +1,6 @@
 package Model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,8 +63,23 @@ public class ChangeOrPayModel implements IModel
      * get all the vacations of the connected user
      * @return all the vacations of the user
      */
-    public List<String> setVacations() {//todo
-        List<String> allVacations = new ArrayList<>();
-        return allVacations;
+    public List<String> setVacations(String userName) {
+        String sql = "SELECT id, country FROM Vacations Where user_name = ? ";
+        List<String> Ids = new ArrayList<>();
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, userName);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()){
+                String id=rs.getString(1);
+                String country=rs.getString(2);
+                Ids.add("ID="+ id+", to "+ country);
+            }
+            return Ids;
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return Ids;
     }
 }

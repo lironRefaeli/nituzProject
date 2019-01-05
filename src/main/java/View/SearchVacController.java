@@ -180,6 +180,8 @@ public class SearchVacController extends AView {
 //                                                controller1.setUserName(userName);
                                                 ChangeOrPayViewController controller1=fxmlLoader.<ChangeOrPayViewController>getController();
                                                 controller1.setUser(user);
+                                                controller1.setVacation(vacation);
+                                                controller1.setListVacations(user.getUserName());
                                             } catch (IOException e) {
                                                 e.printStackTrace();
                                             }
