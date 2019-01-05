@@ -37,4 +37,8 @@ public class MessagesController extends AController {
     public void changeVacations(Message clickedRow) {
         messageModel.changeVacations(clickedRow);
     }
+
+    public void changeOwnerOfVacation(Message clickedRow) {
+        messageModel.changeOwnerOfVacation(clickedRow);
+    }
 }

@@ -47,20 +47,20 @@ public class MessageModel implements IModel{
      */
     public List<Message> searchByReciever(String reciever) {
 
-        String sql = "SELECT id, sender, reciever,seen ,vacation_ID FROM Messages Where reciever = ? ";//all messages
-        List<Message> msgs = new ArrayList<Message>();
-        try (Connection conn = this.connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, reciever);
-            ResultSet rs = pstmt.executeQuery();
-            while (rs.next()){
-                int id=Integer.parseInt(rs.getString(1));
-                String sender= rs.getString(2);
+        String sql = "SELECT id, sender, reciever,seen ,vacation_ID_source,vacation_ID_dest,kind FROM Messages Where reciever = ? ";//all messages
+                List<Message> msgs = new ArrayList<Message>();
+                try (Connection conn = this.connect();
+                     PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                    pstmt.setString(1, reciever);
+                    ResultSet rs = pstmt.executeQuery();
+                    while (rs.next()){
+                        int id=Integer.parseInt(rs.getString(1));
+                        String sender= rs.getString(2);
 //                String reciever_=rs.getString(3);
-               String seen=rs.getString(4);//0
-               String VacationSource=rs.getString(5);
-               String VacationDest=rs.getString(6);
-               String kind=rs.getString(7);
+                        String seen=rs.getString(4);//0
+                        String VacationSource=rs.getString(5);
+                        String VacationDest=rs.getString(6);
+                        String kind=rs.getString(7);
                Message message=new Message(id,sender,reciever,Integer.valueOf(seen),Integer.valueOf(VacationSource),Integer.valueOf(VacationDest),Integer.valueOf(kind));
                msgs.add(message);
             }
@@ -106,6 +106,20 @@ public class MessageModel implements IModel{
             pstmt.executeUpdate();
             pstmt.setString(1, message.getReciever());
             pstmt.setString(2, String.valueOf(message.getVacationIDDest()));
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void changeOwnerOfVacation(Message message) {
+        String sql ="UPDATE Vacations SET user_name=? WHERE id = ?";
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, message.getSender());
+            pstmt.setString(2, String.valueOf(message.getVacationIDSource()));
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());

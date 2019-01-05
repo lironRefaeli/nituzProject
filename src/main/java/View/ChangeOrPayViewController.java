@@ -1,8 +1,10 @@
 package View;
 
 import Controllers.ChangeOrPayController;
+import Controllers.VacationController;
 import Model.Message;
 import Model.User;
+import Model.Vacation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -32,6 +34,11 @@ public class ChangeOrPayViewController extends AView {
 
     private User user;
 
+    private Vacation vacation;
+
+    public void setVacation(Vacation vacation) {
+        this.vacation = vacation;
+    }
 
     public void setBuyerName(String userName){
         this.buyer=userName;
@@ -45,11 +52,18 @@ public class ChangeOrPayViewController extends AView {
         this.user = user;
     }
 
+    public void setListVacations(String userName) {
+        changeOrPayController = (ChangeOrPayController) this.controller;
+        List<String> list = changeOrPayController.setVacations(userName);
+        ObservableList<String> obList = FXCollections.observableArrayList(list);
+        obList.sort(String::compareToIgnoreCase);
+        listVacations.setItems(obList);
+    }
 
     @FXML
     private void PayCash(ActionEvent event) throws IOException {
-        //Message message = new Message();//kind-0
-        //changeOrPayController.PayCash(message);
+        Message message = new Message(user.getUserName(),vacation.getUserName(),3,vacation.getId(),0,0);
+        changeOrPayController.PayCash(message);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText("A message send to the seller");
         alert.showAndWait();
@@ -57,17 +71,27 @@ public class ChangeOrPayViewController extends AView {
 
     @FXML
     private void ChangeVacation(ActionEvent event) throws IOException {
-        //Message message = new Message();//kind-1
-        //changeOrPayController.ChangeVacation(message);
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText("A message send to the seller");
-        alert.showAndWait();
-    }
-
-    private void setVacations(ActionEvent event){
-        List<String> list = changeOrPayController.setVacations();
-        ObservableList<String> obList = FXCollections.observableArrayList(list);
-        obList.sort(String::compareToIgnoreCase);
-        listVacations.setItems(obList);
+        if(listVacations.getItems().size()==0){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("You don't have any vacation to replace.");
+            alert.showAndWait();
+        }
+        else {
+            String chosenLine=(String)listVacations.getSelectionModel().getSelectedItem();
+            if(chosenLine==null||chosenLine.equals("")){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Choose a vacation you want to replace with.");
+                alert.showAndWait();
+                return;
+            }
+            String[] splitedLine=chosenLine.split(",");
+            String[] idString = splitedLine[0].split("=");
+            int id = Integer.parseInt(idString[1]);
+            Message message = new Message(user.getUserName(), vacation.getUserName(), 0, vacation.getId(), id, 1);//todo check if getId is correct
+            changeOrPayController.ChangeVacation(message);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("A message send to the seller");
+            alert.showAndWait();
+        }
     }
 }

@@ -10,11 +10,14 @@ public class Message {
     private String sender;
     private String reciever;
     private int seen;
-    // 0 not seen.
+    // 0 not seen, replacement.
     // 1 seen and replace accepted by reciever.
     // 2 seen and replace canceled by reciever.
-    // 3 seen and accepted cash invite but still waiting for payment.
-    // 4
+    // 3 not seen, pay cash.
+    // 4 seen and accepted by reciever
+    // 5 seen and canceled by reciever
+    // 6 reciever wait for get his money from buyer
+    // 7 don't do nothing
     private String isOpended;
     private int vacationIDSource;
     private int vacationIDDest;
@@ -29,10 +32,10 @@ public class Message {
         this.kind=kind;
         id=getFromDataBaseAndUpdate();
         this.seen=seen;
-        if(seen==0||seen==3)
-            isOpended="Unread";
-        else{
+        if(seen==7)
             isOpended="Read";
+        else{
+            isOpended="Unread";
         }
     }
     public Message(int id,String sender, String reciever,int seen,int vacationIdSource,int vacationIdDest, int kind) {
@@ -43,10 +46,10 @@ public class Message {
         this.kind=kind;
         this.id=id;
         this.seen=seen;
-        if(seen==0||seen==3)
-            isOpended="Unread";
-        else{
+        if(seen==7)
             isOpended="Read";
+        else{
+            isOpended="unread";
         }
     }
 
