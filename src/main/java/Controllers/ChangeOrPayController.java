@@ -3,7 +3,6 @@ package Controllers;
 import Model.ChangeOrPayModel;
 import Model.IModel;
 import Model.Message;
-import Model.User;
 import View.AView;
 import View.ChangeOrPayViewController;
 
@@ -20,8 +19,8 @@ public class ChangeOrPayController extends AController {
 
 
 
-    public void PayCash(Message message) {
-        changeOrPayModel.payCash(message);
+    public void PayWithCash(Message message) {
+        changeOrPayModel.payWithCash(message);
     }
 
     public void ChangeVacation(Message message) {

@@ -19,7 +19,7 @@ public class ChangeOrPayModel implements IModel
         return conn;
     }
 
-    public void payCash(Message message){
+    public void payWithCash(Message message){
         String sql = "INSERT INTO Messages(id, sender, reciever ,seen, vacation_ID_source,vacation_ID_dest, kind) VALUES(?,?,?,?,?,?,?)";
 
         try (Connection conn = this.connect();

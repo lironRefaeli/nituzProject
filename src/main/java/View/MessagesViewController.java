@@ -39,7 +39,7 @@ public class MessagesViewController extends AView {
     public ObservableList<Message> getMessages(String reciever){//reciever=userName
         ObservableList<Message> observableList= FXCollections.observableArrayList();
         MessagesController messagesController=(MessagesController)this.controller;
-        List<Message> messages=messagesController.getMessagesForReciever(reciever);
+        List<Message> messages=messagesController.getRecieverMessages(reciever);
         for(int i=0;i<messages.size();i++){
             observableList.add(messages.get(i));
         }
@@ -50,7 +50,7 @@ public class MessagesViewController extends AView {
         senderCol.setMinWidth(200);
         senderCol.setCellValueFactory(new PropertyValueFactory<Message,String>("sender"));
 
-        TableColumn<Message,String> seenCol=new TableColumn<>("Read/Unread");
+        TableColumn<Message,String> seenCol=new TableColumn<>("ReadUser/Unread");
         seenCol.setMinWidth(200);
         seenCol.setCellValueFactory(new PropertyValueFactory<Message,String>("isOpended"));
 
@@ -78,12 +78,12 @@ public class MessagesViewController extends AView {
                     Optional<ButtonType> result= confirmation.showAndWait();
                     MessagesController msgs=(MessagesController)controller;
                     if (result.get() == ButtonType.OK){//Replace is approved
-                        msgs.Create(clickedRow.getReciever(),clickedRow.getSender(),1,clickedRow.getVacationIDSource(),clickedRow.getVacationIDDest(),clickedRow.getKind());
+                        msgs.CreateMessage(clickedRow.getReciever(),clickedRow.getSender(),1,clickedRow.getVacationIDSource(),clickedRow.getVacationIDDest(),clickedRow.getKind());
                         msgs.updateSeenToMessage(clickedRow.getId(),7);
                         msgs.changeVacations(clickedRow);
 
                     } else {
-                        msgs.Create(clickedRow.getReciever(),clickedRow.getSender(),2,clickedRow.getVacationIDSource(),clickedRow.getVacationIDDest(),clickedRow.getKind());
+                        msgs.CreateMessage(clickedRow.getReciever(),clickedRow.getSender(),2,clickedRow.getVacationIDSource(),clickedRow.getVacationIDDest(),clickedRow.getKind());
                         msgs.updateSeenToMessage(clickedRow.getId(),7);
 
                     }
@@ -112,12 +112,12 @@ public class MessagesViewController extends AView {
                     Optional<ButtonType> result= confirmation.showAndWait();
                     MessagesController msgs=(MessagesController)controller;
                     if (result.get() == ButtonType.OK){//cash is approved
-                        msgs.Create(clickedRow.getReciever(),clickedRow.getSender(),4,clickedRow.getVacationIDSource(),clickedRow.getVacationIDDest(),clickedRow.getKind());
+                        msgs.CreateMessage(clickedRow.getReciever(),clickedRow.getSender(),4,clickedRow.getVacationIDSource(),clickedRow.getVacationIDDest(),clickedRow.getKind());
                         msgs.updateSeenToMessage(clickedRow.getId(),6);
                         msgs.changeVacations(clickedRow);
 
                     } else {
-                        msgs.Create(clickedRow.getReciever(),clickedRow.getSender(),5,clickedRow.getVacationIDSource(),clickedRow.getVacationIDDest(),clickedRow.getKind());
+                        msgs.CreateMessage(clickedRow.getReciever(),clickedRow.getSender(),5,clickedRow.getVacationIDSource(),clickedRow.getVacationIDDest(),clickedRow.getKind());
                         msgs.updateSeenToMessage(clickedRow.getId(),7);
 
                     }

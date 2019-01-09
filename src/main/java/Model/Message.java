@@ -33,7 +33,7 @@ public class Message {
         id=getFromDataBaseAndUpdate();
         this.seen=seen;
         if(seen==7)
-            isOpended="Read";
+            isOpended="ReadUser";
         else{
             isOpended="Unread";
         }
@@ -47,7 +47,7 @@ public class Message {
         this.id=id;
         this.seen=seen;
         if(seen==7)
-            isOpended="Read";
+            isOpended="ReadUser";
         else{
             isOpended="unread";
         }

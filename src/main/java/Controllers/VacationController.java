@@ -37,7 +37,7 @@ public class VacationController extends AController {
        //connected so can publish vacation
             Vacation vacation=new Vacation(flightCompany,departureDate,backDate,baggageIncluded,Country,flightBackIncluded,numOfTicketsAdult,numOfTicketsChild
                     ,numOfTicketsBaby,vacationKind,hotelIncluded,rankOfHotel,hotelKind,user.getUserName());
-            boolean flag=vacationModel.Create(vacation);
+            boolean flag=vacationModel.CreateVacation(vacation);
             if(flag){
                 Alert success = new Alert(Alert.AlertType.CONFIRMATION);
                 success.setHeaderText("Action Succeeded");

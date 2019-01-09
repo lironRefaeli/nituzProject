@@ -18,7 +18,7 @@ public class Vacation {
     private int rankOfHotel;
     private String kindOfHotel;
     private int id;
-    private String userName;
+    private String seller;
 
     static int numOfVactions=0;//id
 
@@ -27,7 +27,7 @@ public class Vacation {
 
 
     public Vacation(String flightCompany, String departureDate, String backDate, String baggageIncluded, String country, String flightBackIncluded, int numOfTicketsAdult,int numOfTicketsChild,
-                    int numOfTicketsBaby, String vacationKind, String hotelIncluded, int rankOfHotel,String kindOfHotel,String userName) {
+                    int numOfTicketsBaby, String vacationKind, String hotelIncluded, int rankOfHotel,String kindOfHotel,String seller) {
         this.flightCompany = flightCompany;
         this.departureDate = departureDate;
         this.backDate = backDate;
@@ -41,14 +41,14 @@ public class Vacation {
         this.hotelIncluded = hotelIncluded;
         this.rankOfHotel = rankOfHotel;
         this.kindOfHotel=kindOfHotel;
-        this.userName=userName;
+        this.seller = seller;
         id=getFromDataBaseAndUpdate();
 
     }
 
     public Vacation(int id,String flightCompany, String departureDate, String backDate, String baggageIncluded,
                     String country, String flightBackIncluded, int numOfTicketsAdult,int numOfTicketsChild,
-                    int numOfTicketsBaby, String vacationKind, String hotelIncluded, int rankOfHotel,String kindOfHotel,String userName) {
+                    int numOfTicketsBaby, String vacationKind, String hotelIncluded, int rankOfHotel,String kindOfHotel,String seller) {
         this.flightCompany = flightCompany;
         this.departureDate = departureDate;
         this.backDate = backDate;
@@ -62,7 +62,7 @@ public class Vacation {
         this.hotelIncluded = hotelIncluded;
         this.rankOfHotel = rankOfHotel;
         this.kindOfHotel=kindOfHotel;
-        this.userName=userName;
+        this.seller = seller;
         this.id=id;
         }
     public String getFlightCompany() {
@@ -117,8 +117,8 @@ public class Vacation {
         return kindOfHotel;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getSeller() {
+        return seller;
     }
 
     public int getId() {

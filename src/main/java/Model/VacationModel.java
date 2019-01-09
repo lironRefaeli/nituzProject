@@ -3,7 +3,6 @@ package Model;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 public class VacationModel implements IModel{
 
@@ -21,7 +20,7 @@ public class VacationModel implements IModel{
     }
 
     //create
-    public boolean Create(Vacation vacation) {
+    public boolean CreateVacation(Vacation vacation) {
         String sql = "INSERT INTO Vacations(id, flight_company, departure_date, back_date, baggage_included, country,flight_back_included,num_tickets_adult,num_tickets_kid,num_tickets_baby,vacation_kind,hotel_included,rank_hotel,hotel_kind,user_name) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         try (Connection conn = this.connect();
@@ -66,7 +65,7 @@ public class VacationModel implements IModel{
             pstmt.setString(14, vacation.getKindOfHotel());
 
 
-            pstmt.setString(15, vacation.getUserName());
+            pstmt.setString(15, vacation.getSeller());
 
             pstmt.executeUpdate();
         } catch (SQLException e) {

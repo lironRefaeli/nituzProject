@@ -20,7 +20,7 @@ public class MessageModel implements IModel{
     }
 
 
-    public boolean Create(Message message) {
+    public boolean CreateMessage(Message message) {
         String sql = "INSERT INTO Messages(id, sender, reciever ,seen, vacation_ID_source, vacation_ID_dest, kind) VALUES(?,?,?,?,?,?,?)";
 
         try (Connection conn = this.connect();

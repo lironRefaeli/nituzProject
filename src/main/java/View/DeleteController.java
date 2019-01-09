@@ -15,7 +15,7 @@ public class DeleteController extends AView{
 
 
      /**
-     * @param event - by choosing "delete" in Delete.fxml
+     * @param event - by choosing "delete" in DeleteUser.fxml
      *              this function connect controller and model.
      */
      @FXML

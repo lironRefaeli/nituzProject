@@ -52,7 +52,7 @@ public class Controller extends AController{
                     mainView.setAlert(errorAlert);
 
                 } else {
-                    boolean flag = model.Create(usernameS, passwordS, firstS, lastS, dateS, cityS);
+                    boolean flag = model.CreateUser(usernameS, passwordS, firstS, lastS, dateS, cityS);
                     if (flag) {
                         Alert success = new Alert(Alert.AlertType.CONFIRMATION);
                         success.setHeaderText("Action Succeeded");
@@ -75,7 +75,7 @@ public class Controller extends AController{
 
 
     public Vector<String> Read(String username) {
-        return model.Read(username);
+        return model.ReadUser(username);
     }
 
     public void Delete(String DeleteUserNameOutput, String DeletePasswordOutput) {
@@ -87,7 +87,7 @@ public class Controller extends AController{
             mainView.setAlert(errorAlert);
 
         } else {
-            boolean flag = model.Delete(DeleteUserNameOutput, DeletePasswordOutput);
+            boolean flag = model.DeleteUser(DeleteUserNameOutput, DeletePasswordOutput);
             if (flag) {
                 Alert success = new Alert(Alert.AlertType.CONFIRMATION);
                 success.setHeaderText("Action Succeeded");
@@ -160,7 +160,7 @@ public class Controller extends AController{
                             errorAlert.setContentText("the passwords dont match.\n Please try again");
                             mainView.setAlert(errorAlert);
                         } else {
-                            boolean flag = model.Update(usernameS, passwordS, firstS, lastS, dateS, cityS);
+                            boolean flag = model.UpdateUser(usernameS, passwordS, firstS, lastS, dateS, cityS);
                             if (flag) {
                                 Alert success = new Alert(Alert.AlertType.CONFIRMATION);
                                 success.setHeaderText("Action Succeeded");

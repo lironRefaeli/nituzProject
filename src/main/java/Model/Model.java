@@ -1,7 +1,6 @@
 package Model;
 
 import java.sql.*;
-import java.util.Queue;
 import java.util.Vector;
 
 
@@ -29,7 +28,7 @@ public class Model implements IModel {
         return conn;
     }
 
-    public boolean Create(String userName, String password, String firstName, String lastName, String birthday, String city) {
+    public boolean CreateUser(String userName, String password, String firstName, String lastName, String birthday, String city) {
         String sql = "INSERT INTO Users(user_name,password,first_name,last_name,city,birthdate) VALUES(?,?,?,?,?,?)";
 
         try (Connection conn = this.connect();
@@ -48,7 +47,7 @@ public class Model implements IModel {
         return true;
     }
 
-    public Vector<String> Read(String userName) {
+    public Vector<String> ReadUser(String userName) {
         String sql = "SELECT user_name, password, first_name, last_name, city, birthdate FROM Users WHERE user_name = ? ";
         Vector<String> ans = new Vector<>();
         try (Connection conn = this.connect();
@@ -80,7 +79,7 @@ public class Model implements IModel {
      */
 
 
-    public boolean Update(String userName, String password, String firstName, String lastName, String birthday, String city) {
+    public boolean UpdateUser(String userName, String password, String firstName, String lastName, String birthday, String city) {
         String sql = "UPDATE Users SET password = ? ,first_name = ? ,last_name = ? ,birthdate = ? ,city = ? WHERE user_name = ?";
 
         try (Connection conn = this.connect();
@@ -149,11 +148,11 @@ public class Model implements IModel {
  **/
 
     /**
-     * Delete function get the strings username and password.
+     * DeleteUser function get the strings username and password.
      * It checks if the username exists, and also if the password is match.
      * if user was deleted, success alert is shown. if not, the user get error alert.
      */
-    public boolean Delete(String userName, String Password) {
+    public boolean DeleteUser(String userName, String Password) {
 
         //checking if there is a record in the DB which match to the input userName and Password
         String sql1 = "SELECT user_name FROM Users WHERE user_name = ? AND password = ?";
@@ -194,7 +193,7 @@ public class Model implements IModel {
     }
 
     private boolean IsRecordExist(String userName){
-        Vector<String> record2delete = Read(userName);
+        Vector<String> record2delete = ReadUser(userName);
         if(record2delete.isEmpty()) return false;
         return true;
     }

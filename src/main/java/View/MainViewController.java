@@ -40,7 +40,7 @@ public class MainViewController extends AView {
             Parent root1 = fxmlLoader.load(getClass().getResource("/Create.fxml").openStream());
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setTitle("Create User");
+            stage.setTitle("CreateMessage User");
             stage.setScene(new Scene(root1,500,500));
             stage.show();
         }
@@ -82,7 +82,7 @@ public class MainViewController extends AView {
             FXMLLoader fxmlLoader=new FXMLLoader();
             Parent root = fxmlLoader.load(getClass().getResource("/Read.fxml").openStream());
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setTitle("Vacation4U - Read");
+            stage.setTitle("Vacation4U - ReadUser");
             stage.setScene(new Scene(root, 500, 500));
             stage.show();
         }
@@ -106,7 +106,7 @@ public class MainViewController extends AView {
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             //stage.initStyle(StageStyle.UNDECORATED);
-            stage.setTitle("Update User");
+            stage.setTitle("UpdateUser User");
             stage.setScene(new Scene(root1));
             stage.show();
         }

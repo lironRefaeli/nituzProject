@@ -1,15 +1,11 @@
 package View;
 
 import Controllers.ChangeOrPayController;
-import Controllers.Controller;
-import Controllers.MessagesController;
 import Controllers.VacationController;
 import Model.*;
-import com.sun.org.apache.regexp.internal.RE;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,8 +17,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -167,7 +161,7 @@ public class SearchVacController extends AView {
                                 } else {
                                     btn.setOnAction(event -> {
                                         Vacation vacation = getTableView().getItems().get(getIndex());
-                                        if(user!=null&&!user.getUserName().equals(vacation.getUserName())) {//user get sell for himself
+                                        if(user!=null&&!user.getUserName().equals(vacation.getSeller())) {//user get sell for himself
                                             ChangeOrPayModel model = new ChangeOrPayModel();
                                             ChangeOrPayViewController view=new ChangeOrPayViewController ();
                                             ChangeOrPayController controller = new ChangeOrPayController(model,view);
@@ -198,7 +192,7 @@ public class SearchVacController extends AView {
                                                 errorAlert.setContentText("Please close all the windows,\n" +
                                                         "and sign in first. ");
                                             }
-                                            else if(user.getUserName().equals(vacation.getUserName())) {
+                                            else if(user.getUserName().equals(vacation.getSeller())) {
                                                 //the user can't buy from himself
                                                 errorAlert.setHeaderText("Its your vacation!");
                                                 errorAlert.setContentText("You can't buy you own vacation!");
@@ -213,7 +207,7 @@ public class SearchVacController extends AView {
                                         Vacation vacation = getTableView().getItems().get(getIndex());
                                         if(!userName.equals("")){
                                             MessageModel model = new MessageModel();
-                                            model.Create(new Message(userName,vacation.getUserName(),0,vacation.getId()));
+                                            model.CreateMessage(new Message(userName,vacation.getSeller(),0,vacation.getId()));
                                             Alert success = new Alert(Alert.AlertType.INFORMATION);
                                             success.setHeaderText("The request has submitted.");
                                             success.setContentText("If the seller will agree,\n" +

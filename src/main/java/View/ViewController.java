@@ -40,7 +40,7 @@ public class ViewController extends AView {
             Stage stage = new Stage();
             FXMLLoader fxmlLoader=new FXMLLoader();
             Parent root = fxmlLoader.load(getClass().getResource("/Read.fxml").openStream());
-            stage.setTitle("Vacation4U - Read");
+            stage.setTitle("Vacation4U - ReadUser");
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(new Scene(root, 500, 500));
             stage.show();
@@ -71,7 +71,7 @@ public class ViewController extends AView {
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             //stage.initStyle(StageStyle.UNDECORATED);
-            stage.setTitle("Update User");
+            stage.setTitle("UpdateUser User");
             stage.setScene(new Scene(root1));
             stage.show();
             controller1.start();
@@ -100,7 +100,7 @@ public class ViewController extends AView {
             Parent root1 = fxmlLoader.load(getClass().getResource("/Delete.fxml").openStream());
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setTitle("Delete Form");
+            stage.setTitle("DeleteUser Form");
             stage.setScene(new Scene(root1));
             stage.show();
 
@@ -169,7 +169,7 @@ public class ViewController extends AView {
             Parent root1 = fxmlLoader.load(getClass().getResource("/CreateVac.fxml").openStream());
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setTitle("Create New Vacation");
+            stage.setTitle("CreateMessage New Vacation");
             stage.setScene(new Scene(root1));
             stage.show();
         }
